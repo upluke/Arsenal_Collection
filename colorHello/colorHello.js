@@ -1,42 +1,40 @@
-
+// set background and set letters to be centered
 const body=document.querySelector("body")
 body.style.backgroundColor="black"
 body.style.display="flex"
 body.style.justifyContent="center"
 body.style.alignItems="center"
+body.style.height="100vh"
 
-const div=document.getElementById("div")
-console.log(div.innerText)
-console.log(div.textContent)
- 
  
 
-const getALLSpans=document.querySelectorAll("span")
 
-function createColor(){
-    hex1=Math.floor(Math.random()*256)
-    hex2=Math.floor(Math.random()*256)
-    hex3=Math.floor(Math.random()*256)
-    console.log(hex1, hex2, hex3)
-    return `rgb(${hex1}, ${hex2}, ${hex3})`
+// get a random rbg color
+function randomRBG(){
+    const r=Math.floor(Math.random()*256)
+    const g=Math.floor(Math.random()*256)
+    const b=Math.floor(Math.random()*256)
+    return `rgb(${r}, ${g}, ${b})`
 }
 
-let counter=0
-const interIndex=setInterval(()=>{
-  
-    for(let i=0;i<getALLSpans.length;i++){
-        getALLSpans[i].style.fontSize="80px"
-        getALLSpans[i].style.margin="5rem 1rem"
-        getALLSpans[i].style.color=createColor()
+// get letters
+const letters=document.querySelectorAll('.letter')
+
+let counter=1
+
+const intervalID=setInterval(()=>{
+ 
+    for(let i=0;i<letters.length;i++){ 
+        letters[i].style.color=randomRBG()
     }
-    if(counter>50){
-        clear()
+    counter+=1
+    // 5 secs later stop 
+    console.log(counter, "counter")
+    if(counter>5){
+        clearInterval(intervalID)
     }
-},1000)
-console.log("interindex", interIndex)
+},500)
 
-
-
-function clear(){
-    clearInterval(interIndex)
-}
+ 
+ 
+ 
