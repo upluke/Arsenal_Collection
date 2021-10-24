@@ -1,0 +1,13 @@
+h1 {
+  text-align: center;
+  transition: all 1s;
+}
+
+.big {
+  transform: scale(2);
+  color: green;
+}
+.small {
+  transform: scale(0.5);
+  color: red;
+}
