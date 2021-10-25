@@ -9,10 +9,9 @@ form.addEventListener('submit', function(e){
   e.preventDefault()   
   const newLogo = makeLogo(brandInput.value, colorInput.value, fontSizeInput.value)
   results.appendChild(newLogo)
-   
 })
 
-function makeLogo(text, color, size){
+function makeLogo(text, color, size){ 
   const logo=document.createElement('h2')
   logo.innerText=text;
   logo.style.color=color;
