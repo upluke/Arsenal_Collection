@@ -6,4 +6,6 @@ function calculateTaxes(income) {
     }
   }
   
-  console.log(calculateTaxes(500))
+function removeDupes(values){
+   return [...new Set(values)]
+}
