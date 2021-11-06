@@ -1,3 +1,13 @@
+
+// When You Would Use Find
+// You need to determine if a value in an array exists and you have to determine this by using a callback
+// A simple alternative to using filter and accessing the first element of the filtered array
+
+
+// When You Would Use Findindex
+// You need to determine the index of a value in an array if it exists and you have to determine this by using a callback
+// A better version of indexOf to be used when a callback is necessary
+
 const scores = [
 	0,
 	0,

@@ -1,3 +1,12 @@
+
+// When You Would Use Some
+// You need to determine if at least one value in an array exists and you have to determine this by using a callback (not includes/indexOf)
+// A simple alternative to using filter and seeing if the array contains at least one element
+
+// When You Would Use Every
+// You need to determine if every value in an array exists and you have to determine this by using a callback
+// A simple alternative to using filter and seeing if the filtered array is of the same length as the original array
+
 const words = [
 	'immunoelectrophoretically',
 	'rotavator',
