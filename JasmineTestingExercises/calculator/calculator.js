@@ -1,10 +1,17 @@
 window.addEventListener('DOMContentLoaded', function() {
   const form = document.getElementById("calc-form");
   if (form) {
+    // SB solution:
+    // if (form) {
+    //   setupIntialValues();
+    //   form.addEventListener("submit", function(e) {
+    //     e.preventDefault();
+    //     update();
+    //   });
+
     setupIntialValues()
     form.addEventListener("submit", function(e) {
       e.preventDefault();
-      
       let monthly= update();
       updateMonthly(monthly) 
     });
@@ -76,7 +83,7 @@ function updateMonthly(monthly) {
   //SB:
   // const monthlyUI = document.getElementById("monthly-payment");
   // monthlyUI.innerText = "$" + monthly;
-  
+
   let resultSpan=document.querySelector("#monthly-payment")
   resultSpan.innerText=monthly
 }

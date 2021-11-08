@@ -1,6 +1,7 @@
+let paymentForm = document.getElementById('paymentForm');
 let billAmtInput = document.getElementById('billAmt');
 let tipAmtInput = document.getElementById('tipAmt');
-let paymentForm = document.getElementById('paymentForm');
+
 
 let paymentTbody = document.querySelector('#paymentTable tbody');
 let summaryTds = document.querySelectorAll('#summaryTable tbody tr td');
