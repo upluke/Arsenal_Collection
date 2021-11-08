@@ -36,3 +36,9 @@ const cat2 ={
         return `${this.name} says MEOW!`; // " syas MEOW!"
     }
 }
+
+
+// arguments don't exist in arrow functions
+const myFunc=()=>{
+    console.log(arguments) // Uncaught ReferenceError: arguments is not defined 
+}
