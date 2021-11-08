@@ -29,6 +29,7 @@ function submitPaymentInfo(evt) {
     billAmtInput.value = '';
     tipAmtInput.value = '';
   }
+  console.log(allPayments)
 }
 
 // createCurPayment() will return undefined with negative or empty inputs

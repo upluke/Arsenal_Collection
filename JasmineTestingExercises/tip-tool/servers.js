@@ -1,5 +1,6 @@
-let serverNameInput = document.getElementById('serverName');
 let serverForm = document.getElementById('serverForm');
+let serverNameInput = document.getElementById('serverName');
+
 
 let serverTbody = document.querySelector('#serverTable tbody');
 
@@ -12,6 +13,7 @@ serverForm.addEventListener('submit', submitServerInfo);
 function submitServerInfo(evt) {
   if (evt) evt.preventDefault(); // when running tests there is no event
 
+  // get server's name from input
   let serverName = serverNameInput.value;
 
   if (serverName !== '') {
@@ -22,15 +24,16 @@ function submitServerInfo(evt) {
 
     serverNameInput.value = '';
   }
+   
 }
 
 // Create table row element and pass to appendTd function with input value
 function updateServerTable() {
   serverTbody.innerHTML = '';
 
-  for (let key in allServers) {
+  for (let key in allServers) {  //eg: server1: {serverName: 'Alice'}      key: server1
     let curServer = allServers[key];
-
+   
     let newTr = document.createElement('tr');
     newTr.setAttribute('id', key);
 
@@ -41,4 +44,7 @@ function updateServerTable() {
 
     serverTbody.append(newTr);
   }
+   
 }
+
+
