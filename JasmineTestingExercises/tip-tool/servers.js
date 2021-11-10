@@ -9,6 +9,8 @@ let serverId = 0;
 
 serverForm.addEventListener('submit', submitServerInfo);
 
+
+
 // create server object and add to allServers, update html and reset input
 function submitServerInfo(evt) {
   if (evt) evt.preventDefault(); // when running tests there is no event
@@ -38,13 +40,28 @@ function updateServerTable() {
     newTr.setAttribute('id', key);
 
     let tipAverage = sumPaymentTotal('tipAmt') / Object.keys(allServers).length;
-
+    
+    // same newTr will be passed in twice to collect two diffirent newTds
     appendTd(newTr, curServer.serverName);
     appendTd(newTr, '$' + tipAverage.toFixed(2));
-
+    appendDeleteBtn(newTr, 'server')
     serverTbody.append(newTr);
   }
    
 }
 
 
+// function appendDeleteBtn(tr){
+//   let button= document.createElement('td')
+//   button.className='deleteBtn'
+//   button.innerText=" X "
+//   button.addEventListener('click', function(e){
+//     let ele=e.target.closest('tr')
+//     delete allServers[ele.id]
+//     ele.parentNode.removeChild(ele)
+//     updateServerTable()
+//   })
+//   tr.appendChild(button)
+// }
+
+ 
