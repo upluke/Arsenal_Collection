@@ -39,8 +39,8 @@ function appendDeleteBtn(tr, type) {
 
 function removeEle(evt) {
   let ele = evt.target.closest('tr');
-
-  delete allServers[ele.id];
+ 
+  delete allServers[ele.id]; 
 
   ele.parentNode.removeChild(ele);
   updateServerTable();
