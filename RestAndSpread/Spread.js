@@ -1,3 +1,21 @@
+// Spread Operator
+// The ... syntax, in a different context, is called the spread operator.
+// For example: when calling a function, you can “spread out” array elements:
+// takeing a collection and spreading it out
+
+const filterByType=(type, ...vals)=>{ // it's kind of opposite of what this rest operator does right here, bc here we collecting values into one collection
+    return vals.filter((v)=>typeof v ===type)
+}
+const things=[23, 45, true, false, 0, 'hello','goodbye', undefined]
+
+// if we just pass in things into filterByType
+// filterByType('string', things) //vals will be [[]]
+// so we need to spread it
+filterByType('string', ...things)// ['hello','goodbye']
+
+
+
+//https://www.youtube.com/watch?v=4Ej0LwjCDZQ
 // 1. Value vs Reference
 // *** Primitives data types pass values
 let y=2;
@@ -79,7 +97,8 @@ console.log(zArray) // [9,2,3,4,10]
 console.log(tArray) // [9,2,3,4,10,11]
 
 // Note: Array.from() and slice() create shallow copies, too.
-
+[3,4,5,6].clice() // copy [3,4,5,6]
+Array.from([3,4,5,6]) // copy [3,4,5,6] 
 
 // But if there are nested arrays or objects...
 // **Shallow copies still share references of nested structures
