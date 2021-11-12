@@ -49,7 +49,7 @@ describe("Utilities test (with setup and tear-down)", function() {
       expect(calculateTipPercent(100, 23)).toEqual(23);
       expect(calculateTipPercent(111, 11)).toEqual(10);
     });
-  
+
     it('should generate new td from value and append to tr on appendTd(tr, value)', function () {
       let newTr = document.createElement('tr');
   
@@ -58,6 +58,8 @@ describe("Utilities test (with setup and tear-down)", function() {
       expect(newTr.children.length).toEqual(1);
       expect(newTr.firstChild.innerHTML).toEqual('test');
     });
+    
+    //init
   
     it('should generate delete td and append to tr on appendDeleteBtn(tr, type)', function () {
       let newTr = document.createElement('tr');
@@ -67,6 +69,7 @@ describe("Utilities test (with setup and tear-down)", function() {
       expect(newTr.children.length).toEqual(1);
       expect(newTr.firstChild.innerHTML).toEqual('X');
     });
+    
   
     afterEach(function() {
       billAmtInput.value = '';
@@ -103,6 +106,12 @@ describe("Utilities test (with setup and tear-down)", function() {
 //         appendTd(newTr, value)
 //         expect(paymentTbody.childElementCount).toEqual(1)
 //     })
+
+//     it('should generate new td from value from value and append to tr',function(){
+//      let newTr=document.createElement('tr')
+// .    appendDeleteBtn(newTr, 'any')
+// .    expect(newTr.classList.contains('deleteBtn')).toEqual(true)
+//    })
 
 //     afterEach(function(){
 //         allPayments={}

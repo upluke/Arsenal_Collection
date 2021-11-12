@@ -26,7 +26,7 @@ function appendTd(tr, value) {
 }
 
 // append delete button and click handler for removing server from allServers and DOM td
-function appendDeleteBtn(tr, type) {
+function appendDeleteBtn(tr) {
   let newTd = document.createElement('td');
   newTd.className = 'deleteBtn';
   newTd.innerText = 'X';
