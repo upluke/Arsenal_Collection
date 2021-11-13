@@ -13,12 +13,38 @@ const things=[23, 45, true, false, 0, 'hello','goodbye', undefined]
 // so we need to spread it
 filterByType('string', ...things)// ['hello','goodbye']
 
+// Object is not iterable
+const tea={
+    type: 'oolong',
+    name: 'winter sprout',
+    origin: 'taiwan'
+}
+
+const arr=[...tea] // TypeError: object is not iterable 
+// and the same would apply if we do for...of  
+for (let x of tea){
+    console.log(x) // TypeError: object is not iterable  
+}
+// object literal{}. With objects, we're creating a new object based off of an existing object. It won't affect the original
+const tea2={...tea} 
+tea===tea2//false     they are not the same reference.
+
+// order doesn't matter when adding different items
+const teaTin={...tea, price:22.99} // add price
+// order maters inside of these objects when we have conflicting properties
+const newTea={...tea, name:'golden frost'} //{type: "oolong", name:"golden frost", origin:"taiwan"}
+const newTea2={name:'golden frost', ...tea} //{name:"winter sprout", type: "oolong", origin:"taiwan"} // the name property was added, but then it was overwritten
+
+// when you try and spread an array into a new object
+const colors=['red', 'orange', 'blue']
+const dummyObj={...colors} // {0: "red", 1: "orange", 2:"blue"} // 0 is the key name,the property, red.
+const dummyObj2={...colors, ...'CAT'} //{0:"C", 1:"A", 2:"T"} // This is kinda confusing. In JS strings are primitive values, but JS makes these temporary wrapper objects for every string and that means here 'CAT' is actually considered an object, it's iterable, and the keys for those properties are indices.
 
 
 //https://www.youtube.com/watch?v=4Ej0LwjCDZQ
 // 1. Value vs Reference
 // *** Primitives data types pass values
-let y=2;
+let x=2;
 let y=x; // pass the value of 2 to y
 y+=1;  // by adding 1 to y we didn't change the value of x 
 console.log(y); //3
@@ -161,3 +187,26 @@ console.log(newScoreArray===scoreArray) //false
 const myScoreobj=deepClone(scoreObj)
 console.log(myScoreobj)
 console.log(myScoreobj===scoreObj) //false
+
+
+
+// another example showing shallow copy
+const shoppingCart=[
+    {
+        name: 'honey orchid',
+        quantity:2,
+        price: 13.5
+    },
+    {
+        name: 'african solstice',
+        quantity:4,
+        price: 25.99
+    }
+]
+
+const cartCopy=[...shoppingCart] 
+cartCopy===shoppingCart //false
+// but
+cartCopy[0] === shoppingCart[0] //true     // they are referring to the same object the same refference 
+// so if we change one property another one will change too
+cartCopy[0].quantity=99; // shoppingCart's quantity will be updated too
