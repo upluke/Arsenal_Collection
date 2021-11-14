@@ -1,20 +1,40 @@
 #upperSection {
-  border-radius: 5px;
   background-color: #f2f2f2;
   padding: 20px;
   text-align: center;
 }
 
+h1 {
+  font-size: 35px;
+}
+
+p {
+  font-size: 25px;
+  color: skyblue;
+}
+
 form {
-  margin-bottom: 10px;
-  display: grid;
-  grid-template-columns: 1fr 4fr;
+  /* margin-bottom: 10px;
+      display: grid;
+      grid-template-columns: 1fr 4fr ; */
+  margin: 0 auto;
+  width: 1200px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+/* Adjacent Sibling Selector (+) */
+form li + li {
+  margin-top: 1em;
 }
 
 label {
-  padding: 12px 20px;
-  margin: 10px 0;
-  text-align: center;
+  display: inline-block;
+  text-align: right;
+  width: 90px;
 }
 
 label:after {
@@ -29,8 +49,11 @@ input {
   border-radius: 3px;
   box-sizing: border-box;
 }
+input:focus {
+  border-color: #000;
+}
 
-button {
+#submit-btm {
   width: 100%;
   background-color: skyblue;
   color: white;
@@ -40,7 +63,7 @@ button {
   border-radius: 3px;
 }
 
-button:hover {
+#submit-btm:hover {
   background-color: purple;
   transition: background-color 1s ease-out;
 }
@@ -82,3 +105,8 @@ img {
   text-shadow: black 0px 0px 10px;
   font-family: "Impact";
 }
+
+/* 
+https://developer.mozilla.org/en-US/docs/Learn/Forms/Your_first_form
+https://www.w3schools.com/howto/howto_css_image_text.asp
+ */
