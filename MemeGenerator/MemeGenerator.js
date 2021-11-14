@@ -50,8 +50,24 @@ display.addEventListener('click', function(e){
   }
 })
 
- 
 
+// crate a colorful title:
+
+// get a random rbg color
+function randomRBG(){
+    const r=Math.floor(Math.random()*256)
+    const g=Math.floor(Math.random()*256)
+    const b=Math.floor(Math.random()*256)
+    return `rgb(${r}, ${g}, ${b})`
+}
+// get letters
+const letters=document.querySelectorAll('.letter')
+// set colors with interval
+const intervalID=setInterval(()=>{
+    for(let i=0;i<letters.length;i++){ 
+        letters[i].style.color=randomRBG()
+    }
+},500)
 
 // url for testing:
 // https://thumbs.dreamstime.com/z/print-154745710.jpg
