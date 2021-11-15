@@ -1,5 +1,5 @@
 /** Connect Four
- *
+ * http://curric.rithmschool.com/springboard/exercises/connect-four/#step-three-makeboard
  * Player 1 and 2 alternate turns. On each turn, a piece is dropped down a
  * column until a player gets four-in-a-row (horiz, vert, or diag) or until
  * board fills (tie)
@@ -17,51 +17,50 @@ var board = []; // array of rows, each row is array of cells  (board[y][x])
 
 function makeBoard() {
   // TODO: set "board" to empty HEIGHT x WIDTH matrix array
-  // const board=[]
-//   for(let j=0;j<HEIGHT;j++){
-//     const temp=[]
-//     for(let i=0;i<WIDTH;i++){
-//       temp.push(null)
-//     }
-//     board.push(temp)
-//   }
-//   return board
+   
+  // for(let j=0;j<HEIGHT;j++){
+  //   const temp=[]
+  //   for(let i=0;i<WIDTH;i++){
+  //     temp.push(null)
+  //   }
+  //   board.push(temp)
+  // }
+  
 
-  const board=Array(HEIGHT)
+  board=Array(HEIGHT)
   for(let i=0; i<HEIGHT; i++){
     board[i]=Array(WIDTH)
   }
-  return board
+  
  }
 /** makeHtmlBoard: make HTML table and row of column tops. */
 
 function makeHtmlBoard() {
-  // // TODO: get "htmlBoard" variable from the item in HTML w/ID of "board"
+  // TODO: get "htmlBoard" variable from the item in HTML w/ID of "board"
+  const htmlBoard=document.getElementById('board')
 
-  // // create the top dashed line clickable area
-  // var top = document.createElement("tr");
-  // top.setAttribute("id", "column-top");
-  // top.addEventListener("click", handleClick);
+  // create an extra row, namely, top dashed line clickable area
+  var top = document.createElement("tr");
+  top.setAttribute("id", "column-top");
+  top.addEventListener("click", handleClick);
 
-  // for (var x = 0; x < WIDTH; x++) {
-  //   var headCell = document.createElement("td");
-  //   headCell.setAttribute("id", x);
-  //   top.append(headCell);
-  // }
-  // htmlBoard.append(top);
-  
+  for (var x = 0; x < WIDTH; x++) {
+    var headCell = document.createElement("td");
+    headCell.setAttribute("id", x);
+    top.append(headCell);
+  }
+  htmlBoard.append(top);
 
-
-  // // create gaming board by adding tds to each tr
-  // for (var y = 0; y < HEIGHT; y++) {
-  //   const row = document.createElement("tr");
-  //   for (var x = 0; x < WIDTH; x++) {
-  //     const cell = document.createElement("td");
-  //     cell.setAttribute("id", `${y}-${x}`);
-  //     row.append(cell);
-  //   }
-  //   htmlBoard.append(row);
-  // }
+  // create gaming board by adding tds to each tr
+  for (var y = 0; y < HEIGHT; y++) {
+    const row = document.createElement("tr");
+    for (var x = 0; x < WIDTH; x++) {
+      const cell = document.createElement("td");
+      cell.setAttribute("id", `${y}-${x}`);
+      row.append(cell);
+    }
+    htmlBoard.append(row);
+  }
 }
 
 /** findSpotForCol: given column x, return top empty y (null if filled) */
@@ -75,6 +74,11 @@ function findSpotForCol(x) {
 
 function placeInTable(y, x) {
   // TODO: make a div and insert into correct table cell
+  const pieceDiv=document.createElement('div');
+  pieceDiv.setAttribute('class', 'piece');
+  const targetTd=document.getElementById(`${y}-${x}`)
+  targetTd.appendChild(pieceDiv)
+
 }
 
 /** endGame: announce game end */
