@@ -92,3 +92,18 @@ function _defineProperty(obj, key, value){
 }
 
 var mystery=_defineProperty({}, 6+7, 'thirteen')
+
+
+
+// Computed property names in the wild
+// This appears when you work with multiple inputs or DOM elements and you want to 
+// change the value in an object based on a specific interaction,
+// It’s impossible to know upfront what key you are changing in the object 
+//without hardcoding the key, so instead we can use the event object for a browser interaction.
+
+function changeValueInObj(obj, event){
+    return {
+      ...obj,
+      [event.target.name]: [event.target.value]
+    }
+  }
