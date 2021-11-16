@@ -34,7 +34,7 @@ function makeBoard() {
   
  }
 /** makeHtmlBoard: make HTML table and row of column tops. */
-
+ 
 function makeHtmlBoard() {
   // TODO: get "htmlBoard" variable from the item in HTML w/ID of "board"
   const htmlBoard=document.getElementById('board')
@@ -71,11 +71,12 @@ function findSpotForCol(x) {
 }
 
 /** placeInTable: update DOM to place piece into HTML table of board */
-
+ 
 function placeInTable(y, x) {
   // TODO: make a div and insert into correct table cell
   const pieceDiv=document.createElement('div');
-  pieceDiv.setAttribute('class', 'piece');
+  // set piece class and a class for whether the current player is 1 or 2, like p1 or p2
+  pieceDiv.setAttribute('class', `piece p${currPlayer}`);
   const targetTd=document.getElementById(`${y}-${x}`)
   targetTd.appendChild(pieceDiv)
 
