@@ -11,6 +11,8 @@ var HEIGHT = 6;
 var currPlayer = 1; // active player: 1 or 2
 var board = []; // array of rows, each row is array of cells  (board[y][x])
 
+const boardCols= [-1,-1,-1,-1,-1,-1]
+console.log(boardCols)
 /** makeBoard: create in-JS board structure:
  *    board = array of rows, each row is array of cells  (board[y][x])
  */
@@ -39,14 +41,14 @@ function makeHtmlBoard() {
   // TODO: get "htmlBoard" variable from the item in HTML w/ID of "board"
   const htmlBoard=document.getElementById('board')
 
-  // create an extra row, namely, top dashed line clickable area
+  // create an top dashed line clickable area, headCell, 
   var top = document.createElement("tr");
   top.setAttribute("id", "column-top");
   top.addEventListener("click", handleClick);
 
   for (var x = 0; x < WIDTH; x++) {
     var headCell = document.createElement("td");
-    headCell.setAttribute("id", x);
+    headCell.setAttribute("id", x); // give each top cell an default id
     top.append(headCell);
   }
   htmlBoard.append(top);
@@ -67,7 +69,11 @@ function makeHtmlBoard() {
 
 function findSpotForCol(x) {
   // TODO: write the real version of this, rather than always returning 0
-  return 0;
+  if (boardCols[x]<=5){
+    boardCols[x]+=1
+  }
+  console.log(board,boardCols)
+  return boardCols[x];
 }
 
 /** placeInTable: update DOM to place piece into HTML table of board */
@@ -79,7 +85,7 @@ function placeInTable(y, x) {
   pieceDiv.setAttribute('class', `piece p${currPlayer}`);
   const targetTd=document.getElementById(`${y}-${x}`)
   targetTd.appendChild(pieceDiv)
-
+  currPlayer===1? currPlayer=2:currPlayer=1
 }
 
 /** endGame: announce game end */
@@ -93,9 +99,13 @@ function endGame(msg) {
 function handleClick(evt) {
   // get x from ID of clicked cell
   var x = +evt.target.id;
-
+ 
+  console.log(x, "****")
   // get next spot in column (if none, ignore click)
-  var y = findSpotForCol(x);
+  var y = findSpotForCol(x); //*****working  */
+
+  console.log("x: ", x, "y: ",y)
+
   if (y === null) {
     return;
   }
