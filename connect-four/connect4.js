@@ -69,11 +69,11 @@ function makeHtmlBoard() {
 
 function findSpotForCol(x) {
   // TODO: write the real version of this, rather than always returning 0
-  if (boardCols[x]>=0){
+  if (boardCols[x]>0){
     boardCols[x]-=1
-  } 
+  }
   console.log(board,boardCols)
-  return boardCols[x];
+  return boardCols[x]!=='undefined'? boardCols[x]:null;
 }
 
 /** placeInTable: update DOM to place piece into HTML table of board */
@@ -85,7 +85,7 @@ function placeInTable(y, x) {
   pieceDiv.setAttribute('class', `piece p${currPlayer}`);
   const targetTd=document.getElementById(`${y}-${x}`)
   targetTd.appendChild(pieceDiv)
-  currPlayer===1? currPlayer=2:currPlayer=1
+ 
 }
 
 /** endGame: announce game end */
@@ -102,18 +102,19 @@ function handleClick(evt) {
  
   console.log(x, "****")
   // get next spot in column (if none, ignore click)
+   
   var y = findSpotForCol(x); 
 
   console.log("x: ", x, "y: ",y)
 
-  // update board cells with currPlayer's value
-  board[y][x]= currPlayer
   if (y === null) {
     return;
   }
 
   // place piece in board and add to HTML table
   // TODO: add line to update in-memory board
+  board[y][x]= currPlayer
+
   placeInTable(y, x);
 
   // check for win
@@ -126,6 +127,7 @@ function handleClick(evt) {
 
   // switch players
   // TODO: switch currPlayer 1 <-> 2
+  currPlayer===1? currPlayer=2:currPlayer=1
 }
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
