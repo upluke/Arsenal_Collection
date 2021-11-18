@@ -11,7 +11,7 @@ var HEIGHT = 6;
 var currPlayer = 1; // active player: 1 or 2
 var board = []; // array of rows, each row is array of cells  (board[y][x])
 
-const boardCols= [-1,-1,-1,-1,-1,-1]
+const boardCols= [HEIGHT,HEIGHT,HEIGHT,HEIGHT,HEIGHT,HEIGHT, HEIGHT]
 console.log(boardCols)
 /** makeBoard: create in-JS board structure:
  *    board = array of rows, each row is array of cells  (board[y][x])
@@ -69,9 +69,9 @@ function makeHtmlBoard() {
 
 function findSpotForCol(x) {
   // TODO: write the real version of this, rather than always returning 0
-  if (boardCols[x]<=5){
-    boardCols[x]+=1
-  }
+  if (boardCols[x]>=0){
+    boardCols[x]-=1
+  } 
   console.log(board,boardCols)
   return boardCols[x];
 }
@@ -102,7 +102,7 @@ function handleClick(evt) {
  
   console.log(x, "****")
   // get next spot in column (if none, ignore click)
-  var y = findSpotForCol(x); //*****working  */
+  var y = findSpotForCol(x); 
 
   console.log("x: ", x, "y: ",y)
 
