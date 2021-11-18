@@ -106,6 +106,8 @@ function handleClick(evt) {
 
   console.log("x: ", x, "y: ",y)
 
+  // update board cells with currPlayer's value
+  board[y][x]= currPlayer
   if (y === null) {
     return;
   }
