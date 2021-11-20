@@ -20,19 +20,19 @@ console.log(boardCols)
 function makeBoard() {
   // TODO: set "board" to empty HEIGHT x WIDTH matrix array
    
-  // for(let j=0;j<HEIGHT;j++){
-  //   const temp=[]
-  //   for(let i=0;i<WIDTH;i++){
-  //     temp.push(null)
-  //   }
-  //   board.push(temp)
-  // }
+  for(let j=0;j<HEIGHT;j++){
+    const temp=[]
+    for(let i=0;i<WIDTH;i++){
+      temp.push(null)
+    }
+    board.push(temp)
+  }
   
 
-  board=Array(HEIGHT)
-  for(let i=0; i<HEIGHT; i++){
-    board[i]=Array(WIDTH)
-  }
+  // board=Array(HEIGHT)
+  // for(let i=0; i<HEIGHT; i++){
+  //   board[i]=Array(WIDTH)
+  // }
   
  }
 /** makeHtmlBoard: make HTML table and row of column tops. */
@@ -79,6 +79,7 @@ function findSpotForCol(x) {
 /** placeInTable: update DOM to place piece into HTML table of board */
  
 function placeInTable(y, x) {
+
   // TODO: make a div and insert into correct table cell
   const pieceDiv=document.createElement('div');
   // set piece class and a class for whether the current player is 1 or 2, like p1 or p2
@@ -92,6 +93,7 @@ function placeInTable(y, x) {
 
 function endGame(msg) {
   // TODO: pop up alert message
+  alert(msg)
 }
 
 /** handleClick: handle click of column top to play piece */
@@ -118,16 +120,19 @@ function handleClick(evt) {
   placeInTable(y, x);
 
   // check for win
+  console.log(checkForWin(), "win")
   if (checkForWin()) {
     return endGame(`Player ${currPlayer} won!`);
   }
 
   // check for tie
   // TODO: check if all cells in board are filled; if so call, call endGame
-
+  // console.log(board.every(b=>!b.includes(null)))
   // switch players
   // TODO: switch currPlayer 1 <-> 2
+   
   currPlayer===1? currPlayer=2:currPlayer=1
+  
 }
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
