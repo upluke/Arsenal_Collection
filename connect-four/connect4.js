@@ -115,19 +115,26 @@ function handleClick(evt) {
 
   // place piece in board and add to HTML table
   // TODO: add line to update in-memory board
-  board[y][x]= currPlayer
 
-  placeInTable(y, x);
+
+  if(isFinite(y) && isFinite(x)){ // prevent properties of null or undefined
+    board[y][x]= currPlayer
+    placeInTable(y, x);
+  }
+  
 
   // check for win
-  console.log(checkForWin(), "win")
+   
   if (checkForWin()) {
     return endGame(`Player ${currPlayer} won!`);
   }
 
   // check for tie
   // TODO: check if all cells in board are filled; if so call, call endGame
-  // console.log(board.every(b=>!b.includes(null)))
+  if (board.every(b=>!b.includes(null))){
+    endGame()
+  }
+
   // switch players
   // TODO: switch currPlayer 1 <-> 2
    
