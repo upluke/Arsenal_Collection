@@ -34,6 +34,7 @@ console.log(myObj[anotherRandomObj])// [object Object]:'AN OBJECTTTTT'
 //unlike array or object, we don't have a literal syntax for maps
 // instead we have to use the new keyword Map 
 let firstMap = new Map();
+// Set and Get are the bread and butter.
 // to add a key value pair, there's a method called set(key, value)
 firstMap.set(1, 'Ash');
 firstMap.set(false, 'a boolean');
@@ -60,3 +61,54 @@ firstMap.get([]) // undefined
 // which means [] === [] gives us false. They are different unique arrays
 // they look the same and they're both empty, but hey are differetn as far as how they're 
 // stored and the acutal references to those arrays.
+
+// use functions as keys:
+const add=(x, y)=>x +y
+const mult=(x, y)=>x*y
+
+const funcCalls=new Map()
+funcCalls.set(add, 2) // pretent add function being called 1 times 
+funcCalls.set(mult,7) 
+console.log(funcCalls) // Map(2) {f=>2, f=>7}
+
+//Another syntax we can use to make a map: pass in a array 
+const bandData=[
+    [3, '3 Doors Down'],
+    ['three', 'Three Dog Night'],
+    [41, 'Sum 41']
+]
+
+const bandMap=new Map(bandData)
+console.log(bandMap) //Map(3) {3 => '3 Doors Down', 'three' => 'Three Dog Night', 41 => 'Sum 41'}
+
+// And on the other side of things, we can take any map and turn it 
+// back into an array using the spread operator
+console.log([...bandMap])
+// (3) [Array(2), Array(2), Array(2)]
+// 0: (2) [3, '3 Doors Down']
+// 1: (2) ['three', 'Three Dog Night']
+// 2: (2) [41, 'Sum 41']
+
+// When we wannna add something in to an existing map, we can chain set calls together
+bandMap.set(182, 'Blink-182').set('twenty', 'Matchbox Twenty')
+console.log(bandMap) //Map(5) {3 => '3 Doors Down', 'three' => 'Three Dog Night', 41 => 'Sum 41', 182 => 'Blink-182', 'twenty' => 'Matchbox Twenty'}
+
+// "has" is used to check if a map contains something 
+bandMap.has(41) // true
+// "delete" deletes a pair based off of a particular key
+bandMap.delete('twenty')  
+bandMap.has('twenty') // false
+console.log(bandMap) //Map(4) {3 => '3 Doors Down', 'three' => 'Three Dog Night', 41 => 'Sum 41', 182 => 'Blink-182'}
+// "clear" emptys out a map entirely 
+// bandMap.clear() 
+// console.log(bandMap) //Map(0) {size: 0}
+// Keys and values, these do exactly what they sound like:
+// "keys" is used to get all of the keys from a given map
+console.log(bandMap.keys()) //MapIterator {3, 'three', 41, 182}
+// trun keys into an array:
+console.log([...bandMap.keys()]) //(4) [3, 'three', 41, 182]
+// "values" ...
+console.log(bandMap.values()) //MapIterator {'3 Doors Down', 'Three Dog Night', 'Sum 41', 'Blink-182'}
+
+
+// 02 map methods - finished
