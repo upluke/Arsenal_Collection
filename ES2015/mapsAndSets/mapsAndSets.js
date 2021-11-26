@@ -109,6 +109,31 @@ console.log(bandMap.keys()) //MapIterator {3, 'three', 41, 182}
 console.log([...bandMap.keys()]) //(4) [3, 'three', 41, 182]
 // "values" ...
 console.log(bandMap.values()) //MapIterator {'3 Doors Down', 'Three Dog Night', 'Sum 41', 'Blink-182'}
+// size
+console.log(bandMap.size) //4  *object doesn't have size
 
-
-// 02 map methods - finished
+//iterating maps:
+// forEach *returns undefined
+bandMap.forEach((val, key)=>{ //***  value first, and then key
+    console.log(key+'=>'+val)
+    // 3=>3 Doors Down
+    // mapsAndSets.js:118 three=>Three Dog Night
+    // mapsAndSets.js:118 41=>Sum 41
+    // mapsAndSets.js:118 182=>Blink-182
+})
+// for of (can't be used on obj, bc objects are not interables, but maps are )
+// for (let x of bandMap){
+//     console.log(x) // only gives us arrays
+//     // (2) [3, '3 Doors Down']
+//     // (2) ['three', 'Three Dog Night']
+//     // (2) [41, 'Sum 41']
+//     // (2) [182, 'Blink-182']
+// }
+for (let [key, val] of bandMap){
+    console.log(key+'='+val)
+    // 3=3 Doors Down
+    // three=Three Dog Night
+    // 41=Sum 41
+    // 182=Blink-182
+}
+// 02 iterating maps  - finished
