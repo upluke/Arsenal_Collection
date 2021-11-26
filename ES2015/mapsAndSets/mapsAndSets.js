@@ -198,3 +198,6 @@ const ages=[43,23,12,44,4,12,23,12,5,45]
 console.log(new Set(ages)) //Set(7) {43, 23, 12, 44, 4, 5, 45}
 // turn it back to an array: spread that into an array bc a set is an iterable.
 console.log([...new Set(ages)]) //7) [43, 23, 12, 44, 4, 5, 45]
+
+
+// 04 sets basics finished
