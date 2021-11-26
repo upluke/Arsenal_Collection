@@ -16,12 +16,32 @@
   height: 80%;
 }
 
+.drop {
+  animation-name: drop;
+  animation-timing-function: ease;
+  animation-duration: 1s;
+}
+@keyframes drop {
+  0% {
+    transform: translateY(-330px);
+  }
+  30% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
 /* TODO: make pieces red/blue,  depending on player 1/2 piece */
 .p1 {
-  background-color: aqua;
+  background-color: #ff4e50;
 }
 .p2 {
-  background-color: pink;
+  background-color: #45ada8;
 }
 
 /* column-top is table row of clickable areas for each column */
@@ -31,5 +51,5 @@
 }
 
 #column-top td:hover {
-  background-color: gold;
+  background-color: #ede574;
 }
