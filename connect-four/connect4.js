@@ -9,9 +9,9 @@
  const HEIGHT = 6;
  
  let currPlayer = 1; // active player: 1 or 2
- const board = []; // array of rows, each row is array of cells  (board[y][x])
+ let board = []; // array of rows, each row is array of cells  (board[y][x])
  
- const boardCols= [HEIGHT,HEIGHT,HEIGHT,HEIGHT,HEIGHT,HEIGHT, HEIGHT]
+ let boardCols= [HEIGHT,HEIGHT,HEIGHT,HEIGHT,HEIGHT,HEIGHT, HEIGHT]
   
  /** makeBoard: create in-JS board structure:
   *    board = array of rows, each row is array of cells  (board[y][x])
@@ -97,6 +97,18 @@
  function endGame(msg) {
    // TODO: pop up alert message
    alert(msg)
+ 
+   // reinitial values
+   board=[]
+   currPlayer=1
+   boardCols= [HEIGHT,HEIGHT,HEIGHT,HEIGHT,HEIGHT,HEIGHT, HEIGHT]
+   const htmlBoard=document.getElementById('board')
+   while (htmlBoard.firstChild) {
+     htmlBoard.removeChild(htmlBoard.firstChild);
+   }
+   makeBoard();
+   makeHtmlBoard();
+   
  }
  
  /** handleClick: handle click of column top to play piece */
@@ -125,13 +137,13 @@
  
    // check for win
    if (checkForWin()) {
-     return endGame(`Player ${currPlayer} won!`);
+     return endGame(`Player ${currPlayer} won! Play again?`);
    }
  
    // check for tie
    // TODO: check if all cells in board are filled; if so call, call endGame
    if (board.every(b=>!b.includes(null))){
-     endGame('There is a tie!')
+     endGame('There is a tie! Play again?')
    }
  
    // switch players
