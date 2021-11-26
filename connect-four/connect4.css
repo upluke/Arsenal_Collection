@@ -1,9 +1,24 @@
 /* game board table */
+body {
+  background-color: #2a363b;
+}
+
+#game {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+h1 {
+  text-align: center;
+  color: #f9d423;
+  font-family: "Comforter Brush", cursive;
+  font-size: 4rem;
+}
 
 #board td {
   width: 50px;
   height: 50px;
-  border: solid 1px #666;
+  border: solid 2px #666;
 }
 
 /* pieces are div within game table cells: draw as colored circles */
@@ -23,7 +38,7 @@
 }
 @keyframes drop {
   0% {
-    transform: translateY(-330px);
+    transform: translateY(-300px);
   }
   30% {
     transform: translateY(0);
@@ -38,18 +53,19 @@
 
 /* TODO: make pieces red/blue,  depending on player 1/2 piece */
 .p1 {
-  background-color: #ff4e50;
+  background-color: #e8175d;
 }
 .p2 {
-  background-color: #45ada8;
+  background-color: #a8a7a7;
 }
 
 /* column-top is table row of clickable areas for each column */
 
 #column-top td {
-  border: dashed 1px lightgray;
+  border: dashed 1px gray;
 }
 
 #column-top td:hover {
-  background-color: #ede574;
+  background-color: #f9d423;
+  opacity: 0.5;
 }
