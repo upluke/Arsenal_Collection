@@ -3,7 +3,7 @@
 // So far we’ve seen Arrays and Objects
 // ES2015 introduces two new ones, Maps and Sets
 
-// Maps
+// Maps *****************************************
 // Also called “hash maps” in other languages
 // Until ES2015 - objects were replacements for maps
 // Similar to objects, except the keys can be ANY data type!
@@ -136,4 +136,65 @@ for (let [key, val] of bandMap){
     // 41=Sum 41
     // 182=Blink-182
 }
+
+
+// Sets *****************************************
+// All values in a set are unique / sets only consisit of unique values.
+// Any type of value can exist in a set
+// Created using the new keyword
+// Exist in quite a few other languages, ES2015 finally brings them to JavaScript
+
 // 02 iterating maps  - finished
+
+// create a set by passing an iterable 
+const bannedHashTags=new Set(['notilter', 'justsaying', 'winning', 'yolo'])
+console.log(bannedHashTags) //Set(4) {'notilter', 'justsaying', 'winning', 'yolo'}
+// it only takes the first argument, everything else is ignored
+const onlyFirstArg=new Set('hello', 'goodbye') //strings count as an iterable, so it iterates over each character and adds it to the set. 
+// But we have a duplicate 2 ls, but we only end up with four elements.
+console.log(onlyFirstArg) //Set(4) {'h', 'e', 'l', 'o'}
+
+// add to a set
+bannedHashTags.add('bestlife').add('selfie') // chain these together
+console.log(bannedHashTags) //Set(6) {'notilter', 'justsaying', 'winning', 'yolo', 'bestlife', 'selfie'} 
+// check if a value is in a set, it is a very common operation
+console.log(bannedHashTags.has('yolo')) //true
+console.log(bannedHashTags.has('tbt')) // false
+// delete a specific element
+bannedHashTags.delete('winning')
+console.log(bannedHashTags) //Set(5) {'notilter', 'justsaying', 'yolo', 'bestlife', 'selfie'}
+// clear the entire set
+bannedHashTags.clear()
+console.log(bannedHashTags) //Set(0) {size: 0}
+
+
+// use a set to remove banned hashtags from a list of hashtags.
+function filterHashTags(tags){
+    const bannedHashTags2=new Set(['notilter', 'justsaying', 'winning', 'yolo'])
+   return tags.filter((tag)=>!bannedHashTags2.has(tag)) //that's true or false, that gives us a Boolean value. Remember, filter is looking for a true value in order to filter that element out
+}
+const bonuTags=['happymonday', 'yolo', 'winning', 'sunset']
+console.log(filterHashTags(bonuTags)) //(2) ['happymonday', 'sunset'] 
+// you can also do that with a regular old array, and get the exact same output
+function filterHashTagsWithOldArray(tags){
+    const bannedHashTags2=['notilter', 'justsaying', 'winning', 'yolo']
+   return tags.filter((tag)=>!bannedHashTags2.includes(tag))  
+}
+const bonuTagsWithOldArray=['happymonday', 'yolo', 'winning', 'sunset']
+console.log(filterHashTagsWithOldArray(bonuTagsWithOldArray)) //(2) ['happymonday', 'sunset'] 
+//Sets are not here to give you functionality when we didn't have before. But useing a set is much more efficient. 
+//Without going into too much detail, the way that sets are implemented, 
+// they are really fast at adding new values and checking if values exist in the set.
+// Arrays are not terrible, but they are nowhere near as quick to check if a given value is present.
+// In an array, we could have 1000 elements, and JS would check every single element or potentially 
+// have to check every element. With a set, it’s a single operation, to check 
+// if a value is included in the set.
+
+
+
+//A another common use case for set is to remove duplicates from an array.
+
+const ages=[43,23,12,44,4,12,23,12,5,45]
+console.log(new Set(ages)) //Set(7) {43, 23, 12, 44, 4, 5, 45}
+// turn it back to an array: spread that into an array bc a set is an iterable.
+console.log([...new Set(ages)]) //7) [43, 23, 12, 44, 4, 5, 45]
