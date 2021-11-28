@@ -10,6 +10,16 @@
 // Created using the new keyword
 
 // ** Let's compare Map to an object:
+// Why use maps?
+// Finding the size is easy - no more loops or Object.keys()
+// The keys can be any data type!
+// You can accidentally overwrite keys on the Object.prototype in an object you make - maps do not have that issue
+// Iterating over keys and values in a map is quite easy as well
+// If you need to look up keys dynamically (they are not hard coded strings)
+// If you need keys that are not strings!
+// If you are frequently adding and removing key/value pairs
+// Are key-value pairs frequently added or removed?
+// If you are operating on multiple keys at a time
 
 // when we use obj, all of our keys will be turned into strings
 const myObj={}
@@ -144,7 +154,11 @@ for (let [key, val] of bandMap){
 // Created using the new keyword
 // Exist in quite a few other languages, ES2015 finally brings them to JavaScript
 
-// 02 iterating maps  - finished
+// When would you use sets?
+// Removing duplicate values
+// Uniqueness required
+// Efficiently checking if an item is in a collection (much better than arrays)
+
 
 // create a set by passing an iterable 
 const bannedHashTags=new Set(['notilter', 'justsaying', 'winning', 'yolo'])
@@ -199,5 +213,44 @@ console.log(new Set(ages)) //Set(7) {43, 23, 12, 44, 4, 5, 45}
 // turn it back to an array: spread that into an array bc a set is an iterable.
 console.log([...new Set(ages)]) //7) [43, 23, 12, 44, 4, 5, 45]
 
+//Iterating over a set
+// Sets are iterable objects, so we can use them with for…of loops or the spread operator.
+// Values in a set are ordered by insertion order. Here’s one example of looping over a Set:
+const annoyingHashTags = new Set();
+annoyingHashTags.add("#Selfie");
+annoyingHashTags.add("#Blessed");
+annoyingHashTags.add("#NoFilter");
 
-// 04 sets basics finished
+for(let val of annoyingHashTags) {
+   console.log("Please don't use", val);
+}
+
+// key equality for -0 and 0  (Internet Explore browser) It's a bit of a tangent, but it's kind of fun
+// in JS positive zero and positive zero are diffrent values, just like we have positive infinity and negative infinity
+// but if we add -0 to our set
+const test=new Set()
+test.add(-0)
+console.log(test) // Set(1) {0}    // it has one ittem in there
+test.add(+0) // if I try and add positives zero
+console.log(test) // Set(1) {0}   // it still has one item
+// This is because in most modern browsers, sets consider both versions of zero to be the same. But
+// IE apparently doesn't. So just kind of a fun little quirk there.
+
+// more weird equality issues with sets:
+// NaN and empty object, in general, are never equal to itself. Those are diffrent instances of objects.
+console.llg(NaN===NaN) // false
+console.llg({}==={}) // false
+// However, with our set, 
+test.add(NaN)
+console.log(test) // Set(2) {0, NaN}
+// if we add Nan again, we still have one NaN, bc the algorithm that it uses for sets,
+// is not triple equals. It's similar to triple equals, but it has carve-outs for negative and positive zero 
+// and for NaN
+test.add(NaN)
+console.log(test) // Set(2) {0, NaN}  
+// if we add empty object, it allows me to continue to add them. So it seems like it's using triple equals
+// It's not comparing the contents of the object, it's comparing the reference of the object
+test.add({})
+test.add({})
+test.add({})
+console.log(test) // Set(5) {0, NaN, {...}, {...}, {...}}
