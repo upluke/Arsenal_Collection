@@ -68,3 +68,7 @@ let triangle = {
 
 // This is tidy: related functionality lives together
 // Annoying when we want more than one triangle
+
+
+
+// upcoming this and Methods
