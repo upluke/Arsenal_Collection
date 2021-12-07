@@ -120,4 +120,25 @@ t2.getHypotenuse() // 15
 // of creating these object templates. But we'll see shortly that we now have 
 // a clearner easier syntax using classes thanks to ES2015.
 
+
+// ***** Prototypes - optional content before classes *******
+// if we print t1, we get:
+// Triangle {a:3, b:4, getArea: f(), getHypotenuse: f(), __proto__: Object}
+// here __proto__ is prototype!!!!!
+
+// prototypes are objects that store functionality that can be used across any instance.
+const mySet=new Set()
+mySet // set(0) {} 
+// since Set has __proto__ by default, you can use its "invisible" built-in methods 
+mySet.size //0
+mySet.add(45) // set(1) {45}
+
+
+
+console.log(Array.prototype)
+
+// ***********
+
+
+
 // finised Constructor Functions and New
