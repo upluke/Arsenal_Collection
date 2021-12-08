@@ -202,7 +202,20 @@ tri1.getArea===tri2.getArea // true
 // *********** Prototypes end
 
 
+// Classes
+// Classes are a new short syntax to create patterns for objecgts or bluepriints for functionality. 
+// We define a class which will act as a pattern or a template for a particular type of object we 
+// want to create.
 
+class Triangle{ // this thing here is not an object, this is the template
+    // in this class we'll define a pattern for our triangles
 
+    //methods inside are not actually added to the individual instance, like
+    // tri1 or tri2, they are added to the triangle.prototype. Prototype is
+    // an object that will contain shared methods.
+}
+
+// then we need to instantiate new triangles with parentheses
+new Triangle()
 
 // finised Intro to Prototypes
