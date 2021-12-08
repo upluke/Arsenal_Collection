@@ -126,19 +126,83 @@ t2.getHypotenuse() // 15
 // Triangle {a:3, b:4, getArea: f(), getHypotenuse: f(), __proto__: Object}
 // here __proto__ is prototype!!!!!
 
+// A prototype is just an object and usually contains a bunch of methods, 
+// sometimes different properties as well, or different non-method properties.
+// And it contains the functionality, the methods that, let's say, every Set would use.
 // prototypes are objects that store functionality that can be used across any instance.
+// It's a special object. It has a special place in the world of JS. It's predefined for us.
 const mySet=new Set()
 mySet // set(0) {} 
-// since Set has __proto__ by default, you can use its "invisible" built-in methods 
+// since Set has __proto__ by default, you can use its "invisible" built-in methods, they are all on the set prototype
 mySet.size //0
 mySet.add(45) // set(1) {45}
+// You probably noticed when you're looking at the docs,
+// the array docs on MDN to llok at all the methods on the left-hand side, 
+// you can see that almost all of them start with Array.prototype,
+// all of these methods are on this array.prototype.
+
+Set.prototype
+// Aarray. prototype is an object hat contains all of the standard array methods.
+// And every array we create has access to these methods. Just like every Set that we make.
+Array.prototype 
+// __proto__ is a property name that references the prototype of this object, even 
+// just an empty array []
+console.log([].__proto__ === Array.prototype) //true
+// The listed above both are referencing the exact same object.
+// LHS is just a property on an array and RHS is the actual prototype obejct.
+// These prototypes are objects that store functionality that can be used across any instance.
+
+// We can also access the array prototype object, and overwrite it:
+Array.prototype.push=function(val){
+    console.log(`So you want to add ${val}??`)
+    console.log("Sorry don't feel like it!")
+}
+
+// As far as changing built-in prototypes is not something you wanna do, there's one 
+// situation where it's acceptable, which has to do with polyfills. So, anytime there's a newver
+// method in JS that is not implemented across all the broswers, like String.includes() method,
+// which is a newer method does not have IE support. If you actually look at the docs, 
+// there's a polyfill section there, and that includes some code that you can add to your files, 
+// your scripts, that checks if there's an includes method on string.prototype, then don't do anything.
+// But if there is not, it defines String.prototype.includes. So includes is a newer method. It's 
+// not fully supported in every browser. This is a way of checking if something exists in this environment,
+// whichever browser the code runs in, and if it's not there, it's defined. This's reall the only situation
+// where you should do that.
+
+
+// Now back to our Triangle. 
+// How do we fix thiis so that we can add getArea and getHypotenuse to the triangle prototype,
+// rather than to every individual triangle we make, bc we don't need a separate copy.
+// So, let's start with the function excluding methods:
+function Triangle(a,b){  
+    this.a=a;
+    this.b=b;
+}
+// but, we have to methods on a separate line:
+Triangle.prototype.getArea=function(){
+    return (this.a * this.b) / 2;
+}
+Triangle.prototype.getHypotenuse=function(){
+    return Math.sqrt(this.a ** 2 + this.b ** 2);
+}
+const tri1= Triangle(3, 4) // Triangle {a:3, b: 4, __proto__: getArea:f() getHypotenuse: f()}
+const tri1= Triangle(9, 12) 
+tri1.getArea() // 6
+tri2.getArea() // 54
+tri1.getArea===tri2.getArea // true
+
+// So, why am I bringing this up? I'm of the opinion that this makes it easier to understand
+// why you would use a class. Classes allow us to get the same functionality without having to define
+// something like a funciton like ahove, and then separately adding methods to the prototype, bc that
+// kinda of annoying to have our data separate form our functionality. Using a class, we can 
+// group our methods together with our values in one class, we don't have to talk about the prototype.
+// We don't have to reference it at all. And we get the same outcome. I hope it will help you understand
+// the benefit of classes.
+
+// *********** Prototypes end
 
 
 
-console.log(Array.prototype)
-
-// ***********
 
 
-
-// finised Constructor Functions and New
+// finised Intro to Prototypes
