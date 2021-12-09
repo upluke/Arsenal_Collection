@@ -210,12 +210,41 @@ tri1.getArea===tri2.getArea // true
 class Triangle{ // this thing here is not an object, this is the template
     // in this class we'll define a pattern for our triangles
 
+    // constructors accept values and add them to the instance. The way that we 
+    // referenced that instance is using "this" keword. Constructor is 
+    // automatically called for us. But never return a value inside the oncstructor.
+    // What Can You Do in the Constructor?
+    // Common things:
+    //    1. Validate data
+    //    2. Assign properties
+    constructor(a, b) {
+        //1:Validate data
+        for (let side of [a, b]){
+            if (!Number.isFinite(side) || side <= 0){
+                throw new Error("Invalid a: " + a);
+            }
+        }
+        //2:Assign properties:
+        this.a = a;
+        this.b = b;
+      }
+    
+
     //methods inside are not actually added to the individual instance, like
     // tri1 or tri2, they are added to the triangle.prototype. Prototype is
     // an object that will contain shared methods.
+    getArea() {
+        return (this.a * this.b) / 2;
+      }
+    
+    getHypotenuse() {
+        return Math.sqrt(this.a ** 2 + this.b ** 2);
+      }
+
 }
 
 // then we need to instantiate new triangles with parentheses
-new Triangle()
+let myTri = new Triangle(3, 4);
+myTri.getArea();    // 6
 
 // finised Intro to Prototypes
