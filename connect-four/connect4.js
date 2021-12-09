@@ -11,7 +11,7 @@
  let currPlayer = 1; // active player: 1 or 2
  let board = []; // array of rows, each row is array of cells  (board[y][x])
  
- let boardCols= [HEIGHT,HEIGHT,HEIGHT,HEIGHT,HEIGHT,HEIGHT, HEIGHT]
+ let boardCols= Array.from({length:WIDTH}).fill(HEIGHT)
   
  /** makeBoard: create in-JS board structure:
   *    board = array of rows, each row is array of cells  (board[y][x])
@@ -27,12 +27,11 @@
      }
      board.push(temp)
    }
-   
+
+  //  for (let y = 0; y < HEIGHT; y++) {
+  //   board.push(Array.from({ length: WIDTH }));
+  // }
  
-   // board=Array(HEIGHT)
-   // for(let i=0; i<HEIGHT; i++){
-   //   board[i]=Array(WIDTH)
-   // }
    
   }
  /** makeHtmlBoard: make HTML table and row of column tops. */
@@ -101,7 +100,7 @@
    // reinitial values
    board=[]
    currPlayer=1
-   boardCols= [HEIGHT,HEIGHT,HEIGHT,HEIGHT,HEIGHT,HEIGHT, HEIGHT]
+   boardCols= Array.from({length:WIDTH}).fill(HEIGHT)
    const htmlBoard=document.getElementById('board')
    while (htmlBoard.firstChild) {
      htmlBoard.removeChild(htmlBoard.firstChild);
@@ -115,7 +114,7 @@
  
  function handleClick(evt) {
    console.log("board: ", board)
-   // get x from ID of clicked cell
+   // get x from ID of clicked cell (here positive sign can turn string into number)
    const x = +evt.target.id;
    // get next spot in column (if none, ignore click)
     
