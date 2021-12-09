@@ -247,4 +247,4 @@ class Triangle{ // this thing here is not an object, this is the template
 let myTri = new Triangle(3, 4);
 myTri.getArea();    // 6
 
-// finised Intro to Prototypes
+// finised adding constructors
