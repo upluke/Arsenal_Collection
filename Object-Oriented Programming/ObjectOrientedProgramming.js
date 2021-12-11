@@ -217,16 +217,17 @@ class Triangle{ // this thing here is not an object, this is the template
     // Common things:
     //    1. Validate data
     //    2. Assign properties
-    constructor(a, b) {
+    constructor(a, b, c) {
         //1:Validate data
-        for (let side of [a, b]){
+        for (let side of [a, b, c]){
             if (!Number.isFinite(side) || side <= 0){
-                throw new Error("Invalid a: " + a);
+                throw new Error("Sides must be postitive numbers!");
             }
         }
         //2:Assign properties:
         this.a = a;
         this.b = b;
+        this.c = c;
       }
     
 
@@ -235,21 +236,18 @@ class Triangle{ // this thing here is not an object, this is the template
     // an object that will contain shared methods.
 
     // "This" refers to myTri, the specific instance 
-    getArea() {
-        return (this.a * this.b) / 2;
-      }
-    
-    getHypotenuse() {
-        return Math.sqrt(this.a ** 2 + this.b ** 2);
-      }
-    
-    getArea2(){
+   
+  
+    getArea(){
         const {a, b, c}=this;
         const s =(a+b+c)/2;
         return Math.sqrt(s*(s-a) * (s-b) * (s-c))
     }
     isBig(){
         return this.getArea()>50
+    }
+    display(){
+        console.log(`Triangle with sides of ${this.a}, ${this.b}, and ${this.c}`)
     }
 
 }
@@ -258,4 +256,58 @@ class Triangle{ // this thing here is not an object, this is the template
 let myTri = new Triangle(3, 4);
 myTri.getArea();    // 6
 
-// finised adding constructors
+
+// Extends and Super (supercalss; subclass)
+// You use extends keyword. You extend some other class. If you do that, 
+// and then you call super from within the constructor of your child or your derived class,
+// RightTriangle in our case, that will call the parent constructor, Triangle. And then we can add on 
+// some other properties in the subclass. Inside the constructor, we can do some checks beforehand. We'll
+// check if it's an invalid right triange first. THere's no need to even get this far, if that's the case.
+// Also we can access super at any point with "super." some method. So if you call super as a function, that
+// we'll call the constructor. If you call "super." some method that calls a method from the superclass Triangle.
+class RightTriangle extends Triangle{
+    conststructor(a, b, c){
+
+        if(a*a+b*b!==c*c){
+            throw new Error('Invalid C side for right triangle!')
+        }
+        // super calls the constructor of the supercalss, whatever we're extending. 
+        // So in this case, super calls the Triangle constructor  
+        // But we have to pass A,B and C in when we call super. Otherwise, the constructor of supercalss
+        // is running, but there is no A, B and C. Like we just only made a copy of constructor but have to 
+        // pass in our own properties
+        super(a, b, c) 
+        // after a, b, c passed into supoer, namely passed into the supercalss Triangle, they will be assigned to "this" (eg:this.a=a; this.b=b; this.c=c;). Then 
+        // "this" will refer to a specifi instance of RightTriangle (subclass). Even though the code is defined, 
+        // it's part of the regular triangle constructor, bc we extended Triangle, in our RightTriangle class definition
+        // and we called super. This is going to refer to an instance of RightTriangle. So we reduced a lot of duplication.
+
+        // It's also common when you extend the class to add on new properties
+        // MUST call super in the constructor in derived class before accessing "this". 
+        this.d=12
+    }
+    RightTriangleOwnFunction(){ // only on RightTrigle, it's not part of Triangle
+       return true
+    }
+    // we can also overwrite or override existing methods on Triangle
+    // If a method is not found on RightTriangle, let's say if it doesn't exist here, like
+    // when I called isBig, isBig is not defined here. In that case, the method on the parent class Triangle, the superclass,
+    // ran and we got isBig. But what about rn when we have a "conflict"? When I call 
+    // myRrightTriangle.display(), it finds the display here first and it stops looking, bc it's closer 
+    // to RightTriangle
+    display(){
+        console.log(`Right Triangle with sides of ${this.a}, ${this.b}, and ${this.c}`)
+        // or we can do a slightly modified version:
+        // return 'Right ' + super.display();    // **but we need to change console.log to return on superclass
+    }
+
+}
+
+const myRightTriangle=new RightTriangle(3,4,5)
+console.log(myRightTriangle) // {a:3, b:4, c:5, __proto__: Triangle}
+myRightTriangle.getArea() // 6
+myRightTriangle.RightTriangleOwnFunction() // true
+myRightTriangle.display() // Right Triangle with sides of 3, 4, and 5
+const tri=new Triangle(3,5, 9)
+tri.display() // Triangle with sides of 3, 4, and 9
+ 
