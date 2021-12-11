@@ -233,6 +233,8 @@ class Triangle{ // this thing here is not an object, this is the template
     //methods inside are not actually added to the individual instance, like
     // tri1 or tri2, they are added to the triangle.prototype. Prototype is
     // an object that will contain shared methods.
+
+    // "This" refers to myTri, the specific instance 
     getArea() {
         return (this.a * this.b) / 2;
       }
@@ -240,6 +242,15 @@ class Triangle{ // this thing here is not an object, this is the template
     getHypotenuse() {
         return Math.sqrt(this.a ** 2 + this.b ** 2);
       }
+    
+    getArea2(){
+        const {a, b, c}=this;
+        const s =(a+b+c)/2;
+        return Math.sqrt(s*(s-a) * (s-b) * (s-c))
+    }
+    isBig(){
+        return this.getArea()>50
+    }
 
 }
 
