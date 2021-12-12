@@ -13,7 +13,7 @@
 
 let data={}
 
-$("#btn").on("click", function(e){
+$("#listBtn").on("click", function(e){
   // get the values of the input fields:
   e.preventDefault()
   
@@ -27,34 +27,19 @@ $("#btn").on("click", function(e){
   let title=$("#title").val() 
   let rating=$("#rating").val()
 
-  // add date 
+  // add data
   data[title]=rating
-   
-   
-  // // create new htmlElements
-  // const newLi=document.createElement('li')
-  // const newH=document.createElement('h2')
-  // const newP=document.createElement('p')
-  // const deleteBtn=document.createElement('button')
-
-  // // set values of the htmlElements
-  // newH.innerText=title 
-  // newP.innerText=rating
-  // deleteBtn.innerText='Delete'
-  
-  // // append the elements to the ul list
-  // newLi.append(newH)
-  // newLi.append(newP)
-  // newLi.append(deleteBtn)
-  // $('#list').append(newLi)
-
-  displayData(data)
+  console.log(data)
+  const updatedData=sortByTitleOrRating(data)
+  console.log(updatedData)
+  // dispay data
+  displayData(updatedData)
 
   // clear form afrer submission
   $("#title").val('') 
   $("#rating").val('')
 
-  console.log(data)
+ 
 })
 
 // handle delete with delegation 
@@ -67,7 +52,7 @@ document.querySelector('#list').addEventListener('click', function(e){
 })
  
 
-
+// create elements and display
 const displayData=(data)=>{
   $('#list').empty()
   for (let [k, v] of Object.entries(data)){
@@ -89,7 +74,46 @@ const displayData=(data)=>{
       newLi.append(deleteBtn)
       $('#list').append(newLi)
   }
-
-  
-
 }
+
+// handle sorting 
+const sortByTitleOrRating=(data)=>{
+  if($('#movies').val()===null){
+      return data
+  }else{
+    console.log("%%%%%%%%")
+    return sorting()
+
+  } 
+}
+
+const sorting =(e)=>{
+        console.log("@@@@@@@@@", data)
+         
+        const movieVal= $('#movies').val()
+        console.log(movieVal, data)
+        console.log("before sorted: ", data)
+        if(movieVal==='title'){
+          return Object.keys(data).sort().reduce((acc, cur)=>{
+            acc[cur]=data[cur]
+            return acc
+          },{})
+          
+        }else{
+        
+          return Object.values(data).sort().reduce((acc,cur)=>{
+            const curKey=Object.keys(data).find(key => data[key] === cur)
+            acc[curKey]=cur
+            return acc
+          },{})
+         
+        }
+     
+}
+
+$('#sortBtn').on('click', function(e){
+  e.preventDefault()
+  const updatedData=sorting()
+  console.log(updatedData, "@@@@")
+  displayData(updatedData)
+});
