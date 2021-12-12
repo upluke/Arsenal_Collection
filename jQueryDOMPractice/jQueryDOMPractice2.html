@@ -27,10 +27,16 @@
             <form>
               <label>Sort by: </label>
               <select name="movies" id="movies">
-                 <option disabled selected value> -- select an option -- </option>
-                 <option value="title">title</option>
-                 <option value="rating">rating</option>
-              </select>
+                <option class="option" disabled selected value> -- select an option -- </option>
+                <optgroup label="Title" >
+                    <option class="option"  value="Title Ascending">Ascending</option>
+                    <option class="option"  value="Title Descending">Dscending</option>
+                </optgroup>
+                <optgroup label="Rating" >
+                   <option class="option"  value="Rating Ascending">Ascending</option>
+                   <option class="option"  value="Rating Descending">Descending</option>
+                </optgroup>
+             </select>
               <input type="submit" value="Sort" id="sortBtn" />
             </form>
         </fieldset>

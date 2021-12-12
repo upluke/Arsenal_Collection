@@ -56,7 +56,6 @@ document.querySelector('#list').addEventListener('click', function(e){
 const displayData=(data)=>{
   $('#list').empty()
   for (let [k, v] of Object.entries(data)){
-      console.log(k,"----", v)
       // create new htmlElements
       const newLi=document.createElement('li')
       const newH=document.createElement('h2')
@@ -81,32 +80,41 @@ const sortByTitleOrRating=(data)=>{
   if($('#movies').val()===null){
       return data
   }else{
-    console.log("%%%%%%%%")
     return sorting()
-
   } 
 }
 
-const sorting =(e)=>{
-        console.log("@@@@@@@@@", data)
-         
+const sorting =(e)=>{ 
+        const lookUp={'Title Ascending':1, 'Title Descending':2, 'Rating Ascending':3, 'Rating Descending':4}
         const movieVal= $('#movies').val()
-        console.log(movieVal, data)
-        console.log("before sorted: ", data)
-        if(movieVal==='title'){
-          return Object.keys(data).sort().reduce((acc, cur)=>{
+        const category=$('.option').eq(lookUp[movieVal]).parent().attr('label');
+ 
+        if (category==='Title'){
+         if(movieVal==='Title Ascending'){
+            return Object.keys(data).sort().reduce((acc, cur)=>{
             acc[cur]=data[cur]
             return acc
-          },{})
-          
-        }else{
-        
-          return Object.values(data).sort().reduce((acc,cur)=>{
-            const curKey=Object.keys(data).find(key => data[key] === cur)
-            acc[curKey]=cur
+            },{})
+          }else{
+            return Object.keys(data).sort().reverse().reduce((acc, cur)=>{
+            acc[cur]=data[cur]
             return acc
-          },{})
-         
+            },{})
+          }
+        }else{
+          if(movieVal==='Rating Ascending'){
+            return Object.values(data).sort().reduce((acc,cur)=>{
+              const curKey=Object.keys(data).find(key => data[key] === cur)
+              acc[curKey]=cur
+              return acc
+            },{})
+          }else{
+            return Object.values(data).sort().reverse().reduce((acc,cur)=>{
+              const curKey=Object.keys(data).find(key => data[key] === cur)
+              acc[curKey]=cur
+              return acc
+            },{})
+          }
         }
      
 }
@@ -114,6 +122,5 @@ const sorting =(e)=>{
 $('#sortBtn').on('click', function(e){
   e.preventDefault()
   const updatedData=sorting()
-  console.log(updatedData, "@@@@")
   displayData(updatedData)
 });
