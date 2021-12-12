@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>replit</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="jQueryDOMPractice2.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <form action=""  >
+      <fieldset>
+      <ul>
+           
+        <li>
+           <label for="title">Title</label>
+           <input type="text" id="title" name="title" required  pattern=".{4,}" />
+        </li>
+        <li>
+           <label for="rating">Rating</label>
+           <input type="number" id="rating" name="rating" min='0' max='10' /> 
+        </li>
+        <li>
+            <input type="submit" value="Submit"  id="btn" />
+        </li>
+      </ul>
+      </fieldset>
+    </form>
+    <ul id="list"></ul>
+    <script src="jQueryDOMPractice2.js"></script>
+  </body>
+</html>
