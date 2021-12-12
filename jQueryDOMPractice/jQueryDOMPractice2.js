@@ -20,8 +20,7 @@ $("#listBtn").on("click", function(e){
   // check the length of the title input beforehand
   if ($("#title").val() .length<2){
     alert("Please enter at least two characters for title!") 
-    $("#title").val('') 
-    $("#rating").val('')
+    clearInputs()
     return 
   }
   let title=$("#title").val() 
@@ -36,11 +35,13 @@ $("#listBtn").on("click", function(e){
   displayData(updatedData)
 
   // clear form afrer submission
-  $("#title").val('') 
-  $("#rating").val('')
-
- 
+  clearInputs()
 })
+
+const clearInputs=()=>{
+  $("#title").val('') 
+  $("#rating").val('') 
+}
 
 // handle delete with delegation 
 document.querySelector('#list').addEventListener('click', function(e){
@@ -89,34 +90,26 @@ const sorting =(e)=>{
         const movieVal= $('#movies').val()
         const category=$('.option').eq(lookUp[movieVal]).parent().attr('label');
  
-        if (category==='Title'){
-         if(movieVal==='Title Ascending'){
-            return Object.keys(data).sort().reduce((acc, cur)=>{
-            acc[cur]=data[cur]
-            return acc
-            },{})
-          }else{
-            return Object.keys(data).sort().reverse().reduce((acc, cur)=>{
-            acc[cur]=data[cur]
-            return acc
-            },{})
-          }
-        }else{
-          if(movieVal==='Rating Ascending'){
-            return Object.values(data).sort().reduce((acc,cur)=>{
-              const curKey=Object.keys(data).find(key => data[key] === cur)
-              acc[curKey]=cur
-              return acc
-            },{})
-          }else{
-            return Object.values(data).sort().reverse().reduce((acc,cur)=>{
-              const curKey=Object.keys(data).find(key => data[key] === cur)
-              acc[curKey]=cur
-              return acc
-            },{})
-          }
-        }
+        return generateDataAccordingToSelection(category, movieVal)
      
+}
+
+const generateDataAccordingToSelection=(category, movieValue)=>{
+      if (category==='Title'){
+        const temp=movieValue==='Title Ascending'? Object.keys(data).sort() :Object.keys(data).sort().reverse()
+        return temp.reduce((acc, cur)=>{
+              acc[cur]=data[cur]
+              return acc
+              },{})
+      }else{
+        const temp=movieValue==='Rating Ascending'? Object.values(data).sort():Object.values(data).sort().reverse()
+        return temp.reduce((acc,cur)=>{
+                const curKey=Object.keys(data).find(key => data[key] === cur)
+                acc[curKey]=cur
+                return acc
+              },{})
+      }
+   
 }
 
 $('#sortBtn').on('click', function(e){
