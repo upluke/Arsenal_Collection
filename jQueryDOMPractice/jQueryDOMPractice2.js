@@ -28,9 +28,8 @@ $("#listBtn").on("click", function(e){
 
   // add data
   data[title]=rating
-  console.log(data)
   const updatedData=sortByTitleOrRating(data)
-  console.log(updatedData)
+ 
   // dispay data
   displayData(updatedData)
 
@@ -46,7 +45,7 @@ const clearInputs=()=>{
 // handle delete with delegation 
 document.querySelector('#list').addEventListener('click', function(e){
   if(e.target.tagName==='BUTTON'){
-    const currentKey= e.target.parentElement.textContent.split(' ').pop().slice(0,-7) 
+    const currentKey= e.target.parentElement.textContent.slice(0,-7) 
     e.target.parentElement.remove()
     delete data[currentKey] 
   }
