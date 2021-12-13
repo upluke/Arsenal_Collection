@@ -14,7 +14,6 @@
 let data={}
 
 $("#listBtn").on("click", function(e){
-  // get the values of the input fields:
   e.preventDefault()
   
   // check the length of the title input beforehand
@@ -23,6 +22,7 @@ $("#listBtn").on("click", function(e){
     clearInputs()
     return 
   }
+  // get the values of the input fields:
   let title=$("#title").val() 
   let rating=$("#rating").val()
 
@@ -80,21 +80,20 @@ const sortByTitleOrRating=(data)=>{
   if($('#movies').val()===null){
       return data
   }else{
-    return sorting()
+    return handlesort()
   } 
 }
 
-const sorting =(e)=>{ 
-        const lookUp={'Title Ascending':1, 'Title Descending':2, 'Rating Ascending':3, 'Rating Descending':4}
-        const movieVal= $('#movies').val()
-        const category=$('.option').eq(lookUp[movieVal]).parent().attr('label');
+const handlesort =(e)=>{ 
+        const getIndexOfTargeOption={'Title Ascending':1, 'Title Descending':2, 'Rating Ascending':3, 'Rating Descending':4}
+        const movieValue= $('#movies').val()
+        const optgroupLabel=$('.option').eq(getIndexOfTargeOption[movieValue]).parent().attr('label');
  
-        return generateDataAccordingToSelection(category, movieVal)
-     
+        return generateDataAccordingToOptgroupLabel(optgroupLabel, movieValue)
 }
 
-const generateDataAccordingToSelection=(category, movieValue)=>{
-      if (category==='Title'){
+const generateDataAccordingToOptgroupLabel=(optgroupLabel, movieValue)=>{
+      if (optgroupLabel==='Title'){
         const temp=movieValue==='Title Ascending'? Object.keys(data).sort() :Object.keys(data).sort().reverse()
         return temp.reduce((acc, cur)=>{
               acc[cur]=data[cur]
@@ -108,11 +107,10 @@ const generateDataAccordingToSelection=(category, movieValue)=>{
                 return acc
               },{})
       }
-   
 }
 
 $('#sortBtn').on('click', function(e){
   e.preventDefault()
-  const updatedData=sorting()
+  const updatedData=handlesort()
   displayData(updatedData)
 });
