@@ -17,7 +17,7 @@ $("#listBtn").on("click", function(e){
   e.preventDefault()
   
   // check the length of the title input beforehand
-  if ($("#title").val() .length<2){
+  if ($("#title").val().length<2){
     alert("Please enter at least two characters for title!") 
     clearInputs()
     return 
@@ -44,10 +44,17 @@ const clearInputs=()=>{
 
 // handle delete with delegation 
 document.querySelector('#list').addEventListener('click', function(e){
+  const content=e.target.parentElement.textContent
+  let contentKey=""
   if(e.target.tagName==='BUTTON'){
-    const currentKey= e.target.parentElement.textContent.slice(0,-7) 
-    e.target.parentElement.remove()
-    delete data[currentKey] 
+    // slice on the digit of rating number
+    if(isFinite(content.slice(-8,-7))){  
+      contentKey= content.slice(0,-8) 
+    }else{
+      contentKey= content.slice(0,-7) 
+    }
+  e.target.parentElement.remove()
+  delete data[contentKey] 
   }
 })
  
