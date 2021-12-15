@@ -12,56 +12,48 @@
 // Allow users to sort alphabetically by the title of the movie or by the rating of the movie from lowest to highest and vice versa.
 
 let data={}
+let optionValue=null
+// disable dropdown menu when data is unavailable
+if(!data.length){
+  $('#sortingOptions').attr("disabled", true)
+}
 
 $("#listBtn").on("click", function(e){
   e.preventDefault()
-  
+
+  // recover dorpdown menu
+   $('#sortingOptions').prop("disabled", false)
+
   // check the length of the title input beforehand
   if ($("#title").val().length<2){
     alert("Please enter at least two characters for title!") 
     clearInputs()
     return 
   }
+
   // get the values of the input fields:
   let title=$("#title").val() 
   let rating=$("#rating").val()
 
   // add data
   data[title]=rating
-  const updatedData=sortByTitleOrRating(data)
  
   // dispay data
-  displayData(updatedData)
+  displayData(data)
 
   // clear form afrer submission
   clearInputs()
 })
 
+// clear title and rating inputs
 const clearInputs=()=>{
   $("#title").val('') 
   $("#rating").val('') 
 }
 
-// handle delete with delegation 
-document.querySelector('#list').addEventListener('click', function(e){
-  const content=e.target.parentElement.textContent
-  let contentKey=""
-  if(e.target.tagName==='BUTTON'){
-    // slice on the digit of rating number
-    if(isFinite(content.slice(-8,-7))){  
-      contentKey= content.slice(0,-8) 
-    }else{
-      contentKey= content.slice(0,-7) 
-    }
-  e.target.parentElement.remove()
-  delete data[contentKey] 
-  }
-})
- 
-
 // create elements and display
 const displayData=(data)=>{
-  $('#list').empty()
+  $('#item-ul').empty()
   for (let [k, v] of Object.entries(data)){
       // create new htmlElements
       const newLi=document.createElement('li')
@@ -73,51 +65,58 @@ const displayData=(data)=>{
       newH.innerText=k 
       newP.innerText=v
       deleteBtn.innerText='Delete'
-      
+      // attach an id for list item deletion
+      deleteBtn.id = `${k}`
+      deleteBtn.addEventListener('click', deleteListItem);
       // append the elements to the ul list
       newLi.append(newH)
       newLi.append(newP)
       newLi.append(deleteBtn)
-      $('#list').append(newLi)
+    
+      $('#item-ul').append(newLi)
   }
 }
 
-// handle sorting 
-const sortByTitleOrRating=(data)=>{
-  if($('#movies').val()===null){
-      return data
-  }else{
-    return handlesort()
-  } 
+// handle listItem delete 
+const deleteListItem = (event)=>{
+  let buttonId = event.target.id
+  let button = document.getElementById(buttonId);
+  let listIemToBeDeleted = button.closest('li')
+  listIemToBeDeleted.remove()
+  delete data[buttonId]
 }
 
-const handlesort =(e)=>{ 
-        const getIndexOfTargeOption={'Title Ascending':1, 'Title Descending':2, 'Rating Ascending':3, 'Rating Descending':4}
-        const movieValue= $('#movies').val()
-        const optgroupLabel=$('.option').eq(getIndexOfTargeOption[movieValue]).parent().attr('label');
- 
-        return generateDataAccordingToOptgroupLabel(optgroupLabel, movieValue)
-}
+// update optionValue
+$("#sortingOptions").change(function() {
+  optionValue=this.value
+});
 
-const generateDataAccordingToOptgroupLabel=(optgroupLabel, movieValue)=>{
-      if (optgroupLabel==='Title'){
-        const temp=movieValue==='Title Ascending'? Object.keys(data).sort() :Object.keys(data).sort().reverse()
-        return temp.reduce((acc, cur)=>{
-              acc[cur]=data[cur]
-              return acc
-              },{})
-      }else{
-        const temp=movieValue==='Rating Ascending'? Object.values(data).sort():Object.values(data).sort().reverse()
-        return temp.reduce((acc,cur)=>{
-                const curKey=Object.keys(data).find(key => data[key] === cur)
-                acc[curKey]=cur
-                return acc
-              },{})
-      }
-}
-
+// handle sort
 $('#sortBtn').on('click', function(e){
   e.preventDefault()
-  const updatedData=handlesort()
-  displayData(updatedData)
+  if (optionValue===null){
+    displayData(data)
+  }else{
+    const sortedData=generateData(optionValue)
+    displayData(sortedData)
+  }
 });
+
+// generate sorted data
+const generateData=(optionValue)=>{
+    const [optgroupLabel, order]=optionValue.split(' ')
+    if (optgroupLabel==='Title'){
+      const titlePrep=order==='Ascending'? Object.keys(data).sort() :Object.keys(data).sort().reverse()
+      return titlePrep.reduce((acc, cur)=>{
+        acc[cur]=data[cur]
+        return acc
+      },{})
+    }else{
+      const ratingPrep=order==='Ascending'? Object.values(data).sort():Object.values(data).sort().reverse()
+      return ratingPrep.reduce((acc,cur)=>{
+        const curKey=Object.keys(data).find(key => data[key] === cur)
+        acc[curKey]=cur
+        return acc
+      },{})
+    }
+}

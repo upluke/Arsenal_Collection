@@ -8,12 +8,12 @@
     <link href="jQueryDOMPractice2.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <form action=""  >
+    <form >
         <fieldset>
             <ul>
               <li>
                 <label for="title">Title</label>
-                <input type="text" id="title" name="title"/>
+                <input pattern=".{5,}" title="5 characters minimum" type="text" id="title" name="title"/>
               </li>
               <li>
                 <label for="rating">Rating</label>
@@ -23,25 +23,24 @@
                   <input type="submit" value="Submit"  id="listBtn" />
               </li>
             </ul>
-            
-            <form>
-              <label>Sort by: </label>
-              <select name="movies" id="movies">
-                <option class="option" disabled selected value> -- select an option -- </option>
-                <optgroup label="Title" >
-                    <option class="option"  value="Title Ascending">Ascending</option>
-                    <option class="option"  value="Title Descending">Dscending</option>
-                </optgroup>
-                <optgroup label="Rating" >
-                   <option class="option"  value="Rating Ascending">Ascending</option>
-                   <option class="option"  value="Rating Descending">Descending</option>
-                </optgroup>
-             </select>
-              <input type="submit" value="Sort" id="sortBtn" />
-            </form>
         </fieldset>
       </form>
-      <ul id="list"></ul>
+      <form>
+              <label>Sort by: </label>
+              <select name="sortingOptions" id="sortingOptions" >
+                 <option class="option" disabled selected value> -- select an option -- </option>
+                 <optgroup label="Title" >
+                     <option id="title-ascending"  value="Title Ascending">Ascending</option>
+                     <option id="title-decending"  value="Title Descending">Dscending</option>
+                 </optgroup>
+                 <optgroup label="Rating" >
+                    <option id="rating-ascending"  value="Rating Ascending">Ascending</option>
+                    <option id="rating-decending"  value="Rating Descending">Descending</option>
+                 </optgroup>
+              </select>
+              <input type="submit" value="Sort" id="sortBtn" />
+            </form>
+      <ul id="item-ul"></ul>
     <script src="jQueryDOMPractice2.js"></script>
   </body>
 </html>
