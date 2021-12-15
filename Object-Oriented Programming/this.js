@@ -94,7 +94,8 @@ window.name // ""
 // you execute that fucntion. The exact same function run two different ways.
 
 
-// Call:
+// Call: 
+// The method Call is available on every funtion that we create or even existing fucntions that are built in.
 // is a way of specifying the value of "this"
 // It works with any function whether it's defined in an object explicitly 
 // or it's just defined on its own as a funciton declaration.
@@ -145,4 +146,53 @@ printThis.call("dumb bonu") // String{"dumb bonu"}
 cat.play.call(dog, 'bone', 'my cat' ) // Elton plays with bon
                                       // Elton plays with my cat
 
-// Done 04 call
+// Bind:
+// The method Bind is available on every funtion that we create or even existing fucntions that are built in.
+// You can “perma-bind” a function to a context.
+// So bind does the same thing, we pass in a value and that value will be used for 
+// the keyword "this", inside whatever function we're binding.
+// ** But the main difference is that bind does not execute your funciton like call does.
+// Bind returns a new perma-bound funciton. It gives you a version of the funciton that we called
+// bind-on where the value of "this" has been changed, been bound permanently within that function.
+const blue  ={
+    name: 'Blue',
+    breed: 'Scottish Fold',
+    dance:function(dance){
+        console.log('This is : ', this)
+        console.log(`Meow, I am ${this.name} and I like to ${dance}`) // here "this" will refer to the cat object
+    },
+    play: function(...toys){
+        for (let toy of toys){
+            console.log(`${this.name} plays with ${toy}`)
+        }
+    }
+}
+// We pass in an argument, that first argument will be used to set the value of "this"
+// in a new function. 
+const bDance=blue.dance // So it takes this existing function, creates a copy with permanently bound value of "this".
+const boundDance=bDance.bind(blue) // So we can now call boundDance over and over without having to use the call method every time
+boundDance('waltz') //Meow, I am Scottish Fold and I like to waltz
+
+// diffrent object
+const rocket={
+    name: 'Rocket',
+    breed: 'Himalayan'
+}
+
+const rocketDance=blue.dance.bind(rocket)
+rocketDance('tango') //Meow, I am Himalayan and I like to tango
+
+// And we can doubly test the strength, the integrity of the binding if we made another new object
+const dog={
+    name:'Tyson',
+    breed:'Mini Aussie',
+    dance:rocketDance
+}
+
+dog.dance('waltz') // Meow, I am Himalayan and I like to waltz
+// So it doesn't matter, enven though we're calling it as dog.dance, you would think,
+// the value of "this" is dog, it's to the left of that period, but we've bound the value 
+// of "this" to be rocket.
+
+
+// Done bind
