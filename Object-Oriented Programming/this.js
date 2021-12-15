@@ -94,4 +94,55 @@ window.name // ""
 // you execute that fucntion. The exact same function run two different ways.
 
 
-// Done 02 this window stuff
+// Call:
+// is a way of specifying the value of "this"
+// It works with any function whether it's defined in an object explicitly 
+// or it's just defined on its own as a funciton declaration.
+const cat ={
+    name: 'Blue',
+    breed: 'Scottish Fold',
+    dance:function(dance){
+        console.log('This is : ', this)
+        console.log(`Meow, I am ${this.name} and I like to ${dance}`) // here "this" will refer to the cat object
+    },
+    play: function(...toys){
+        for (let toy of toys){
+            console.log(`${this.name} plays with ${toy}`)
+        }
+    }
+}
+
+const blueDance =cat.dance 
+blueDance('salsa') // This is: Window //Meow, I'm undefined and I like to salsa 
+// If we want to change the value of "this", we could try 
+blueDance.call(cat, 'jitterbug') //two arguments: 1) what value of this should be as "this" 2) any other argumnents that passed the call will be sent along to blueDance
+// We could ahve a totoally diffrent object:
+const dgo={
+    breed: "Black Lab",
+    name: 'Elton'
+}
+blueDance.call(dog, 'hip hop dance') // Neow, I'm a Black Lab and I like to hip hop dance.
+// the first "this" is the window:
+cat.dance.call(window, 'salsa') //Neow, I'm a undefined and I like to salsa. 
+// second time it goes back to normal:
+cat.dance('salsa') ////Neow, I'm a Scottish Fold and I like to salsa. 
+// We're not permanently altering or mutating or changing the dance funciton in any way. We're just changing how it's executed for one time.
+
+// Call also works with any individule function:
+function printThis(){
+    console.log('THIS ===>>>', this)
+} 
+printThis() //"this" will be set to the window
+printThis.call(cat) // setting "this" to be the cat object
+// we could even set it to be the console object
+printThis.call(console) // console...
+// could even set it to be a string
+printThis.call("dumb bonu") // String{"dumb bonu"} 
+//notice it's an object, JS actually makes these temporary wrapper objects for primitives 
+//so even though it is a string, JS turns it into an object momentarily  
+
+//Also, we can pass in as many arguments as we want:
+cat.play.call(dog, 'bone', 'my cat' ) // Elton plays with bon
+                                      // Elton plays with my cat
+
+// Done 04 call
