@@ -14,6 +14,7 @@
     this.makeBoard();
     this.makeHtmlBoard();
     this.gameOver = false;
+    // this.self = this;
   }
 
   /** makeBoard: create in-JS board structure:
@@ -45,7 +46,9 @@
     // store a reference to the handleClick bound function 
     // so that we can remove the event listener correctly later
     // If here we don't create a new vacrible to hold this.handleClick.bind(this);,
-    // Later can't remove the event listener simply with "this.handleClick", dk why ??? 
+    // Later can't remove the event listener simply with "this.handleClick", because this inside 
+    // an eventlistener is not referring to Game, but the event object. Or we can create this.self = this
+ 
     this.handleGameClick = this.handleClick.bind(this);
     
     top.addEventListener("click", this.handleGameClick);
