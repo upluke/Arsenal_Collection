@@ -194,5 +194,69 @@ dog.dance('waltz') // Meow, I am Himalayan and I like to waltz
 // the value of "this" is dog, it's to the left of that period, but we've bound the value 
 // of "this" to be rocket.
 
+// Binding Arugments
+// We can also bind arguments to functions. That will bake them into the function, so we don't 
+// need to pass anything in when calling it.
+
+const boundDance=blue.bDance.bind(blue, 'disco') // baked in disco as the argument dance,
+// so everything we call it, we don't pass anything in, we still get disco
+blueDisco() // Meow, I am Himalayan and I like to disco
+
+// Another example, here the value of 'this' is bound to blue, and those two argumetns are automatically passed in
+const playsWithSocks=blue.play.bind(blue, 'left sock', 'right sock')
+playsWithSocks() // Blue plays with left sock    // Blue plays with right sock
+// What happens if I pass in a third arugment to playsWithSocks?
+playsWithSocks('dirty sock') // Blue plays with left sock    // Blue plays with right sock // Blue plays with dirty sock
+// it's just added in at the end.
+// THEREFORE, this funciton playsWIthSocks based off the existing blue.play,
+// has the value of "this" that's always se to blue, and it has two arguments that are 
+// always the first two arguments that are passed in. But our funciton accepts an unlimited number
+// or a variable number of arguments, so we can continue to pass more in.
+
+
+function applySalesTax(taxRate, price) {
+    return price + price * taxRate;
+  }
+
+applySalesTax(0.0725, 19.99) // 21.439275
+// "null" for "this" means it doesn't matter what "this" is, and the value of 'this' will not be bound
+// that's to say if you don't want to bind the value of "this", pass in null, and then afterwards you can 
+// optionally pass in argument(s).
+const applyCATax = applySalesTax.bind(null, 0.0725);
+applyCATax(19.99);  // 21.439275
+const applyTXTax = applySalesTax.bind(null, 0.0625);
+applyTXTax(19.99); // 21.239375
+// SO two functions, we get diffrent output each time, even with the same input, bc we've pre-baked in that first argument.
+
+// Here's the last example where we'll use bind to both set the value of "this" as well as baking in an argument.
+const bobsMembership={
+    name: 'Bob',
+    total:250
+}
+
+function collectMonthlyFee(fee){
+    const remaining=this.total-fee 
+    this.total=remaining
+    return this.name +' remaining balance:' + remaining
+}
+
+const collectBobsFee=collectMonthlyFee.bind(bobsMembership, 5)
+collectBobsFee()// "Bob remaining balance: 245"
+collectBobsFee()// "Bob remaining balance: 240"
+collectBobsFee()// "Bob remaining balance: 235"
+bobsMembership // {name: "Bob", total: 235}
+
+// we can also reuse this method for a diffrent membership or differnt person
+const jillsMembership={
+    name: 'Jill',
+    total: 899
+}
+const collectJillsFee=collectMonthlyFee.bind(jillsMembership, 35)
+collectJillsFee() // "Jill remaining balance: 864"
+collectJillsFee() // "Jill remaining balance: 829"
+collectJillsFee() // "Jill remaining balance: 794"
+jillsMembership //{name: "Jill", total: 794}
+// So two functions now based off of the same template function, but with a diffrent value of "this",
+// pre bound, and an argument baked in.
 
 // Done bind
