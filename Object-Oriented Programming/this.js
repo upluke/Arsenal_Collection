@@ -323,4 +323,107 @@ btnA.addEventListener("click", popUp.bind(null, "BUTTON A SYAS HI"));
 btnB.addEventListener("click", popUp.bind(null, "BUTTON B SYAS HI"));
 btnC.addEventListener("click", popUp.bind(null, "BUTTON C SYAS HI"));
 
-// Done bind
+
+// Arrow Functions and This
+// Arrow functions are really nice convenient shortcut for defining a funciton, but they 
+// behave differently around the keyword "this".
+
+const greeter={
+    msg: 'I like pandaz',
+    sayHi:()=>{
+        alert(this.msg) // window object
+    },
+    sayHi2:function(){
+        alert(this.msg) // greeter obejct
+    }
+}
+
+greeter.sayHi() // undefined
+greeter.sayHi2()// I like pandaz 
+//What happending here is that arrow functions do not make their own "this".
+// When you create an arrow function you don't change the value of "this" like 
+// a regular funciton would. So this non-arrow function [sayHi: funciton(){...}], the value 
+// of "this" is set to the object. But the value of "this " as an arrow funciton is the window object.
+// SO that's the mian reason it's not recommended that you use arrow functions as methods on objects.
+
+
+// Another case senario when you don't want a new value of "this", like when you're passing a callback
+// to set timeout or to other functions which may end up changing the value of "this ", so we can use 
+// arrow function rather than binding explicitly:
+
+const greeter2={
+    msg: 'I like pandaz',
+    sayHi:()=>{
+        alert(this.msg) // window object
+    },
+    waitAndGreet: function(delay){
+        setTimeout( function(){
+            alert('HIIII!!!')
+        }, delay);
+    },
+    waitAndGreet2: function(delay){
+        setTimeout( function(){
+             alert(this.msg)
+        }, delay);
+    }
+}
+
+greeter.waitAndGreet(2000) // 2s later we get 'HIIII!!!'  // no problem!
+// So now What if I want to display "this.msg":
+greeter.waitAndGreet2(2000) // undefined
+// Why is it undefined here? What is the value of "this" inside our setTimeout callback?
+
+// waitAndGreet2: function(delay){
+//     console.log(this);             // greeter object
+//     setTimeout( function(){
+//          console.log(this);        // window object
+//          alert(this.msg)
+//     }, delay);
+// }
+
+// So here's one way we could solve it, we could use bind. We can bind the value of "this" on 
+//  (setTimeout's) callback function:
+
+const greeter3={
+    msg: 'I like pandaz',
+    sayHi:()=>{
+        alert(this.msg) // window object
+    },
+    waitAndGreet: function(delay){
+        let callback=function(){
+            alert(this.msg)     // greeter object
+        }
+        setTimeout( callback.bind(this), delay);
+    }
+}
+
+
+// We could also do it in line:
+const greeter4={
+    msg: 'I like pandaz',
+    sayHi:()=>{
+        alert(this.msg) // window object
+    },
+    waitAndGreet: function(delay){    
+        setTimeout( 
+            function(){  // an anonymous funciton expression 
+                alert(this.msg) // greeter object
+            }.bind(this),
+            delay);
+    }
+}
+
+// Thanks to arrow functions, we have an even easier way,
+// we don't have to wrry about binding 
+const greeter5={
+    msg: 'I like pandaz',
+    sayHi:()=>{
+        alert(this.msg) // window object
+    },
+    waitAndGreet: function(delay){
+        setTimeout(()=>{ 
+                alert(this.msg) // greeter object
+            }, delay);
+    }
+}
+ 
