@@ -259,4 +259,68 @@ jillsMembership //{name: "Jill", total: 794}
 // So two functions now based off of the same template function, but with a diffrent value of "this",
 // pre bound, and an argument baked in.
 
+
+// Callback on Methods
+
+const blue2  ={
+    name: 'Blue',
+    breed: 'Scottish Fold',
+    dance:function(dance){
+        console.log('This is : ', this)
+        console.log(`Meow, I am ${this.name} and I like to ${dance}`) // here "this" will refer to the cat object
+    },
+    play: function(...toys){
+        for (let toy of toys){
+            console.log(`${this.name} plays with ${toy}`)
+        }
+    },
+    greet(){
+        alert(`${this.name} SAYS MEOW`)
+    }
+}
+// One common scenario is when you're passing an object method as a callback:
+document.querySelector('#btn-1').addEventListener('click', blue.greet) // SYAS MEOW
+// so we can use bind to fix it
+document.querySelector('#btn-1').addEventListener('click', blue.greet.bind(blue)) // Blue SAYS MEOW
+
+
+// Pre-binding Calls
+const btnA=document.querySelector('#a')
+const btnB=document.querySelector('#b')
+const btnC=document.querySelector('#c')
+
+function popUp(msg) {
+    alert("Secret message is " + msg);
+  }
+
+// ver 1:
+// btnA.addEventListener('click', function(){
+//     popUp('BUTTON A SYAS HI!')
+// })
+// btnB.addEventListener('click', function(){
+//     popUp('BUTTON B SYAS HI!')
+// })
+// btnC.addEventListener('click', function(){
+//     popUp('BUTTON C SYAS HI!')
+// })
+
+// ver 2:
+// function handleClick(evt) {
+//     let id = evt.target.id;
+  
+//     if (id === "a") popUp("Apple");
+//     else if (id === "b") popUp("Berry");
+//     else if (id === "c") popUp("Cherry");
+//   }
+
+
+// Rather than having to add sepparate callback functions, to pass in diffrent arguments (ver1),
+// or (ver2) where we're checking within our handle click to see which button was clicked based off of
+// the ID, we can use bind to bake in an argument :
+
+// ver 3:
+btnA.addEventListener("click", popUp.bind(null, "BUTTON A SYAS HI"));
+btnB.addEventListener("click", popUp.bind(null, "BUTTON B SYAS HI"));
+btnC.addEventListener("click", popUp.bind(null, "BUTTON C SYAS HI"));
+
 // Done bind
