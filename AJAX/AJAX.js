@@ -82,8 +82,8 @@ firstReq.addEventListener('load', function(){ // add an eventListener with the e
     for (let planet of data.results){
         console.log(planet.name)
     }
-    // if the API has a nested endpoint, then code will look very bulky
-    // here the second request depends on the first request, bc we need that URL('next' in this case)
+    // if the another URL we want is located inside of response, then code will look very bulky
+    // here the second nested request depends on the first request, bc we need that URL('next' in this case)
     // from the 1st request:
     
     // const nextUrl=data.next;
@@ -144,12 +144,18 @@ console.log(response); // "Promise {<pending>}"
 // are a pair of keyswords. We use async to declare a function, as an asynchronous function.
 async function getData(){
     const response = await axios.get("https://swapi.py4e.com/api/planets/"); // axios parses it from Jason to a JS object for us automatically.
-    for (let planet of response.data.results){
+    const {next, results} =response.data
+    for (let planet of results){
         console.log(planet.name)
     } 
     console.log("THIS LINE IS AFTER AXIOS.GET") // without async/await this line runs first, but with them
     // this console.log won't happen unitl after we have a response
     // and response is not that promise but an actual value that we get back from the api.
+    const response2=await axios.get(next)
+    const results2=response2.data.results
+    for (let planet of results){
+        console.log(planet.name)
+    }  
 }
 getData()
 // if we print something after getData(), it runs and prints out first, before the reqeust is done.
