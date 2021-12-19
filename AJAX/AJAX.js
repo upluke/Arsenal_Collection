@@ -139,3 +139,20 @@ console.log(response); // "Promise {<pending>}"
 // the key here in order to using Axios at this point. We need to talk about two keys, async and await.
 // These two keywords will allow us to make the request and wait for data to come back rather than having a 
 // variable (in this case) that's holding a promise for a future value. We'll actually have the value itself.
+
+// Async wand await
+// are a pair of keyswords. We use async to declare a function, as an asynchronous function.
+async function getData(){
+    const response = await axios.get("https://swapi.py4e.com/api/planets/"); // axios parses it from Jason to a JS object for us automatically.
+    for (let planet of response.data.results){
+        console.log(planet.name)
+    } 
+    console.log("THIS LINE IS AFTER AXIOS.GET") // without async/await this line runs first, but with them
+    // this console.log won't happen unitl after we have a response
+    // and response is not that promise but an actual value that we get back from the api.
+}
+getData()
+// if we print something after getData(), it runs and prints out first, before the reqeust is done.
+// So using the async and await keywords don't halt execution of all of your JS code in any way.
+// It simply makes that funciton behave as if it was synchronous code.
+console.log("this will print before getData()")
