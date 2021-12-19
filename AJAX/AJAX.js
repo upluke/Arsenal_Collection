@@ -64,3 +64,78 @@
 // conent is not going to be there in the HTML. So, it can be hard to make a good index of your websight for 
 // search engines to fully understand what actual content is on the page. But these days Google will wait for 
 // JS to run, for information to come back, so it's not a huge issue, but it's somehting to be aware of.
+
+// AJAX with Axios
+// You don’t have to use Axios for this
+// There is an old, clunky built-in tool: (XMLHttpRequest)
+const firstReq=new XMLHttpRequest(); // make a new XMLHttpRequest object.
+
+// requests take time. So JS is going to handle that request off, 
+// Whether we do it with XMLHttpRequest, or some of the other options. Behind the scenes,
+// JS still relies on the browser to make the request and then the request will be hopefully 
+// successful. So when we use XMLHttpRequest, we use callbacks for the same reason that 
+// we use callbacks for setTimeout or setInterval. The browser runs some code it takes time,
+// when it's finished JS then runs a callback. So this is another example of a synchronous JS.
+firstReq.addEventListener('load', function(){ // add an eventListener with the event name of
+    // 'load', and give it a callback, this callback will run if our request comes back successful
+    const data=JSON.parse(this.responseText) // so if things work out this code runs
+    for (let planet of data.results){
+        console.log(planet.name)
+    }
+    // if the API has a nested endpoint, then code will look very bulky
+    // here the second request depends on the first request, bc we need that URL('next' in this case)
+    // from the 1st request:
+    
+    // const nextUrl=data.next;
+    // const secondReq=new XMLHttpRequest()
+    // secondReq.addEventListener('load', function(){
+    //     console.log("SUCCESS!")
+    //     const data=JSON.parse(this.responseText) 
+    //     for (let planet of data.results){
+    //         console.log(planet.name)
+    //     }
+    // })
+    // secondReq.addEventListener('error', ()=>{    
+    //     console.log('ERROR!!!!!')
+    // })
+    // secondReq.open('GET', nextUrl)
+    // secondReq.send()
+    // console.log("JUST SENT 2ND REQUEST...")
+})
+firstReq.addEventListener('error', ()=>{ // if there's an error, we add another eventLisener,
+    // and then a callback to run in this case. So still at this point no request has actually been sent
+    console.log('ERROR!!!!!')
+})
+firstReq.open('GET', 'https://swapi.py4e.com/api/planets/') // api is not good anymore
+firstReq.send()
+console.log('SENDING REQUEST....') // this line of code will happen before all the ahove
+
+// Or a newer-but-still-clunky built-in tool: (fetch)
+// Or lots of other libraries (including jQuery)
+// … but we’ll use axios for now! It’s featureful & popular
+const response = axios.get("https://swapi.py4e.com/api/planets/");
+console.log(response); // "Promise {<pending>}"
+// What’s A Promise???
+// We’ll talk about it in more detail when we get to Node.
+// For now, all you need to know is that a promise is like a placeholder for a future value.
+// We want to wait for the promise to have that value before proceeding.
+// But we don’t know when the promise will receive its value!
+// And the reason we do that is bc in JS, JS doesn't want to wait, JS doesn't wanna hold
+// everything up for 30s if that's how long your interal or your setTimeout is. So instead it
+// hands it over to the browser, the web api, which will then keep track of the time and at the
+// correct interval, it then taps JS on the shoulder and says, "hey, here's this callback I need you to run."
+// Same with with reqeusts, JS itself is not making the reqeust, it's handing the reqeust over. It's
+// saying to the browser, "Hey, browser, can you make this reqeust for me? I don't want to hold everything up,
+// I've got some other code to run. You just let me know when this request either comes back with some
+// value or maybe theire's an eeor, just let me know when you're done with it." So the browser, the web api
+// is in charge of actually sending that reqeust. There's no stoppage or nothing is held up 
+// in our code, bc the browser is taking care of it. So that's what we've used callbacks for in the past.
+// Promises are another approach to this same problem, to writing asynchronous code or we don't have to 
+// just nest a bunch of callbacks one inside the other. The problem here is that we want to wait 
+// until that promis has a value. At the moment, the request is finished but we have no way of accessing
+// that value bc axios.get does not return the value itself bc axios.get does not return the value itself.
+// Axios.get just quickly returned immediately returns a promise. And this promise is just a future value.
+// There's a way though where we can wait, we can say I want to wait until we have a value back. That's
+// the key here in order to using Axios at this point. We need to talk about two keys, async and await.
+// These two keywords will allow us to make the request and wait for data to come back rather than having a 
+// variable (in this case) that's holding a promise for a future value. We'll actually have the value itself.
