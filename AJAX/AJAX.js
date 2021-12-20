@@ -270,3 +270,77 @@ createUser()
 // email: "123@gmail.com"
 // id: "596"
 // username: "Tim"
+
+
+// Next up, a slightly more realistic example of a POST request or a couple POST.
+// So rather tahn using the placeholder dummy api above, we're going to use a more 
+// real api. It's still an API we created for this course. So it's not entirely real-world
+// but it works exactly the same as a real-world api. We have some basic authentication, where
+// there are certain routes that you're not able to access, unless you have aauthentication token.
+// We'll cover how you can find that and how you get a token, how you can register a user, or log in 
+// a user by sending post requests. 
+// Please Note: If you are coding along to this exercise, be sure to use the URL: https://hackorsnoozev3.docs.apiary.io/#introduction/authentication 
+//There is a similar URL hosted on apiary which will not work for this exercise. You must use Version 3.
+
+async function getUsers2(){
+    const res=await axios.get('https://hack-or-snooze-v3.herokuapp.com/users')
+    console.log(res)
+}
+
+// getUsers3()
+
+
+
+// sign up format to follow:
+// signup url: https://hack-or-snooze-v3.herokuapp.com/signup
+// signup format:{
+//     "user": {
+// .       "name": "Test User",
+//         "username": "test",
+//         "password": "password"
+//     }
+// }
+
+async function signUp(name,username, password){
+    const res=await axios.post('https://hack-or-snooze-v3.herokuapp.com/signup', {user:{name,username, password}})
+    console.log(res)
+}
+
+
+// signUp('bonuUsername','dumbonu', 'dumbonu123') // signUp only needs to be called one time, since this username and this password have already been registerd. So 
+// we get an error 409 when we call this funciton again.
+// data:
+// token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImR1bWJvbnUiLCJpYXQiOjE2Mzk5ODU1MjB9.013FEGLsR_vKd0qW-AfGapas81Z4D7QeGOAJF_I0AKk"
+// user:
+// createdAt: "2021-12-20T07:32:00.206Z"
+// favorites: []
+// name: "bonuUsername"
+// stories: []
+// updatedAt: "2021-12-20T07:32:00.206Z"
+// username: "dumbonu"
+
+
+// We can also log in
+// login url: https://hack-or-snooze-v3.herokuapp.com/login
+// login format:
+// {
+//     "user": {
+//         "username": "test",
+//         "password": "password"
+//     }
+// }
+async function login(username, password){
+    const res=await axios.post('https://hack-or-snooze-v3.herokuapp.com/login', {user:{username, password}})
+    console.log(res)
+    return res.data.token
+} 
+login('dumbonu', 'dumbonu123')
+// data:
+// token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImR1bWJvbnUiLCJpYXQiOjE2Mzk5ODU2MDd9.6AwtIlmSQ0u2kDzLrKkFdrPcgc22f4aZEO79X2K8tBg"
+// user:
+// createdAt: "2021-12-20T07:32:00.206Z"
+// favorites: []
+// name: "bonuUsername"
+// stories: []
+// updatedAt: "2021-12-20T07:32:00.206Z"
+// username: "dumbonu"
