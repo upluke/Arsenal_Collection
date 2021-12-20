@@ -244,3 +244,29 @@ async function getJoke(firstName, lastName){
 }
 
 getJoke("buter", "steel")
+
+//Axios_.post
+//Similar to axios.get, but uses a POST request
+// To send data along with a post request, we can send an object 
+// as the second argument to axios.post
+// axios.post(url, [data,] [config])
+// axios.post(url, {a: 1, b: 2})
+//This is passed as JSON to the server
+
+async function getUsers(){
+    const res=await axios.get('https://reqres.in/api/users') // this api supports all different verbs, http verbs, different end points, including post requests
+    console.log(res, "*****")
+}
+getUsers()
+
+async function createUser(){
+    const res=await axios.post('https://reqres.in/api/users',{username: 'Tim', email:"123@gmail.com", age:25})
+    console.log(res)
+}
+createUser()
+// data:
+// age: 25
+// createdAt: "2021-12-20T04:49:27.394Z"
+// email: "123@gmail.com"
+// id: "596"
+// username: "Tim"
