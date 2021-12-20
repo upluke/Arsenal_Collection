@@ -162,3 +162,30 @@ getData()
 // So using the async and await keywords don't halt execution of all of your JS code in any way.
 // It simply makes that funciton behave as if it was synchronous code.
 console.log("this will print before getData()")
+
+
+
+// More practice using Axios and async await syntax
+async function getLaunches(){
+    const res=await axios.get('https://api.spacexdata.com/v3/launches/upcoming')
+    renderLaunches(res.data)
+}
+
+function renderLaunches(launches){
+    const ul=document.querySelector("#launches")
+    for (let launch of launches){
+        ul.append(makeLaunchLI(launch))
+    }
+}
+
+function makeLaunchLI(launch){
+    const newLI=document.createElement('LI')
+    const mission=document.createComment('B')
+    mission.innerText=launch.mission_name
+    newLI.append(mission)
+    newLI.innerHTML+=` - ${launch.rocket.rocket_name}`
+    return newLI
+}
+
+const btn=document.querySelector('#getLaunches')
+btn.addEventListener('click', getLaunches)
