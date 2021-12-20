@@ -164,7 +164,10 @@ getData()
 console.log("this will print before getData()")
 
 
-
+// Callbacks are what we’ve used for event handlers and timers
+// But they’re tricky to nest or do other complex things
+// async/await makes it easier to handle chains of requests
+// Modern libraries like Axios return “promises”, which you await
 // More practice using Axios and async await syntax
 async function getLaunches(){
     const res=await axios.get('https://api.spacexdata.com/v3/launches/upcoming')
@@ -189,3 +192,55 @@ function makeLaunchLI(launch){
 
 const btn=document.querySelector('#getLaunches')
 btn.addEventListener('click', getLaunches)
+
+
+// We can wrap our code when we are making a request in a try and any errors results
+// from that request or from the response that we get back will be caught in the correesponding 
+// catch block and we can handle them and do whatever we need 
+
+async function getRandomDog(){
+    const res=await axios.get('https://dog.ceo/api/breeds/image/random')
+    const img=document.querySelector("#dog")
+    img.src=res.data.message
+}
+
+
+async function getDogByBreed(breed){
+    try{
+        const url=`https://dog.ceo/api/breed/${breed}/images/random`
+        const res=await axios.get(url)
+        const img =document.querySelector("#dog")
+        img.src=res.data.message
+    }catch(e){
+        alert("BREED NOT FOUND!")
+        getRandomDog()
+    }
+}
+
+const form = document.querySelector('#searchform')
+const input =document.querySelector('#search')
+form.addEventListener("submit", function(e){
+    e.preventDefault()
+    // get a random dog instead if we can't find the breed that we looked for
+    getDogByBreed(input.value)
+    input.value=''
+})
+
+
+// Axios_get_params: axios.get(url, [config])
+// config is an optional object many Axios methods use. 
+// It hold specific configuration for what you need.
+// To make request for /resource?a=1&b=2, can either use:
+// axios.get("/resource?a=1&b=2")
+// or
+// axios.get("/resource", {params: {a: 1, b: 2}})
+// Second form is better: you don’t have to worry about how to “url safe quote” 
+//characters that aren’t normally legal in URLs.
+
+async function getJoke(firstName, lastName){
+    // let res= await axios.get(`http://api.icndb.com/jokes/random?firstName=${firstName}&lastName=${lastName}`)
+    let res= await axios.get(`http://api.icndb.com/jokes/random`,{params:{firstName, lastName}}) 
+    console.log(res, "####")
+}
+
+getJoke("buter", "steel")
