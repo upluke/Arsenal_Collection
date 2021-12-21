@@ -140,7 +140,7 @@ console.log(response); // "Promise {<pending>}"
 // These two keywords will allow us to make the request and wait for data to come back rather than having a 
 // variable (in this case) that's holding a promise for a future value. We'll actually have the value itself.
 
-// Async wand await
+// Async and await
 // are a pair of keyswords. We use async to declare a function, as an asynchronous function.
 async function getData(){
     const response = await axios.get("https://swapi.py4e.com/api/planets/"); // axios parses it from Jason to a JS object for us automatically.
@@ -282,12 +282,6 @@ createUser()
 // Please Note: If you are coding along to this exercise, be sure to use the URL: https://hackorsnoozev3.docs.apiary.io/#introduction/authentication 
 //There is a similar URL hosted on apiary which will not work for this exercise. You must use Version 3.
 
-async function getUsers2(){
-    const res=await axios.get('https://hack-or-snooze-v3.herokuapp.com/users')
-    console.log(res)
-}
-
-// getUsers3()
 
 
 
@@ -334,7 +328,7 @@ async function login(username, password){
     console.log(res)
     return res.data.token
 } 
-login('dumbonu', 'dumbonu123')
+
 // data:
 // token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImR1bWJvbnUiLCJpYXQiOjE2Mzk5ODU2MDd9.6AwtIlmSQ0u2kDzLrKkFdrPcgc22f4aZEO79X2K8tBg"
 // user:
@@ -344,3 +338,75 @@ login('dumbonu', 'dumbonu123')
 // stories: []
 // updatedAt: "2021-12-20T07:32:00.206Z"
 // username: "dumbonu"
+
+async function getUsersWithAuth(){
+  const token=  await login('dumbonu', 'dumbonu123')
+  getUsers2(token)
+}
+
+getUsersWithAuth()
+
+// Many of the endpoints require a token to be accessed.
+// The token can be placed either:in the query string (for GET requests, e.g. /users/test?token=eyfasf...)
+// or
+// in the request body (for POST and PATCH requests, e.g. "token": "eyfasf")
+async function getUsers2(token){
+    const res=await axios.get('https://hack-or-snooze-v3.herokuapp.com/users',{params:{token}})
+    console.log(res, "getUsers2 ^^^^^^^^^")
+}
+ 
+
+// Create a new story
+// Token Required. The fields username, title, author, and url are required.
+// format that we need to follow:
+// {
+//     "token": "YOUR_TOKEN_HERE",
+//     "story": {
+//         "author": "Matt Lane",
+//         "title": "The best story ever",
+//         "url": "http://google.com"
+//     }
+// }
+
+async function createStory(){
+    const token=await login('dumbonu', 'dumbonu123')
+    const newStory={
+        token,
+        story:{
+            author:'Dumbo',
+            title:'Look at the bright sides as always',
+            url: 'http://dummyurl.com'
+        }
+    }
+    const res=await axios.post('https://hack-or-snooze-v3.herokuapp.com/stories',newStory )
+    console.log(res, "create story %%%%%%%%%%%%")
+}
+
+createStory()
+// data:
+// story:
+// author: "Dumbo"
+// createdAt: "2021-12-21T00:16:02.247Z"
+// storyId: "fa0927c0-346a-4e33-962f-4e2355cb8436"
+// title: "Look at the bright sides as always"
+// updatedAt: "2021-12-21T00:16:02.247Z"
+// url: "http://dummyurl.com"
+// username: "dumbonu"
+ 
+// Now, you look at the response form logins, look at the data for the user, 
+// it now has a story in there:
+// data:
+// token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImR1bWJvbnUiLCJpYXQiOjE2NDAwNDU5Njh9.BwON96VeJyDJUlq-Mia9ognVkqlMFyQoL65CykejmEA"
+// user:
+// createdAt: "2021-12-20T07:32:00.206Z"
+// favorites: []
+// name: "bonuUsername"
+// stories: Array(1)
+// 0: {author: 'Dumbo', createdAt: '2021-12-21T00:16:02.247Z', storyId: 'fa0927c0-346a-4e33-962f-4e2355cb8436', title: 'Look at the bright sides as always', updatedAt: '2021-12-21T00:16:02.247Z', …}
+// length: 1
+// [[Prototype]]: Array(0)
+// updatedAt: "2021-12-21T00:16:02.249Z"
+// username: "dumbonu"
+
+// Note: You will get a duplicate story each time you run it, they actaully are the same content 
+// but with different ids.
