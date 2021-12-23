@@ -66,7 +66,22 @@ $('input').val('Dombbo') // all of inputs set to Dombbo
 //.eq() takes an index that will give us an element. It helps narrow down your selection to a particular element based off of an index starting at zero.
 $('input').eq(0) //k.fn.init [input, prevObject: k.fn.init(4)]
 
-
+// A few classes that ahve to do with classes and CSS adding styles:
+// .css()
+// We can retrieve a value 
+$('a').css('color') //'rgb(0, 0, 238)' // this color is a default style
+$('a').css('font-size') //'16px'
+$('a').css('font-size', '30px') // set all font size to 30px
+// Set multiple properties at once by passing in an object
+const bigTealStyles={color: 'teal', 'font-size': '40px'} // or use camel case fontSize
+$('a').css(bigTealStyles)
+// apply a defined css class
+$('h1').addClass('highlight')  
+$('l1').addClass('highlight')
+// remove 
+$('l1').removeClass('highlight')
+// toggle
+$('l1').toggleClass('highlight')
 
 
 // $('img').click(function () {
