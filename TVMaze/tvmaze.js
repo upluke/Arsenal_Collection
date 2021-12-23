@@ -21,17 +21,16 @@ async function searchShows(query) {
   // TODO: Make an ajax request to the searchShows api.  Remove
   // hard coded data.
   const showData=await axios.get(`https://api.tvmaze.com/search/shows?q=${query}`)
- 
+  console.log(showData.data)
   // const {id,name,summary,image}=showData.data
   // console.log(id, name, summary,image)
   const res=[]
   for (let sd of showData.data){
-    console.log(sd.show.id, "****")
     const tempObj={}
     tempObj["id"]=sd.show.id
     tempObj["name"]=sd.show.name
     tempObj["summary"]=sd.show.summary
-    tempObj["image"]=sd.show.image
+    tempObj["image"]=sd.show.image.medium
     res.push(tempObj)
   }
   console.log(res)
@@ -63,6 +62,7 @@ function populateShows(shows) {
            <div class="card-body">
              <h5 class="card-title">${show.name}</h5>
              <p class="card-text">${show.summary}</p>
+             <img src="${show.image}"" alt="Stickman" >
            </div>
          </div>
        </div>
