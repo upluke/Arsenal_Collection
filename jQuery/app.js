@@ -150,7 +150,7 @@ $('h1').remove()
 // Events and Delegation with jQuery
 // jQuery events
 $('img').click(function () {
-  alert('HELLO!')
+  // alert('HELLO!')
 })
 // jQuery’s on() works similarly to addEventListener. It lets you specify the type of event to listen for.
 
@@ -164,17 +164,7 @@ $('img').on('mouseleave', function(){
   console.log(this.src) // here "this" refers to the particular elelemts that was clicked on  
 })
 
-$('img').on('click', function () {
-  // $(this).fadeOut(3000, function () {
-  //   $(this).remove()
-  // })
-  $(this).animate({
-    opacity: 0,
-    width: '50px', //DO NOT ANIMATE WIDTH (POOR PERFORMANCE)
-  }, 3000, function () {
-    $(this).remove();
-  })
-})
+
 // Why Use on()?
 // In most cases, click() and on(“click”) will both get the job done. HOWEVER, there is one key difference:
 
@@ -208,14 +198,12 @@ $('form').on('focus', 'input', function () { // filter events and only run the c
   $(this).val('BAMBOOZLED')
 })
 
-
 // Event Delegation: Vanilla JS vs. jQuery
 // Vanilla JS:
 // deletes a meme when it is clicked
 // even if it doesn't exist on page load
 
-document.getElementById("meme-container")
-  .addEventListener("click", function(evt) {
+document.getElementById("meme-container").addEventListener("click", function(evt) {
     let target = evt.target;
 
     // checking for "meme" class on target
@@ -237,3 +225,24 @@ $("#meme-container") //listen for clicks on meme container
   .on("click", ".meme", function(evt) { // if the event.target jas tje class name of "meme", run the callback
     deleteMeme(evt.target);
   });
+
+
+
+
+
+// Animations
+
+$('img').on('click', function () {
+    // $(this).fadeOut(3000, function () {
+    //   $(this).remove()
+    // })
+
+    // animate allows you to pass in a list or an object of properties that you want to animate:
+    $(this).animate({
+      opacity: 0,
+      width: '50px', //DO NOT ANIMATE WIDTH (POOR PERFORMANCE)
+    }, 3000, function () {
+      // when the animate is complete
+      $(this).remove();
+    })
+  })
