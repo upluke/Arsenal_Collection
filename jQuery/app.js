@@ -106,14 +106,62 @@ $('l1').toggleClass('highlight')
 $('h1').css('background-color', 'blue').addClass('highlight').text('CHAINING IS FUN!')
 
 
-// done 05
 
-// $('img').click(function () {
-//   alert('HELLO!')
-// })
+// Traversal
+
+// select the fourth li and save it to a variable
+const $fourthLi =$('li').eq(3)
+$fourthLi.next() // retrieve the next sibling on the same level 
+$fourthLi.prev() // select the previous sibling
+// You can also use next() and prev() not just on a single element but on a collection
+$('li') // We selected all the lis that gives us 7
+//k.fn.init(7) [li.toclevel-1.tocsection-1, li.toclevel-1.tocsection-2, li.toclevel-1.tocsection-3, li.toclevel-1.tocsection-4, li.toclevel-1.tocsection-5, li.toclevel-1.tocsection-6, li.toclevel-1.tocsection-7, prevObject: k.fn.init(1)]
+$('li').next() // then we do .next(), then we only have 6 elements bc the last li doesn't have a sibling, so the very first element we get back is that second li  
+// k.fn.init(6) [li.toclevel-1.tocsection-2, li.toclevel-1.tocsection-3, li.toclevel-1.tocsection-4, li.toclevel-1.tocsection-5, li.toclevel-1.tocsection-6, li.toclevel-1.tocsection-7, prevObject: k.fn.init(7)]
+// Get direct parent
+$fourthLi.parent() //k.fn.init [ul, prevObject: k.fn.init(1)]
+$('ul').children() //k.fn.init(7) [li.toclevel-1.tocsection-1, li.toclevel-1.tocsection-2, li.toclevel-1.tocsection-3, li.toclevel-1.tocsection-4, li.toclevel-1.tocsection-5, li.toclevel-1.tocsection-6, li.toclevel-1.tocsection-7, prevObject: k.fn.init(1)] 
+$('ul').find('a') //k.fn.init(7) [a, a, a, a, a, a, a, prevObject: k.fn.init(1)]
+ 
+
+// Creating elements
+// Instead of using document.createElement("li") we can simply create an element using $("<li>")
+
+// $("<li>") Create a new li
+// $("li") Select existing `li`s
+
+// You could even add a class
+$('ul').append('<li class="highlight">I AM NEW!!!</li>')
+// select all lis and append/prepend checkbox
+$('li').append('<input type="checkbox" />')
+$('li').prepend('<input type="checkbox" />')
+
+// If we have more complext things or if we want to add certian styles, change atttributes,
+// add an event listner, it would be annoying to work with a string exclusively, so we 
+// have another option:
+$('<h1>') // creats a new h1, it's NOT searching
+// or we can add some test in and chain  some CSS :
+$('<h1>HELLO</h1>').css('color', 'yellow').appendTo('p')
+// After each li we insert a bold tag
+$('li').after('<bold>HI</bold>') // .before is the opposite
+// remove element
+$('h1').remove()
+
+// Events and Delegation with jQuery
+// jQuery events
+$('img').click(function () {
+  alert('HELLO!')
+})
+// jQuery’s on() works similarly to addEventListener. It lets you specify the type of event to listen for.
 
 $('img').on('mouseenter', function () {
+  //this.css('border', '10px solid purple') // doesn't work, bc "this" refers to a regular old JS DOM object, it's not a jQuery object.
+  // To turn that into a jQuery object, this is what we do:
   $(this).css('border', '10px solid purple')
+})
+
+$('img').on('mouseleave', function(){
+  console.log(this.src) // here "this" refers to the particular elelemts that was clicked on  
 })
 
 $('img').on('click', function () {
@@ -127,11 +175,65 @@ $('img').on('click', function () {
     $(this).remove();
   })
 })
+// Why Use on()?
+// In most cases, click() and on(“click”) will both get the job done. HOWEVER, there is one key difference:
+
+// .click(callback) is a shorthand for .on(“click”, callback)
+// on() accepts optional argument between type of event and callback
+// This flexibility allows us to leverage event delegation.
+
 
 $('#add-input').on('click', function () {
   $('form').append('<input type="text"/>');
 })
 
-$('form').on('focus', 'input', function () {
+// Event Delegation
+// Event delegation allows us to attach an event listener to a parent element, but only invoke the callback if the event target matches a certain selector
+// This will work even if elements matching the selector don’t exist yet!
+// When we click the button, we should append to the form a new input type equals text 
+// For example, let's say we want to add a focus event, when we focus on any 
+// input on the page, we want to change its value: 
+//$('input').on('focus', function () {
+//   $(this).val('BAMBOOZLED')
+// })
+// And it doesn't work on those newly added inputs after hitting add input button.
+// Bc those inputs are not there on the page when this code runs. This code is going to add a focus event listener to
+// every input that it can find, but when the page loads, there's only four of them, so if we hit add button,
+// there's a fifthn, jQuery didn't know about it the event listeners aren't set up it's not added to this element,
+// bc the element didn't exist.
+
+// So our workaround is to use event delegation where we add an event listener to a parent,
+// and then within that event callback, we check what was the target of this event:
+$('form').on('focus', 'input', function () { // filter events and only run the callback by specifying the jQuery a second argument -- selector:
   $(this).val('BAMBOOZLED')
 })
+
+
+// Event Delegation: Vanilla JS vs. jQuery
+// Vanilla JS:
+// deletes a meme when it is clicked
+// even if it doesn't exist on page load
+
+document.getElementById("meme-container")
+  .addEventListener("click", function(evt) {
+    let target = evt.target;
+
+    // checking for "meme" class on target
+    // this logic would need to change a bit
+    // if we were searching by something
+    // else (eg tag name)
+
+    if (target.classList.contains("meme")) {
+      deleteMeme(target);
+    }
+  });
+
+
+// jQuery:
+// deletes a meme when it is clicked
+// even if it doesn't exist on page load
+
+$("#meme-container") //listen for clicks on meme container
+  .on("click", ".meme", function(evt) { // if the event.target jas tje class name of "meme", run the callback
+    deleteMeme(evt.target);
+  });
