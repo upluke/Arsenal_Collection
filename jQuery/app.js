@@ -72,6 +72,8 @@ $('input').eq(0) //k.fn.init [input, prevObject: k.fn.init(4)]
 $('a').css('color') //'rgb(0, 0, 238)' // this color is a default style
 $('a').css('font-size') //'16px'
 $('a').css('font-size', '30px') // set all font size to 30px
+const $h1=$('h1')// save it to a variable
+$h1.css('background-color', 'teal')
 // Set multiple properties at once by passing in an object
 const bigTealStyles={color: 'teal', 'font-size': '40px'} // or use camel case fontSize
 $('a').css(bigTealStyles)
@@ -83,6 +85,28 @@ $('l1').removeClass('highlight')
 // toggle
 $('l1').toggleClass('highlight')
 
+// Chaining with jQuery
+// Almost all jQuery methods return a jQuery object, which allows for method chaining.
+// Instead of performing DOM operations line-by-line, we can chain method calls together on a single jQuery object.
+// Instead of:
+
+// let todoContainer = document.querySelector("#todo-container");
+// todoContainer.style.color = "red";
+// todoContainer.innerText = "look at this!";
+// todoContainer.addEventListener(
+//     "click", function(evt) { console.log("clicked!") });
+
+//We can have
+
+// $("#todo-container")
+//     .css("color", "red")
+//     .text("look at this!")
+//     .on("click", function(evt) { console.log("clicked!") });
+
+$('h1').css('background-color', 'blue').addClass('highlight').text('CHAINING IS FUN!')
+
+
+// done 05
 
 // $('img').click(function () {
 //   alert('HELLO!')
