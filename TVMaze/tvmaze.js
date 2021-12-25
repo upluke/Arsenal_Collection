@@ -83,7 +83,7 @@ function populateShows(shows) {
 
 $("#search-form").on("submit", async function handleSearch (evt) {
   evt.preventDefault();
-
+ 
   let query = $("#search-query").val();
   if (!query) return;
 
@@ -108,5 +108,17 @@ async function getEpisodes(id) {
   console.log(episodes, "------------")
   // TODO: return array-of-episode-info, as described in docstring above
 }
+ 
+  // use document to select dynamically created html elements by jQuery
+  $(document).on('click', '#episodes-btn', function(){
 
+    let $episodesArea=  $("#episodes-area")
+    if($episodesArea.css("display")==="none"){
+      $episodesArea.show()
+    }else{
+      $episodesArea.hide() 
+    }
+  
+  })
+ 
  
