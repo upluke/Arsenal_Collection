@@ -58,13 +58,13 @@ function populateShows(shows) {
   for (let show of shows) {
     let $item = $(
       `<div class="col-md-6 col-lg-3 Show" data-show-id="${show.id}">
-         <div class="card" data-show-id="${show.id}">
+         <div class="card" id="data-show-id" data-show-id="${show.id}">
            <div class="card-body">
              <h5 class="card-title">${show.name}</h5>
              <p class="card-text">${show.summary}</p>
              <img class="card-img-top"  src=${show.image}?"${show.image}":"https://store-images.s-microsoft.com/image/apps.65316.13510798887490672.6e1ebb25-96c8-4504-b714-1f7cbca3c5ad.f9514a23-1eb8-4916-a18e-99b1a9817d15?mode=scale&q=90&h=300&w=300" alt="${show.name}" >
             
-             <button class="btn btn-success mt-3 mx-auto d-block" id="episodes-btn">Episodes</button>
+             <button class="btn btn-success mt-3 mx-auto d-block" data-show-id=${show.id} id="episodes-btn">Episodes</button>
            </div>
          </div>
        </div>
@@ -92,7 +92,7 @@ $("#search-form").on("submit", async function handleSearch (evt) {
   let shows = await searchShows(query);
 
   populateShows(shows);
-  
+
 });
 
 
@@ -110,15 +110,21 @@ async function getEpisodes(id) {
 }
  
   // use document to select dynamically created html elements by jQuery
-  $(document).on('click', '#episodes-btn', function(){
+  // $(document).on('click', '#episodes-btn', function(){
 
-    let $episodesArea=  $("#episodes-area")
-    if($episodesArea.css("display")==="none"){
-      $episodesArea.show()
-    }else{
-      $episodesArea.hide() 
-    }
-  
-  })
+  //   let $episodesArea=  $("#episodes-area")
+  //   // toggle episodes area
+  //   if($episodesArea.css("display")==="none"){
+  //     $episodesArea.show()
+  //   }else{
+  //     $episodesArea.hide() 
+  //   }
+
+   
+
+  // })
  
- 
+$('#shows-list').on("click", "#episodes-btn", function(evt){
+  console.log("event: ",  evt.currentTarget.dataset.showId)
+   
+})
