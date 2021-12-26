@@ -21,12 +21,19 @@ async function searchShows(query) {
   // TODO: Make an ajax request to the searchShows api.  Remove
   // hard coded data.
   const showData=await axios.get(`https://api.tvmaze.com/search/shows?q=${query}`)
-  
+ 
   const res=[]
   for (let sd of showData.data){
-    const {id,name,summary,image:{medium}}=sd.show
-    res.push({id, name, summary, medium})
+    if(sd.show.image===null){
+      const medium='https://store-images.s-microsoft.com/image/apps.65316.13510798887490672.6e1ebb25-96c8-4504-b714-1f7cbca3c5ad.f9514a23-1eb8-4916-a18e-99b1a9817d15?mode=scale&q=90&h=300&w=300'
+      const {id,name,summary}=sd.show
+      res.push({id, name, summary, medium})
+    }else{
+      const {id,name,summary,image:{medium}}=sd.show 
+      res.push({id, name, summary, medium})
+    }
   }
+  
   return res
   // return [
   //   {
@@ -47,6 +54,7 @@ async function searchShows(query) {
 function populateShows(shows) {
   const $showsList = $("#shows-list");
   $showsList.empty();
+  
   for (let show of shows) {
     let $item = $(
       `<div class="col-md-6 col-lg-3 Show" data-show-id="${show.id}">
@@ -54,7 +62,7 @@ function populateShows(shows) {
            <div class="card-body">
              <h5 class="card-title">${show.name}</h5>
              <p class="card-text">${show.summary}</p>
-             <img class="card-img-top"  src="${show.medium}"  alt="${show.name}" >
+             <img class="card-img-top"  src="${show.medium==="null"?"https://store-images.s-microsoft.com/image/apps.65316.13510798887490672.6e1ebb25-96c8-4504-b714-1f7cbca3c5ad.f9514a23-1eb8-4916-a18e-99b1a9817d15?mode=scale&q=90&h=300&w=300":show.medium}"  alt="${show.name}" >
             
              <button class="btn btn-success mt-3 mx-auto d-block" data-show-id=${show.id} id="episodes-btn">Episodes</button>
            </div>
