@@ -118,17 +118,28 @@ function populateEpisodes(episodes){
   }
 }
 
+let tempId=''
  
 $('#shows-list').on("click", "#episodes-btn", async function(evt){
   let $episodesArea=  $("#episodes-area")
-  // toggle episodes area
-  if($episodesArea.css("display")==="none"){
-    $episodesArea.show()
-  }else{
-    $episodesArea.hide() 
-  }
-  // fetch episodes data
   const id=evt.currentTarget.dataset.showId
+
+
+  // toggle episodes area
+  if($episodesArea.css("display")==="none" && tempId==='' ){
+    $episodesArea.show()
+  }  
+  if(tempId ===id){
+    $episodesArea.hide() 
+    tempId=''
+  }else{
+    tempId=id
+  }
+  
+
+
+  // fetch episodes data
+ 
   const episodesData= await getEpisodes(id) 
   // populate episodes list
   populateEpisodes(episodesData)
