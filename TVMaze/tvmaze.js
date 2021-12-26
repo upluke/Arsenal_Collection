@@ -67,9 +67,8 @@ function populateShows(shows) {
            <div class="card-body">
              <h5 class="card-title">${show.name}</h5>
              <p class="card-text">${show.summary}</p>
-             <img class="card-img-top"  src="${show.medium==="null"?"https://store-images.s-microsoft.com/image/apps.65316.13510798887490672.6e1ebb25-96c8-4504-b714-1f7cbca3c5ad.f9514a23-1eb8-4916-a18e-99b1a9817d15?mode=scale&q=90&h=300&w=300":show.medium}"  alt="${show.name}" >
-            
-             <button class="btn btn-success mt-3 mx-auto d-block" data-show-id=${show.id} id="episodes-btn">Episodes</button>
+             <img class="card-img-top"  src="${show.medium}"  alt="${show.name}" >
+             <button class="btn btn-success mt-3 mx-auto d-block" data-show-id=${show.id} id="episodes-btn"><a href="#episodes-list" style="all:unset">Episodes</a></button>
            </div>
          </div>
        </div>
@@ -124,13 +123,24 @@ function populateEpisodes(episodes){
   const $episodesList=$("#episodes-list")
   $episodesList.empty()
 
-  for (let episode of episodes){
-    let $epi=$(`
-      <li id=${episode.id}>${episode.name}(${episode.season}, ${episode.number})</li>
-    `)
+  if(episodes.length ===0){
+    let $epi=$(`<p>Oops, there's no episode:(</p>`)
     $episodesList.append($epi)
+  }else{
+    for (let episode of episodes){
+      let $epi=$(`
+        <li id=${episode.id}>${episode.name}(Season: ${episode.season}, Episode: ${episode.number})</li>
+      `)
+      $episodesList.append($epi)
+    }
   }
+ 
 }
+
+// function checkEpisodesValidity (){
+
+// }
+
 
 
  
