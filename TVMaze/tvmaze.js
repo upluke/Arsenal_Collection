@@ -124,22 +124,18 @@ function populateEpisodes(episodes){
   $episodesList.empty()
 
   if(episodes.length ===0){
-    let $epi=$(`<p>Oops, there's no episode:(</p>`)
-    $episodesList.append($epi)
+    let $noEpisodeMsg=$(`<p>Oops, it has no episode:(</p>`)
+    $episodesList.append($noEpisodeMsg)
   }else{
     for (let episode of episodes){
-      let $epi=$(`
+      let $episodeElement=$(`
         <li id=${episode.id}>${episode.name}(Season: ${episode.season}, Episode: ${episode.number})</li>
       `)
-      $episodesList.append($epi)
+      $episodesList.append($episodeElement)
     }
   }
  
 }
-
-// function checkEpisodesValidity (){
-
-// }
 
 
 
