@@ -105,26 +105,39 @@ async function getEpisodes(id) {
   //       you can get this by making GET request to
   //       http://api.tvmaze.com/shows/SHOW-ID-HERE/episodes
   const episodes=await axios.get(`http://api.tvmaze.com/shows/${id}/episodes`)
-  console.log(episodes, "------------")
+  const res=[]
+  for (let episode of episodes.data){
+    const {id, name, season, number}=episode
+    res.push({id, name, season, number})
+  }
+  return res
   // TODO: return array-of-episode-info, as described in docstring above
 }
+
+function populateEpisodes(episodes){
+  const $episodesList=$("#episodes-list")
+  $episodesList.empty()
+
+  for (let episode of episodes){
+    let $epi=$(`
+      <li id=${episode.id}>${episode.name}(${episode.season}, ${episode.number})</li>
+    `)
+    $episodesList.append($epi)
+  }
+}
+
  
-  // use document to select dynamically created html elements by jQuery
-  // $(document).on('click', '#episodes-btn', function(){
-
-  //   let $episodesArea=  $("#episodes-area")
-  //   // toggle episodes area
-  //   if($episodesArea.css("display")==="none"){
-  //     $episodesArea.show()
-  //   }else{
-  //     $episodesArea.hide() 
-  //   }
-
-   
-
-  // })
- 
-$('#shows-list').on("click", "#episodes-btn", function(evt){
-  console.log("event: ",  evt.currentTarget.dataset.showId)
-   
+$('#shows-list').on("click", "#episodes-btn", async function(evt){
+  let $episodesArea=  $("#episodes-area")
+  // toggle episodes area
+  if($episodesArea.css("display")==="none"){
+    $episodesArea.show()
+  }else{
+    $episodesArea.hide() 
+  }
+  // fetch episodes data
+  const id=evt.currentTarget.dataset.showId
+  const episodesData= await getEpisodes(id) 
+  // populate episodes list
+  populateEpisodes(episodesData)
 })
