@@ -3,11 +3,19 @@
 
 <head>
   <meta charset="UTF-8">
+  <link rel="stylesheet"
+  href="https://unpkg.com/bootstrap/dist/css/bootstrap.css">
   <title>Giphy Party!</title>
 </head>
 
 <body>
-  <h1>giphy party</h1>
+  <h1>Giphy Party</h1>
+  <form id="search-form">
+      <input  type="text" id="search-query" value="happy" />
+      <button class="btn btn-outline-secondary" type="submit">Button</button>
+      <button class="btn btn-outline-secondary" type="button">Button</button>
+  </form>
+ 
 <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.js"></script>
 <script src="ajax-giphy-party.js"></script>
