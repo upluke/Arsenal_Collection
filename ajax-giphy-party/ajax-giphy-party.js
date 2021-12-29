@@ -16,7 +16,7 @@ function populateGifs(gifs){
   console.log("inside", gifs)
   const $gifsList = $('#gifs-list')
   for (let gif of gifs){
-    $gifsList.append(`<img id=${gif.id} src=${gif.url}   alt=" " width="500" height="600"/>`)
+    $gifsList.append(`<div class="col" id=${gif.id}> <img   src=${gif.url}   alt=" " width="200 " height="200"/> </div>`)
   }
 
   // const $gif=$(`<img id=${gifs.id} res=${gifs} ult=  />`)
