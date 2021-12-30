@@ -7,10 +7,12 @@
   <link rel="stylesheet"
   href="https://unpkg.com/bootstrap/dist/css/bootstrap.css">
   <link href="./ajax-giphy-party.css" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css2?family=Comforter+Brush&family=Montserrat:wght@100&display=swap" rel="stylesheet">
   <title>Giphy Party!</title>
 </head>
 
 <body>
+  <div id="form-area">
   <h1>Giphy Party</h1>
   <form id="search-form">
     <select id="select-section">
@@ -18,11 +20,11 @@
       <option value="5">5</option>
       <option value="10">10</option>
     </select>
-    <input  type="text" id="search-query" />
+    <input type="text" id="search-query"  />
     <button class="btn btn-outline-secondary" type="submit">Search</button>
-    <button class="btn btn-outline-secondary" type="button" id="remove-btn">Delete All</button>
+    <button class="btn btn-outline-danger" type="button" id="remove-btn">Delete All</button>
   </form>
-
+ </div>
   <div class="row " id="gifs-list">
   </div>
  
