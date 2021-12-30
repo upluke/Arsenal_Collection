@@ -10,6 +10,8 @@ friendList.addEventListener('click', function(e){
     // we can access that child element using event.target
     if(e.target.tagName==='BUTTON'){
         e.target.parentElement.remove()
+        // or jquery:
+        // $(this).parent().remove()
     }
     else if (e.target.tagName==='LI'){
         e.target.classList.toggle('best-friend')
