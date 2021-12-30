@@ -26,7 +26,11 @@ let categories = [];
  * Returns array of category ids
  */
 
-function getCategoryIds() {
+function getCategoryIds(data) {
+   return data.reduce(function(acc, curr){
+        acc.push(curr['id'])
+        return acc
+   }, [])
 }
 
 /** Return object with data about a category:
@@ -87,7 +91,24 @@ function hideLoadingView() {
  * */
 
 async function setupAndStart() {
+    const categoriesData=await axios.get('http://jservice.io/api/categories',{
+        params:{
+            count:6
+    }})
+
+    const ids=getCategoryIds(categoriesData.data)
+    console.log(ids, "****")
+    
+    // const cluesData=await axios.get('http://jservice.io/api/clues',{
+    //     params:{
+    //         category:11521,
+            
+    //     }
+    // })
+    console.log(categoriesData.data)
 }
+
+setupAndStart()
 
 /** On click of start / restart button, set up game. */
 
