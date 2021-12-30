@@ -146,6 +146,14 @@ $('<h1>HELLO</h1>').css('color', 'yellow').appendTo('p')
 $('li').after('<bold>HI</bold>') // .before is the opposite
 // remove element
 $('h1').remove()
+// with attributes
+let randomIdx = Math.floor(Math.random() * numResults);
+let $newCol = $("<div>", { class: "col-md-4 col-12 mb-4" });
+let $newGif = $("<img>", {
+  src: res.data[randomIdx].images.original.url,
+  class: "w-100"
+});
+
 
 // Events and Delegation with jQuery
 // jQuery events
