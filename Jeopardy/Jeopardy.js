@@ -19,7 +19,7 @@
 //  ]
 
 let categories = [];
-
+ 
 
 /** Get NUM_CATEGORIES random category from API.
  *
@@ -45,7 +45,23 @@ function getCategoryIds(data) {
  *   ]
  */
 
-function getCategory(catId) {
+async function getCategory(catId) {
+    
+    const cluesData=await axios.get('https://jservice.io/api/clues',{
+        params:{
+            category:catId,
+        }
+    })
+
+    let title=""
+    const clues=[]
+    for (let cd of cluesData.data){
+      title=cd.category.title
+      clues.push({"question": cd.question, "answer":cd.answer, "showing":null})
+    }
+    
+    return {"title": title, "clues":clues}
+   
 }
 
 /** Fill the HTML table#jeopardy with the categories & cells for questions.
@@ -57,7 +73,27 @@ function getCategory(catId) {
  */
 
 async function fillTable() {
+  const $tableArea= $('#table-area')
+  const $tableRow= $("<tr></tr>")
+ 
+  for (let category of categories){
+     $tableRow.append($(`<td>${category.title}</td>`))
+  
+  }
+  
+  $tableArea.append($tableRow)
+  
+  console.log($tableRow, "##################")
 }
+
+// function fillTableHead(category){
+// }
+  
+ 
+ 
+  
+ 
+ 
 
 /** Handle clicking on a clue: show the question or answer.
  *
@@ -91,21 +127,22 @@ function hideLoadingView() {
  * */
 
 async function setupAndStart() {
-    const categoriesData=await axios.get('http://jservice.io/api/categories',{
+    //get random category Ids
+    const categoriesData=await axios.get('https://jservice.io/api/categories',{
         params:{
             count:6
     }})
-
     const ids=getCategoryIds(categoriesData.data)
-    console.log(ids, "****")
-    
-    // const cluesData=await axios.get('http://jservice.io/api/clues',{
-    //     params:{
-    //         category:11521,
-            
-    //     }
-    // })
-    console.log(categoriesData.data)
+
+    //get data for each category
+    for (let id of ids){
+      categories.push(await getCategory(id)) 
+    }
+    // console.log(categories)
+    // console.log("---------------->>>>>--------------")
+
+    //create HTML table
+    fillTable()
 }
 
 setupAndStart()
