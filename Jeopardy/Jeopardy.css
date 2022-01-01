@@ -5,3 +5,13 @@
   #8d2ab5
   #74119c
 */
+
+body {
+  background-color: gray;
+}
+
+table,
+th,
+td {
+  border: 1px solid black;
+}

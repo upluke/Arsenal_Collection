@@ -74,20 +74,29 @@ async function getCategory(catId) {
 
 async function fillTable() {
   const $tableArea= $('#table-area')
-  const $tableRow= $("<tr></tr>")
- 
-  for (let category of categories){
-     $tableRow.append($(`<td>${category.title}</td>`))
+  const $headRow= $("<tr></tr>")
+  console.log(categories)
+   
   
+  // generate table head
+  categories.map(cat=>{
+    $headRow.append($('<td />', {text:cat.title})) 
+  })
+  $tableArea.append($headRow)
+  // generate table body
+  for(let i=0;i<=4;i++){
+    $tableArea.append(`<tr>  
+                        <td>${categories[0]["clues"][i]["question"]}</td> 
+                        <td>${categories[1]["clues"][i]["question"]}</td> 
+                        <td>${categories[2]["clues"][i]["question"]}</td> 
+                        <td>${categories[3]["clues"][i]["question"]}</td> 
+                        <td>${categories[4]["clues"][i]["question"]}</td>
+                        <td>${categories[5]["clues"][i]["question"]}</td> 
+                    </tr>`)
   }
-  
-  $tableArea.append($tableRow)
-  
-  console.log($tableRow, "##################")
+ 
 }
 
-// function fillTableHead(category){
-// }
   
  
  
