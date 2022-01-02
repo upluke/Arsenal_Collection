@@ -82,7 +82,8 @@ async function fillTable() {
     $headRow.append($('<td />', {text:categories[i]["title"]}))
     if(i<=4){
         $tableArea.append(`<tr>  
-        <td data-clue-showing="${categories[0]["clues"][i]["showing"]}">${categories[0]["clues"][i]["showing"]===null?"?":categories[0]["clues"][i]["showing"]==="question"? categories[0]["clues"][i]["question"]:categories[0]["clues"][i]["answer"]}</td> 
+        <td data-clue-showing="0-${i}">?</td> 
+        
         <td>${categories[1]["clues"][i]["question"]}</td> 
         <td>${categories[2]["clues"][i]["question"]}</td> 
         <td>${categories[3]["clues"][i]["question"]}</td> 
@@ -97,7 +98,9 @@ async function fillTable() {
 
  
  
-  
+// ${categories[0]["clues"][i]["showing"]===null?
+// "?":categories[0]["clues"][i]["showing"]==="question"?
+//  categories[0]["clues"][i]["question"]:categories[0]["clues"][i]["answer"]} 
  
  
 
@@ -113,7 +116,19 @@ async function fillTable() {
 // }
 $('#table-area').on('click', 'td', function (evt) {  
     
-    console.log($(evt.target).data("clue-showing")); 
+    console.log($(evt.target).data("clue-showing"));
+    const clueIdx=$(evt.target).data("clue-showing") 
+    if(categories[parseInt(clueIdx[0])]["clues"][parseInt(clueIdx[2])]["showing"]===null){
+        categories[parseInt(clueIdx[0])]["clues"][parseInt(clueIdx[2])]["showing"]="question"
+        // console.log(">>>",categories)
+         console.log(evt.target.innerText )
+         evt.target.innerText="test"
+    }else if(categories[parseInt(clueIdx[0])]["clues"][parseInt(clueIdx[2])]["showing"]==="question"){
+        categories[parseInt(clueIdx[0])]["clues"][parseInt(clueIdx[2])]["showing"]="answer"
+    }else{
+        categories[parseInt(clueIdx[0])]["clues"][parseInt(clueIdx[2])]["showing"]="answer"
+    }
+
   })
 
 
