@@ -76,28 +76,25 @@ async function fillTable() {
   const $tableArea= $('#table-area')
   const $headRow= $("<tr></tr>")
   console.log(categories)
-   
-  
-  // generate table head
-  categories.map(cat=>{
-    $headRow.append($('<td />', {text:cat.title})) 
-  })
-  $tableArea.append($headRow)
-  // generate table body
-  for(let i=0;i<=4;i++){
-    $tableArea.append(`<tr>  
-                        <td>${categories[0]["clues"][i]["question"]}</td> 
-                        <td>${categories[1]["clues"][i]["question"]}</td> 
-                        <td>${categories[2]["clues"][i]["question"]}</td> 
-                        <td>${categories[3]["clues"][i]["question"]}</td> 
-                        <td>${categories[4]["clues"][i]["question"]}</td>
-                        <td>${categories[5]["clues"][i]["question"]}</td> 
-                    </tr>`)
+    
+  // generate table  
+  for(let i=0;i<=5;i++){
+    $headRow.append($('<td />', {text:categories[i]["title"]}))
+    if(i<=4){
+        $tableArea.append(`<tr>  
+        <td>${categories[0]["clues"][i]["question"]}</td> 
+        <td>${categories[1]["clues"][i]["question"]}</td> 
+        <td>${categories[2]["clues"][i]["question"]}</td> 
+        <td>${categories[3]["clues"][i]["question"]}</td> 
+        <td>${categories[4]["clues"][i]["question"]}</td>
+        <td>${categories[5]["clues"][i]["question"]}</td> 
+    </tr>`)
+    }
   }
- 
+  $tableArea.prepend($headRow)
+
 }
 
-  
  
  
   
@@ -147,8 +144,6 @@ async function setupAndStart() {
     for (let id of ids){
       categories.push(await getCategory(id)) 
     }
-    // console.log(categories)
-    // console.log("---------------->>>>>--------------")
 
     //create HTML table
     fillTable()
