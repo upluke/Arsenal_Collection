@@ -82,7 +82,7 @@ async function fillTable() {
     $headRow.append($('<td />', {text:categories[i]["title"]}))
     if(i<=4){
         $tableArea.append(`<tr>  
-        <td>${categories[0]["clues"][i]["question"]}</td> 
+        <td data-clue-showing="${categories[0]["clues"][i]["showing"]}">${categories[0]["clues"][i]["showing"]===null?"?":categories[0]["clues"][i]["showing"]==="question"? categories[0]["clues"][i]["question"]:categories[0]["clues"][i]["answer"]}</td> 
         <td>${categories[1]["clues"][i]["question"]}</td> 
         <td>${categories[2]["clues"][i]["question"]}</td> 
         <td>${categories[3]["clues"][i]["question"]}</td> 
@@ -106,11 +106,16 @@ async function fillTable() {
  * Uses .showing property on clue to determine what to show:
  * - if currently null, show question & set .showing to "question"
  * - if currently "question", show answer & set .showing to "answer"
- * - if currently "answer", ignore click
+ * - if currently "answer", ig----nore click
  * */
 
-function handleClick(evt) {
-}
+// function handleClick(evt) {
+// }
+$('#table-area').on('click', 'td', function (evt) {  
+    
+    console.log($(evt.target).data("clue-showing")); 
+  })
+
 
 /** Wipe the current Jeopardy board, show the loading spinner,
  * and update the button used to fetch data.
@@ -147,8 +152,10 @@ async function setupAndStart() {
 
     //create HTML table
     fillTable()
-}
+     
 
+}
+ 
 setupAndStart()
 
 /** On click of start / restart button, set up game. */
@@ -158,3 +165,4 @@ setupAndStart()
 /** On page load, add event handler for clicking clues */
 
 // TODO
+
