@@ -82,13 +82,12 @@ async function fillTable() {
     $headRow.append($('<td />', {text:categories[i]["title"]}))
     if(i<=4){
         $tableArea.append(`<tr>  
-        <td id="0-${i}" data-clue-showing="0-${i}">?</td> 
-        
-        <td>${categories[1]["clues"][i]["question"]}</td> 
-        <td>${categories[2]["clues"][i]["question"]}</td> 
-        <td>${categories[3]["clues"][i]["question"]}</td> 
-        <td>${categories[4]["clues"][i]["question"]}</td>
-        <td>${categories[5]["clues"][i]["question"]}</td> 
+        <td data-clue-showing="0-${i}">?</td> 
+        <td data-clue-showing="1-${i}">?</td> 
+        <td data-clue-showing="2-${i}">?</td> 
+        <td data-clue-showing="3-${i}">?</td> 
+        <td data-clue-showing="4-${i}">?</td>
+        <td data-clue-showing="5-${i}">?</td> 
     </tr>`)
     }
   }
@@ -96,12 +95,6 @@ async function fillTable() {
 
 }
 
- 
- 
-// ${categories[0]["clues"][i]["showing"]===null?
-// "?":categories[0]["clues"][i]["showing"]==="question"?
-//  categories[0]["clues"][i]["question"]:categories[0]["clues"][i]["answer"]} 
- 
  
 
 /** Handle clicking on a clue: show the question or answer.
@@ -115,37 +108,17 @@ async function fillTable() {
 // function handleClick(evt) {
 // }
 $('#table-area').on('click', 'td', function () {  
-    
-    console.log("data: ", $(this).data("clue-showing"));
-    console.log($(this))
-    console.log($(this).text())
+    const clueIdx=$(this).data("clue-showing")
     const $hintText=$(this).text()
+    const targetedClue=categories[parseInt(clueIdx[0])]["clues"][parseInt(clueIdx[2])] 
     
-    if($hintText==="?"){
-        // categories[parseInt(clueIdx[0])]["clues"][parseInt(clueIdx[2])]["showing"]="question"
-        // console.log(">>>",categories)
-         console.log("one")
-         $(this).text("question")
-    }else if($hintText==="question"){
-        console.log("two")
-        $(this).text("answer")
+    if($hintText==="?"){ 
+         $(this).text(targetedClue["question"])
+    }else if($hintText===targetedClue["question"]){
+        $(this).text(targetedClue["answer"])
     }else{
-        console.log("three")
-       
-        // categories[parseInt(clueIdx[0])]["clues"][parseInt(clueIdx[2])]["showing"]="answer"
         $(this).on("click",function(){return false;})
-        
     }
-    // if(categories[parseInt(clueIdx[0])]["clues"][parseInt(clueIdx[2])]["showing"]===null){
-    //     categories[parseInt(clueIdx[0])]["clues"][parseInt(clueIdx[2])]["showing"]="question"
-    //     // console.log(">>>",categories)
-    //      console.log(evt )
-    //      evt.target.innerText="question"
-    // }else if(categories[parseInt(clueIdx[0])]["clues"][parseInt(clueIdx[2])]["showing"]==="question"){
-    //     evt.target.innerText="answer"
-    // }else{
-    //     categories[parseInt(clueIdx[0])]["clues"][parseInt(clueIdx[2])]["showing"]="answer"
-    // }
 
   })
 
@@ -185,7 +158,6 @@ async function setupAndStart() {
 
     //create HTML table
     fillTable()
-     
 
 }
  
