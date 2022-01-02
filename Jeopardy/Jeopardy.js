@@ -82,7 +82,7 @@ async function fillTable() {
     $headRow.append($('<td />', {text:categories[i]["title"]}))
     if(i<=4){
         $tableArea.append(`<tr>  
-        <td data-clue-showing="0-${i}">?</td> 
+        <td id="0-${i}" data-clue-showing="0-${i}">?</td> 
         
         <td>${categories[1]["clues"][i]["question"]}</td> 
         <td>${categories[2]["clues"][i]["question"]}</td> 
@@ -114,20 +114,38 @@ async function fillTable() {
 
 // function handleClick(evt) {
 // }
-$('#table-area').on('click', 'td', function (evt) {  
+$('#table-area').on('click', 'td', function () {  
     
-    console.log($(evt.target).data("clue-showing"));
-    const clueIdx=$(evt.target).data("clue-showing") 
-    if(categories[parseInt(clueIdx[0])]["clues"][parseInt(clueIdx[2])]["showing"]===null){
-        categories[parseInt(clueIdx[0])]["clues"][parseInt(clueIdx[2])]["showing"]="question"
+    console.log("data: ", $(this).data("clue-showing"));
+    console.log($(this))
+    console.log($(this).text())
+    const $hintText=$(this).text()
+    
+    if($hintText==="?"){
+        // categories[parseInt(clueIdx[0])]["clues"][parseInt(clueIdx[2])]["showing"]="question"
         // console.log(">>>",categories)
-         console.log(evt.target.innerText )
-         evt.target.innerText="test"
-    }else if(categories[parseInt(clueIdx[0])]["clues"][parseInt(clueIdx[2])]["showing"]==="question"){
-        categories[parseInt(clueIdx[0])]["clues"][parseInt(clueIdx[2])]["showing"]="answer"
+         console.log("one")
+         $(this).text("question")
+    }else if($hintText==="question"){
+        console.log("two")
+        $(this).text("answer")
     }else{
-        categories[parseInt(clueIdx[0])]["clues"][parseInt(clueIdx[2])]["showing"]="answer"
+        console.log("three")
+       
+        // categories[parseInt(clueIdx[0])]["clues"][parseInt(clueIdx[2])]["showing"]="answer"
+        $(this).on("click",function(){return false;})
+        
     }
+    // if(categories[parseInt(clueIdx[0])]["clues"][parseInt(clueIdx[2])]["showing"]===null){
+    //     categories[parseInt(clueIdx[0])]["clues"][parseInt(clueIdx[2])]["showing"]="question"
+    //     // console.log(">>>",categories)
+    //      console.log(evt )
+    //      evt.target.innerText="question"
+    // }else if(categories[parseInt(clueIdx[0])]["clues"][parseInt(clueIdx[2])]["showing"]==="question"){
+    //     evt.target.innerText="answer"
+    // }else{
+    //     categories[parseInt(clueIdx[0])]["clues"][parseInt(clueIdx[2])]["showing"]="answer"
+    // }
 
   })
 
