@@ -127,9 +127,17 @@ $('#table-area').on('click', 'td', function () {
  * and update the button used to fetch data.
  */
 
-function showLoadingView() {
+// function showLoadingView() {
 
-}
+// }
+$('#start-btn').on('click', function(){
+    
+    $('#table-area').empty()
+    setupAndStart()
+   
+})
+
+ 
 
 /** Remove the loading spinner and update the button used to fetch data. */
 
@@ -144,6 +152,7 @@ function hideLoadingView() {
  * */
 
 async function setupAndStart() {
+    $('#loader').removeClass('hidden')
     //get random category Ids
     const categoriesData=await axios.get('https://jservice.io/api/categories',{
         params:{
@@ -158,10 +167,10 @@ async function setupAndStart() {
 
     //create HTML table
     fillTable()
-
+    $('#loader').addClass('hidden')
 }
  
-setupAndStart()
+
 
 /** On click of start / restart button, set up game. */
 
