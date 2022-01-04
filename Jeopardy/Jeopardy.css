@@ -10,10 +10,21 @@ body {
   background-color: gray;
 }
 
-table,
+table {
+  table-layout: fixed;
+  text-align: center;
+}
+
 th,
 td {
   border: 1px solid black;
+  width: 160px;
+  height: 100px;
+  overflow: hidden;
+}
+
+tr:not(:first-child) {
+  font-size: small;
 }
 
 .lds-dual-ring.hidden {

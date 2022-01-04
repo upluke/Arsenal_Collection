@@ -79,7 +79,7 @@ async function fillTable() {
     
   // generate table  
   for(let i=0;i<=5;i++){
-    $headRow.append($('<td />', {text:categories[i]["title"]}))
+    $headRow.append($('<th />', {text:categories[i]["title"]}))
     if(i<=4){
         $tableArea.append(`<tr>  
         <td data-clue-showing="0-${i}">?</td> 
