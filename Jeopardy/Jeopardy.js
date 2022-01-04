@@ -19,7 +19,7 @@
 //  ]
 
 let categories = [];
- 
+let idxForTrackingCategories=0
 
 /** Get NUM_CATEGORIES random category from API.
  *
@@ -52,7 +52,7 @@ async function getCategory(catId) {
             category:catId,
         }
     })
-
+    
     let title=""
     const clues=[]
     for (let cd of cluesData.data){
@@ -75,7 +75,7 @@ async function getCategory(catId) {
 async function fillTable() {
   const $tableArea= $('#table-area')
   const $headRow= $("<tr></tr>")
-  console.log(categories)
+  console.log("cat: ", categories)
     
   // generate table  
   for(let i=0;i<=5;i++){
@@ -131,18 +131,18 @@ $('#table-area').on('click', 'td', function () {
 
 // }
 $('#start-btn').on('click', function(){
-    
+    console.log(idxForTrackingCategories)
     $('#table-area').empty()
     setupAndStart()
-   
+    console.log(idxForTrackingCategories) 
 })
 
  
 
 /** Remove the loading spinner and update the button used to fetch data. */
 
-function hideLoadingView() {
-}
+// function hideLoadingView() {
+// }
 
 /** Start game:
  *
@@ -156,12 +156,19 @@ async function setupAndStart() {
     //get random category Ids
     const categoriesData=await axios.get('https://jservice.io/api/categories',{
         params:{
-            count:6
+            count:96
     }})
+ 
+    // get ids and chunk them at size of 6
     const ids=getCategoryIds(categoriesData.data)
+    const chunked_ids=_.chunk(ids, 6)[idxForTrackingCategories]
+    // reset idx if it reaches the maxmum clues
+    idxForTrackingCategories===15? idxForTrackingCategories=0: idxForTrackingCategories+=1
+    console.log(idxForTrackingCategories)
 
     //get data for each category
-    for (let id of ids){
+    categories=[]
+    for (let id of chunked_ids){
       categories.push(await getCategory(id)) 
     }
 
