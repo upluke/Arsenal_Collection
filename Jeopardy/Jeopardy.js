@@ -126,23 +126,26 @@ $('#table-area').on('click', 'td', function () {
 /** Wipe the current Jeopardy board, show the loading spinner,
  * and update the button used to fetch data.
  */
-
-// function showLoadingView() {
-
-// }
-$('#start-btn').on('click', function(){
+ $('#start-btn').on('click', function(){
     console.log(idxForTrackingCategories)
     $('#table-area').empty()
+    categories=[]
     setupAndStart()
     console.log(idxForTrackingCategories) 
 })
+
+function showLoadingView() {
+    $('#loader').removeClass('hidden')
+}
+
 
  
 
 /** Remove the loading spinner and update the button used to fetch data. */
 
-// function hideLoadingView() {
-// }
+function hideLoadingView() {
+    $('#loader').addClass('hidden')
+}
 
 /** Start game:
  *
@@ -152,7 +155,9 @@ $('#start-btn').on('click', function(){
  * */
 
 async function setupAndStart() {
-    $('#loader').removeClass('hidden')
+    // show loading spinner
+    showLoadingView() 
+
     //get random category Ids
     const categoriesData=await axios.get('https://jservice.io/api/categories',{
         params:{
@@ -162,19 +167,20 @@ async function setupAndStart() {
     // get ids and chunk them at size of 6
     const ids=getCategoryIds(categoriesData.data)
     const chunked_ids=_.chunk(ids, 6)[idxForTrackingCategories]
-    // reset idx if it reaches the maxmum clues
-    idxForTrackingCategories===15? idxForTrackingCategories=0: idxForTrackingCategories+=1
+    // reset idx if it reaches the maxmum clues, otherwise increment it by 1
+    idxForTrackingCategories>=15? idxForTrackingCategories=0: idxForTrackingCategories+=1
     console.log(idxForTrackingCategories)
 
     //get data for each category
-    categories=[]
     for (let id of chunked_ids){
       categories.push(await getCategory(id)) 
     }
 
     //create HTML table
     fillTable()
-    $('#loader').addClass('hidden')
+    
+    // remove loading spinner
+    hideLoadingView() 
 }
  
 
