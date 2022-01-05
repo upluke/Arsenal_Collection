@@ -113,9 +113,11 @@ $('#table-area').on('click', 'td', function () {
     const targetedClue=categories[parseInt(clueIdx[0])]["clues"][parseInt(clueIdx[2])] 
     
     if($hintText==="?"){ 
-         $(this).text(targetedClue["question"])
+        $(this).text(targetedClue["question"])
     }else if($hintText===targetedClue["question"]){
         $(this).text(targetedClue["answer"])
+         // this calss is used to add css effect
+        $(this).addClass('highlight-freeze')
     }else{
         $(this).on("click",function(){return false;})
     }

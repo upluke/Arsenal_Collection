@@ -6,25 +6,55 @@
   #74119c
 */
 
+/* spinner */
+/* https://codepen.io/DanEnglishby/embed/dyPrBYJ?height=265&theme-id=default&slug-hash=dyPrBYJ&default-tab=result&animations=run&editable=&embed-version=2&user=DanEnglishby&name=cp_embed_2 */
 body {
-  background-color: gray;
+  background-color: #03254c;
+  font-family: "Work Sans", sans-serif;
+}
+
+#title-area {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+h1 {
+  color: yellow;
+}
+
+#start-btn {
+  padding: 5px 20px;
+  background-color: #28a200;
+  color: white;
+  border: 1px solid yellow;
 }
 
 table {
   table-layout: fixed;
   text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 th,
 td {
-  border: 1px solid black;
+  border: 1px solid yellow;
   width: 160px;
   height: 100px;
   overflow: hidden;
+  color: white;
 }
 
 tr:not(:first-child) {
   font-size: small;
+}
+
+td:hover {
+  background-color: #28a200;
+}
+
+.highlight-freeze {
+  background-color: #28a200;
 }
 
 .lds-dual-ring.hidden {
@@ -40,7 +70,7 @@ tr:not(:first-child) {
   display: block;
   width: 64px;
   height: 64px;
-  margin: 5% auto;
+  margin: 10% auto;
   border-radius: 50%;
   border: 6px solid #fff;
   border-color: #fff transparent #fff transparent;
@@ -61,7 +91,7 @@ tr:not(:first-child) {
   left: 0;
   width: 100%;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.8);
+  /* background: rgba(0, 0, 0, 0.8); */
   z-index: 999;
   opacity: 1;
   transition: all 0.5s;
