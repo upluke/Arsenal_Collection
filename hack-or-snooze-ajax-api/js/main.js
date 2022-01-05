@@ -1,4 +1,7 @@
 "use strict";
+// http://curric.rithmschool.com/springboard/exercises/hack-or-snooze-ajax-api/
+//js/main.js contains code for starting the UI of the application, and other miscellaneous things.
+
 
 // So we don't have to keep re-finding things on page, find DOM elements once:
 
