@@ -79,7 +79,19 @@ class StoryList {
 
   async addStory( /* user, newStory */) {
     // UNIMPLEMENTED: complete this function!
-    const story=axiso.post('https://hack-or-snooze-v3.herokuapp.com/stories', )
+    const response=await axios({
+      url:`${BASE_URL}/stories`,
+      method:"POST"
+    })
+
+    return new Story({
+        storyId: response.data.storyId,
+        title: response.data.title,
+        author: response.data.author,
+        url: response.data.url,
+        username: response.data.username,
+        createdAt: response.data.createdAt
+    });
   }
 }
 
