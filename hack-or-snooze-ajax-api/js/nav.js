@@ -37,3 +37,10 @@ function updateNavOnLogin() {
   $navLogOut.show();
   $navUserProfile.text(`${currentUser.username}`).show();
 }
+
+/** When a user clicks sumbit, a story will be added */
+function navSubmitClick(evt){
+  console.log('test')
+}
+
+$("#story-form").on('submit', navSubmitClick)
