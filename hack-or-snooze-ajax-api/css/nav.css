@@ -21,3 +21,14 @@ nav {
   margin-left: auto;
   text-align: right;
 }
+
+#story-form {
+  /* display: none; */
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+}
+
+#nav-submit {
+  margin: 0 1rem;
+}
