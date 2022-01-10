@@ -53,3 +53,19 @@ function putStoriesOnPage() {
 
   $allStoriesList.show();
 }
+
+/** it's called when users submit the form */
+
+async function addNewStoryOnPage(){
+  const $storyTitle=$("#story-title").val()
+  const $storyAuthor=$("#story-author").val()
+  const $storyUrl=$("#story-url").val()
+  const newStory= {'title': $storyTitle, 'author': $storyAuthor, 'url': $storyUrl} 
+  const NS= new StoryList()
+  console.log(currentUser, newStory)
+  const story= await NS.addStory(currentUser, newStory)
+  console.log("story::", story)
+
+  generateStoryMarkup(story)
+  putStoriesOnPage()
+}
