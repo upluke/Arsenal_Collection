@@ -61,9 +61,8 @@ async function addNewStoryOnPage(){
   const $storyTitle=$("#story-title").val()
   const $storyAuthor=$("#story-author").val()
   const $storyUrl=$("#story-url").val()
-  const newStory= {'title': $storyTitle, 'author': $storyAuthor, 'url': $storyUrl} 
-  const StoryListInstance= new StoryList()
+  const newStory= {'title': $storyTitle, 'author': $storyAuthor, 'url': $storyUrl}   
   console.log(currentUser, newStory)
-  await StoryListInstance.addStory(currentUser, newStory)
-
+  await StoryList.addStory(currentUser, newStory)
+  console.log("*******",storyList)
 }
