@@ -40,8 +40,8 @@ function updateNavOnLogin() {
 
 /** When a user clicks sumbit, a story will be added */
 function navSubmitClick(evt){
-  console.log('test')
-  console.log(addNewStoryOnPage())
+  console.debug("navSubmitClick");
+  addNewStoryOnPage()
 }
 
 $("#story-form").on('submit', navSubmitClick)

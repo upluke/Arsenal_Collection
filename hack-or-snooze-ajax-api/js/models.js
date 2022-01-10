@@ -62,10 +62,8 @@ class StoryList {
       url: `${BASE_URL}/stories`,
       method: "GET",
     });
-
     // turn plain old story objects from API into instances of Story class
     const stories = response.data.stories.map(story => new Story(story));
-
     // build an instance of our own class using the new array of stories
     return new StoryList(stories);
   }
@@ -88,18 +86,9 @@ class StoryList {
         url:newStory.url
       }
     }
-    console.log("params:::", params) 
+    
     const response= await axios.post(`${BASE_URL}/stories`,params)
  
-    console.log("*******", response )
-    // return new Story({
-    //     storyId: response.data.storyId,
-    //     title: response.data.title,
-    //     author: response.data.author,
-    //     url: response.data.url,
-    //     username: response.data.username,
-    //     createdAt: response.data.createdAt
-    // });
     return new Story(response)
   }
 }

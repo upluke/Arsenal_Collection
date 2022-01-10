@@ -9,6 +9,7 @@ let storyList;
 /** Get and show stories when site first loads. */
 
 async function getAndShowStoriesOnStart() {
+  
   storyList = await StoryList.getStories();
   $storiesLoadingMsg.remove();
 
@@ -61,11 +62,8 @@ async function addNewStoryOnPage(){
   const $storyAuthor=$("#story-author").val()
   const $storyUrl=$("#story-url").val()
   const newStory= {'title': $storyTitle, 'author': $storyAuthor, 'url': $storyUrl} 
-  const NS= new StoryList()
+  const StoryListInstance= new StoryList()
   console.log(currentUser, newStory)
-  const story= await NS.addStory(currentUser, newStory)
-  console.log("story::", story)
+  await StoryListInstance.addStory(currentUser, newStory)
 
-  generateStoryMarkup(story)
-  putStoriesOnPage()
 }
