@@ -208,4 +208,11 @@ class User {
       return null;
     }
   }
+
+  /** Add a story as a favorite */
+  //https://hack-or-snooze-v3.herokuapp.com/users/username/favorites/storyId
+  static async addAFavorite(){
+     // need currentUser.username and storyId
+  }
+  
 }

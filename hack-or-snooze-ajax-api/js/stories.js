@@ -55,7 +55,7 @@ function putStoriesOnPage() {
   $allStoriesList.show();
 }
 
-/** it's called when users submit the form */
+/** It's called when users submit the form */
 
 async function addNewStoryOnPage(){
   const $storyTitle=$("#story-title").val()
@@ -64,5 +64,10 @@ async function addNewStoryOnPage(){
   const newStory= {'title': $storyTitle, 'author': $storyAuthor, 'url': $storyUrl}   
   console.log(currentUser, newStory)
   await StoryList.addStory(currentUser, newStory)
-  console.log("*******",storyList)
+   
+}
+
+/** Get current story id  */
+async function getCurrentStoryId(){
+  
 }
