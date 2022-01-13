@@ -29,6 +29,7 @@ function generateStoryMarkup(story) {
   const hostName = story.getHostName();
   return $(`
       <li id="${story.storyId}">
+        <span id="star_id" data-story-id="${story.storyId}" class="fa fa-star checked"></span> 
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
         </a>
@@ -62,12 +63,17 @@ async function addNewStoryOnPage(){
   const $storyAuthor=$("#story-author").val()
   const $storyUrl=$("#story-url").val()
   const newStory= {'title': $storyTitle, 'author': $storyAuthor, 'url': $storyUrl}   
-  console.log(currentUser, newStory)
+
   await StoryList.addStory(currentUser, newStory)
    
 }
 
-/** Get current story id  */
-async function getCurrentStoryId(){
-  
+/** add fovirte to a story when star icon is clicked  */
+function addFavoriteStoryOnPage(evt){
+ 
+  console.log("******", evt)
 }
+
+$(document).on('click', '#star_id', function(){
+  alert('fire')
+})

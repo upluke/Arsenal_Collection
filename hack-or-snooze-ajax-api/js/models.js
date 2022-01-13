@@ -211,8 +211,14 @@ class User {
 
   /** Add a story as a favorite */
   //https://hack-or-snooze-v3.herokuapp.com/users/username/favorites/storyId
-  static async addAFavorite(){
+  static async addAFavorite(token,username, storyId){
      // need currentUser.username and storyId
+    const response=await axios({
+      url:`https://hack-or-snooze-v3.herokuapp.com/users/${username}/favorites/${storyId}`,
+      method:'POST',
+      params:{token}
+    })
+    return response
   }
   
 }

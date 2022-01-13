@@ -53,10 +53,9 @@ async function getCategory(catId) {
         }
     })
     
-    let title=""
+    let title=cluesData.data[0].category.title
     const clues=[]
-    for (let cd of cluesData.data){
-      title=cd.category.title
+    for (let cd of cluesData.data){  
       clues.push({"question": cd.question, "answer":cd.answer, "showing":null})
     }
     
