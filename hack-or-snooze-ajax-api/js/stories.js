@@ -69,11 +69,12 @@ async function addNewStoryOnPage(){
 }
 
 /** add fovirte to a story when star icon is clicked  */
-function addFavoriteStoryOnPage(evt){
- 
-  console.log("******", evt)
+async function addFavoriteStoryOnPage(evt){
+  const token=currentUser.loginToken
+  const username=currentUser.username
+  const storyId=evt.target.dataset.storyId
+   
+ console.log(await User.addAFavorite(token, username, storyId))
 }
 
-$(document).on('click', '#star_id', function(){
-  alert('fire')
-})
+$(document).on('click', '#star_id', addFavoriteStoryOnPage)
