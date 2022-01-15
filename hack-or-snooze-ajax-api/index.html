@@ -38,10 +38,10 @@
   <div class="navbar-brand">
     <a class="nav-link" href="#" id="nav-all">Hack or Snooze</a>
   </div>
-  
+
   <div>
-    <a class="nav-link" href="#" id="nav-submit">Submit</a> |
-    <a class="nav-link" href="#" id="nav-favorits">Favorites</a> | 
+    <a class="nav-link" href="#" id="nav-submit">Submit |</a>
+    <a class="nav-link" href="#" id="nav-favorits">Favorites |</a> 
     <a class="nav-link" href="#" id="nav-my-stories">My Stories</a>
   </div>
  
@@ -58,30 +58,32 @@
   <!-- loading message (removed by JS after stories loaded) -->
   <div id="stories-loading-msg">Loading&hellip;</div>
 
+  <!-- area for stories to be created-->
+  <form id="story-form" > 
+    <input type="text" placeholder="Please enter a story title" id="story-title" />
+    <input type="text" placeholder="Please enter a story author" id="story-author" />
+    <input type="text" placeholder="Please enter a story url" id="story-url" />
+    <!-- <button type="submit" id="nav-submit" >Submit</button> -->
+     <input type="submit" id="nav-submit-btn" />
+    <hr >
+  </form> 
+
   <!-- List of all stories -->
   <ol id="all-stories-list" class="stories-list"></ol>
 
-  <!-- area for stories to be created-->
-  <form id="story-form">
-      <input type="text" placeholder="Please enter a story title" id="story-title" />
-      <input type="text" placeholder="Please enter a story author" id="story-author" />
-      <input type="text" placeholder="Please enter a story url" id="story-url" />
-      <input type="submit" id="nav-submit" />
-  </form>
-
-  <!-- area for favorited stories -->
-  <ol id="all-favorites-list" class="stories-list"></ol>
-    <li>a</li>
-    <li>b</li>
-    <li>c</li>
-  </ol>
-
-  <!-- area for user's stories -->
-  <ol>
-    <li>my story 1</li>
-    <li>my story 2</li>
-    <li>my story 3</li>
-  </ol>
+    <!-- area for favorited stories -->
+    <ol id="favorites-list" class="stories-list"> 
+      <li>a</li>
+      <li>b</li>
+      <li>c</li>
+    </ol>
+  
+    <!-- area for user's stories -->
+    <ol id="my-stories-list"  class="stories-list">
+      <li>my story 1</li>
+      <li>my story 2</li>
+      <li>my story 3</li>
+    </ol>
 </section>
 
 

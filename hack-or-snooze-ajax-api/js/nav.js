@@ -36,16 +36,28 @@ function updateNavOnLogin() {
   $navLogin.hide();
   $navLogOut.show();
   $navUserProfile.text(`${currentUser.username}`).show();
+
+  $navSubmit.show()
+  $navFavorites.show()
+  $navMyStories.show()
 }
 
-/** When a user clicks sumbit, a story will be added */
-function navSubmitClick(){
-  console.debug("navSubmitClick");
-  addNewStoryOnPage()
 
-}
-
-$("#story-form").on('submit', navSubmitClick)
-
-
+/** When a user click on submit a form displaces on the top of the list */
+function navSubmitClick(evt){
+    console.debug("navSubmitClick");
+    $storyForm.show()
+    console.log("test click")
+  }
  
+  $('#nav-submit').on('click', navSubmitClick)
+  
+
+  
+   /** When a user clicks sumbit button, a story will be added */
+  function formSubmitClick(){
+   console.debug("formSubmitClick"); 
+   addNewStoryOnPage()
+    
+  }
+  $('#story-form').on('submit', formSubmitClick)

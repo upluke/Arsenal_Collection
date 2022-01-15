@@ -17,6 +17,20 @@ const $navLogin = $("#nav-login");
 const $navUserProfile = $("#nav-user-profile");
 const $navLogOut = $("#nav-logout");
 
+const $navSubmit=$("#nav-submit")
+const $navFavorites=$("#nav-favorits")
+const $navMyStories=$("#nav-my-stories")
+
+const $storyForm=$("#story-form")
+const $favoritesList =$("#favorites-list")
+const $myStoriesList =$("#my-stories-list")
+
+/** Avoid the flash of unstyled content */
+$(document).ready(function(){
+  $storyForm.hide()
+  $favoritesList.hide()
+  $myStoriesList.hide()
+})
 
 
 /** To make it easier for individual components to show just themselves, this
@@ -24,11 +38,15 @@ const $navLogOut = $("#nav-logout");
  * calling this, individual components can re-show just what they want.
  */
 
+
 function hidePageComponents() {
   const components = [
     $allStoriesList,
     $loginForm,
     $signupForm,
+    $storyForm, 
+    $favoritesList,
+    $myStoriesList
   ];
   components.forEach(c => c.hide());
 }
