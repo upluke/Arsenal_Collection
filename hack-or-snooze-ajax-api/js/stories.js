@@ -13,6 +13,13 @@ async function getAndShowStoriesOnStart() {
   storyList = await StoryList.getStories();
   $storiesLoadingMsg.remove();
 
+  $navSubmit.hide() 
+  $navFavorites.hide()
+  $navMyStories.hide()
+  $storyForm.hide()
+  $favoritesList.hide()
+  $myStoriesList.hide()
+
   putStoriesOnPage();
 }
 
