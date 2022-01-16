@@ -16,7 +16,8 @@ let currentUser;
 async function login(evt) {
   console.debug("login", evt);
   evt.preventDefault();
-
+  // display addtional tabs when user logs in 
+  $navbarTabs.show()
   // grab the username and password
   const username = $("#login-username").val();
   const password = $("#login-password").val();
