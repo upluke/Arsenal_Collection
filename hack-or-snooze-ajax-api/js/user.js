@@ -16,8 +16,7 @@ let currentUser;
 async function login(evt) {
   console.debug("login", evt);
   evt.preventDefault();
-  // display addtional tabs when user logs in 
-  $navbarTabs.show()
+
   // grab the username and password
   const username = $("#login-username").val();
   const password = $("#login-password").val();
@@ -85,6 +84,7 @@ async function checkForRememberedUser() {
 
   // try to log in with these credentials (will be null if login failed)
   currentUser = await User.loginViaStoredCredentials(token, username);
+
 }
 
 /** Sync current user information to localStorage.

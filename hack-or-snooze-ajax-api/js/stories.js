@@ -77,11 +77,22 @@ async function addNewStoryOnPage(){
 
 /** add fovirte to a story when star icon is clicked  */
 async function addFavoriteStoryOnPage(evt){
+
   const token=currentUser.loginToken
   const username=currentUser.username
   const storyId=evt.target.dataset.storyId
-   
- console.log(await User.addAFavorite(token, username, storyId))
+  
+  
+  
+  if ($(this).hasClass('checked')){
+    console.log("removed -->", await User.removeAFavorite(token, username, storyId))
+    $(this).removeClass('checked')
+  }else{
+    console.log("add -->", await User.addAFavorite(token, username, storyId))
+    $(this).addClass('checked')
+  }
+
+  
 }
 
 $(document).on('click', '#star_id', addFavoriteStoryOnPage)

@@ -210,8 +210,8 @@ class User {
     }
   }
 
-  /** --- */
-  /** Add a story as a favorite */
+ 
+  /** favorite a story */
   //https://hack-or-snooze-v3.herokuapp.com/users/username/favorites/storyId
   static async addAFavorite(token,username, storyId){
 
@@ -224,4 +224,15 @@ class User {
     return new Story(response)
   }
   
+  /** unfavorite a story */
+  //https://hack-or-snooze-v3.herokuapp.com/users/username/favorites/storyId
+  static async removeAFavorite(token, username, storyId){
+    const response =await axios({
+      url:`https://hack-or-snooze-v3.herokuapp.com/users/${username}/favorites/${storyId}`,
+      method:'DELETE',
+      params:{token}
+    })
+    console.log(response)
+    
+  }
 }
