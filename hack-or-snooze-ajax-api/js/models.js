@@ -220,8 +220,8 @@ class User {
       method:'POST',
       params:{token}
     })
-    console.log(response)
-    return new Story(response)
+     
+    console.log('add fav response ', response)
   }
   
   /** unfavorite a story */
@@ -232,7 +232,21 @@ class User {
       method:'DELETE',
       params:{token}
     })
-    console.log(response)
+    console.log('remove fav response', response)
     
   }
+
+  /** get a user*/
+  //https://hack-or-snooze-v3.herokuapp.com/users/username
+  static async getAUserData(username){
+    const response=await axios({
+      url:`https://hack-or-snooze-v3.herokuapp.com/users/${username}`,
+      method:'GET'
+    })
+    console.log("get a user: ", response)
+    return response
+
+  }
+
+
 }

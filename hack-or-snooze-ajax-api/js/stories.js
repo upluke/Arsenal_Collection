@@ -85,10 +85,10 @@ async function addFavoriteStoryOnPage(evt){
   
   
   if ($(this).hasClass('checked')){
-    console.log("removed -->", await User.removeAFavorite(token, username, storyId))
+    await User.removeAFavorite(token, username, storyId)
     $(this).removeClass('checked')
   }else{
-    console.log("add -->", await User.addAFavorite(token, username, storyId))
+    await User.addAFavorite(token, username, storyId)
     $(this).addClass('checked')
   }
 
