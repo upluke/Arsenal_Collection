@@ -40,9 +40,9 @@
   </div>
 
   <div>
-    <a class="nav-link" href="#" id="nav-submit">Submit |</a>
-    <a class="nav-link" href="#" id="nav-favorits">Favorites |</a> 
-    <a class="nav-link" href="#" id="nav-my-stories">My Stories</a>
+    <a class="nav-link hidden" href="#" id="nav-submit">Submit |</a>
+    <a class="nav-link hidden" href="#" id="nav-favorits">Favorites |</a> 
+    <a class="nav-link hidden" href="#" id="nav-my-stories">My Stories</a>
   </div>
  
   <div class="nav-right">
@@ -59,31 +59,31 @@
   <div id="stories-loading-msg">Loading&hellip;</div>
 
   <!-- area for stories to be created-->
-  <form id="story-form" > 
+  <form  action="#"  id="story-form" class="hidden" method="post"> 
     <input type="text" placeholder="Please enter a story title" id="story-title" />
     <input type="text" placeholder="Please enter a story author" id="story-author" />
     <input type="text" placeholder="Please enter a story url" id="story-url" />
     <!-- <button type="submit" id="nav-submit" >Submit</button> -->
-     <input type="submit" id="nav-submit-btn" />
+     <button type="submit" id="nav-submit-btn">submmmit</button>
     <hr >
   </form> 
 
   <!-- List of all stories -->
   <ol id="all-stories-list" class="stories-list"></ol>
 
-    <!-- area for favorited stories -->
-    <ol id="favorites-list" class="stories-list"> 
+  <!-- area for favorited stories -->
+  <ol id="favorites-list" class="stories-list hidden"> 
       <li>a</li>
       <li>b</li>
       <li>c</li>
-    </ol>
+  </ol>
   
-    <!-- area for user's stories -->
-    <ol id="my-stories-list"  class="stories-list">
+  <!-- area for user's stories -->
+  <ol id="my-stories-list"  class="stories-list hidden">
       <li>my story 1</li>
       <li>my story 2</li>
       <li>my story 3</li>
-    </ol>
+  </ol>
 </section>
 
 

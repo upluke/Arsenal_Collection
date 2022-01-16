@@ -47,17 +47,20 @@ function updateNavOnLogin() {
 function navSubmitClick(evt){
     console.debug("navSubmitClick");
     $storyForm.show()
-    console.log("test click")
+   
   }
  
-  $('#nav-submit').on('click', navSubmitClick)
+$('#nav-submit').on('click', navSubmitClick)
   
 
   
-   /** When a user clicks sumbit button, a story will be added */
-  function formSubmitClick(){
-   console.debug("formSubmitClick"); 
-   addNewStoryOnPage()
-    
+/** When a user clicks sumbit button, a story will be added */
+function formSubmitClick(evt){
+  evt.preventDefault()
+  console.debug("formSubmitClick"); 
+  addNewStoryOnPage()
+  
+   $storyForm.hide()
+   
   }
-  $('#story-form').on('submit', formSubmitClick)
+$('#story-form').on('submit', formSubmitClick)

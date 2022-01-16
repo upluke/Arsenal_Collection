@@ -25,13 +25,7 @@ const $storyForm=$("#story-form")
 const $favoritesList =$("#favorites-list")
 const $myStoriesList =$("#my-stories-list")
 
-/** Avoid the flash of unstyled content */
-$(document).ready(function(){
-  $storyForm.hide()
-  $favoritesList.hide()
-  $myStoriesList.hide()
-})
-
+ 
 
 /** To make it easier for individual components to show just themselves, this
  * is a useful function that hides pretty much everything on the page. After
@@ -44,9 +38,6 @@ function hidePageComponents() {
     $allStoriesList,
     $loginForm,
     $signupForm,
-    $storyForm, 
-    $favoritesList,
-    $myStoriesList
   ];
   components.forEach(c => c.hide());
 }
@@ -55,7 +46,7 @@ function hidePageComponents() {
 
 async function start() {
   console.debug("start");
-
+  
   // "Remember logged-in user" and log in, if credentials in localStorage
   await checkForRememberedUser();
   await getAndShowStoriesOnStart();

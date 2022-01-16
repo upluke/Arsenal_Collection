@@ -104,8 +104,8 @@ form > hr {
   width: 70px;
 }
 
+/* no display: flext bc it will confict initial hidden attribute since above already set it  */
 #story-form {
-  display: flex;
   flex-flow: row wrap;
   align-items: center;
   margin: 1rem auto;
