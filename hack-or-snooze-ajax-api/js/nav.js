@@ -41,7 +41,7 @@ function updateNavOnLogin() {
   $navFavorites.show()
   $navMyStories.show()
   
-  addFavoritesOnPage()
+  addFavoritesOnPage() 
 }
 
 
