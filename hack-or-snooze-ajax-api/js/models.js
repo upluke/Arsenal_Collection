@@ -238,12 +238,14 @@ class User {
 
   /** get a user*/
   //https://hack-or-snooze-v3.herokuapp.com/users/username
-  static async getAUserData(username){
+  static async getAUserData(username, token){
+   
     const response=await axios({
       url:`https://hack-or-snooze-v3.herokuapp.com/users/${username}`,
-      method:'GET'
+      method:'GET',
+      params:{token}
     })
-    console.log("get a user: ", response)
+    console.log(response, "^^")
     return response
 
   }

@@ -5,12 +5,19 @@
 
 // This is the global list of the stories, an instance of StoryList
 let storyList;
-
+let aUserData;
 /** Get and show stories when site first loads. */
 
 async function getAndShowStoriesOnStart() {
   
   storyList = await StoryList.getStories();
+  
+  // fetch a user's data
+  if(currentUser!==undefined){
+    aUserData= await User.getAUserData(currentUser.username, currentUser.loginToken)
+   
+  }
+  
   $storiesLoadingMsg.remove();
 
   putStoriesOnPage();
@@ -25,8 +32,14 @@ async function getAndShowStoriesOnStart() {
 
 function generateStoryMarkup(story) {
   // console.debug("generateStoryMarkup", story);
-
-  const hostName = story.getHostName();
+ 
+  let hostName=''
+  if (story.getHostName===undefined){
+    hostName = 'myhosename.com'; 
+  }else{
+    hostName = story.getHostName();
+  }
+ 
   return $(`
       <li id="${story.storyId}">
         <span id="star_id" data-story-id="${story.storyId}" class=""></span> 
@@ -92,6 +105,18 @@ $(document).on('click', '#star_id', addFavoriteStoryOnPage)
 
 /** generate user's favorites */
 
-async function generateUserFavorites(){
-
+async function putFavoritesOnPage(){
+ 
+  $favoritesList.empty()
+  const favorites = aUserData.data.user.favorites
+  
+  
+  for(let favorite of favorites){
+    const $favs= generateStoryMarkup(favorite)
+    $favoritesList.append($favs)
+  }
+  $favoritesList.show()
+  $allStoriesList.hide()
 }
+
+$navFavorites.on('click', putFavoritesOnPage)
