@@ -64,6 +64,7 @@ function logout(evt) {
   console.debug("logout", evt);
   localStorage.clear();
   location.reload();
+  
 }
 
 $navLogOut.on("click", logout);
@@ -116,7 +117,8 @@ function updateUIOnUserLogin() {
   console.debug("updateUIOnUserLogin");
 
   $allStoriesList.show();
-
+  // add star icno to all spans when a user logs in 
+  $('span').addClass('fa fa-star')
   updateNavOnLogin();
   $loginForm.hide()
   $signupForm.hide()

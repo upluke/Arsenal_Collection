@@ -13,13 +13,6 @@ async function getAndShowStoriesOnStart() {
   storyList = await StoryList.getStories();
   $storiesLoadingMsg.remove();
 
-  $navSubmit.hide() 
-  $navFavorites.hide()
-  $navMyStories.hide()
-  $storyForm.hide()
-  $favoritesList.hide()
-  $myStoriesList.hide()
-
   putStoriesOnPage();
 }
 
@@ -36,7 +29,7 @@ function generateStoryMarkup(story) {
   const hostName = story.getHostName();
   return $(`
       <li id="${story.storyId}">
-        <span id="star_id" data-story-id="${story.storyId}" class="fa fa-star checked"></span> 
+        <span id="star_id" data-story-id="${story.storyId}" class=""></span> 
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
         </a>
@@ -75,7 +68,7 @@ async function addNewStoryOnPage(){
    
 }
 
-/** add fovirte to a story when star icon is clicked  */
+/** add/remove fovirte to a story when star icon is clicked  */
 async function addFavoriteStoryOnPage(evt){
 
   const token=currentUser.loginToken
@@ -96,3 +89,9 @@ async function addFavoriteStoryOnPage(evt){
 }
 
 $(document).on('click', '#star_id', addFavoriteStoryOnPage)
+
+/** generate user's favorites */
+
+async function generateUserFavorites(){
+
+}
