@@ -11,8 +11,6 @@ let storyList;
 async function getAndShowStoriesOnStart() {
   
   storyList = await StoryList.getStories();
-
- 
   
   $storiesLoadingMsg.remove();
 
@@ -50,10 +48,6 @@ function generateStoryMarkup(story) {
 
 function putStoriesOnPage() {
   console.debug("putStoriesOnPage");
-  // if(currentUser){
-  //   favoritesCheckList= await generateUserFavoriteList()
-  // }
-  
   $allStoriesList.empty();
 
   // loop through all of our stories and generate HTML for them
@@ -117,11 +111,8 @@ async function addFavoritesOnPage(){
 }
 
 function displayFavorites(){
+  hidePageComponents()
   $favoritesList.show()
-  $allStoriesList.hide()
-  $storyForm.hide()
-  $myStoriesList.hide()
-  
 }
 
 
@@ -156,9 +147,7 @@ async function addMyStoriesOnPage(){
 }
 
 function displayMyStories(){
-  $storyForm.hide()
-  $favoritesList.hide()
-  $allStoriesList.hide()
+  hidePageComponents()
   $myStoriesList.show()
 }
 
