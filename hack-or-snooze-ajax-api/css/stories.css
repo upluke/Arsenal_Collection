@@ -41,6 +41,6 @@
   color: orange;
 }
 
-.checked:hover {
+#star_id:hover {
   cursor: pointer;
 }

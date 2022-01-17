@@ -12,8 +12,7 @@
 function navAllStories(evt) {
   console.debug("navAllStories", evt);
   hidePageComponents();
-  putStoriesOnPage(); 
- 
+  putStoriesOnPage();  
 }
 
 $body.on("click", "#nav-all", navAllStories);
@@ -41,8 +40,10 @@ function updateNavOnLogin() {
   $navSubmit.show()
   $navFavorites.show()
   $navMyStories.show()
-  
+
+  // add favorites and my stories on to page after a user logs in
   addFavoritesOnPage() 
+  addMyStoriesOnPage()
 }
 
 
@@ -63,7 +64,7 @@ function formSubmitClick(evt){
   console.debug("formSubmitClick"); 
   addNewStoryOnPage()
   
-   $storyForm.hide()
+  $storyForm.hide()
    
   }
 $('#story-form').on('submit', formSubmitClick)

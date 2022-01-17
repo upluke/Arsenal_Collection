@@ -29,9 +29,12 @@ async function login(evt) {
 
   saveUserCredentialsInLocalStorage();
   updateUIOnUserLogin();
-  // collect favorites ids
-  favoritesCheckList= await generateUserFavoriteList()
+
+  // collect favorites ids and save it to local storage
+  const favoritesIdCollection= await generateUserFavoriteList()
+  saveUserFavoritesInLocalStorage(favoritesIdCollection)
   putStoriesOnPage(); 
+ 
 }
 
 $loginForm.on("submit", login);
@@ -131,3 +134,10 @@ function updateUIOnUserLogin() {
 }
 
 
+/** Sync current user's favorites to localStorage */
+
+function saveUserFavoritesInLocalStorage(favoritesList){
+  if(currentUser){
+    localStorage.setItem("favoritesIds", favoritesList )
+  }
+}

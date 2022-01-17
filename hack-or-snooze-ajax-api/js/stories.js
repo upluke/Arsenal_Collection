@@ -29,13 +29,13 @@ async function getAndShowStoriesOnStart() {
 function generateStoryMarkup(story) {
   // console.debug("generateStoryMarkup", story);
  
-  
-  // 
-  const hostName = story.getHostName();
+
+  const hostName = story.getHostName();  
+  const favoritesIdCollection=localStorage.getItem("favoritesIds")===null?[]:localStorage.getItem("favoritesIds") 
   
   return $(`
       <li id="${story.storyId}">
-        <span id="star_id" data-story-id="${story.storyId}" class="${favoritesCheckList.indexOf(story.storyId)!==-1?'fa fa-star checked':'fa fa-star'}"></span> 
+        <span id="star_id" data-story-id="${story.storyId}" class="${favoritesIdCollection.indexOf(story.storyId)!==-1?'fa fa-star checked':'fa fa-star'}"></span> 
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
         </a>
@@ -63,7 +63,7 @@ function putStoriesOnPage() {
   }
 
   $allStoriesList.show();
-  $favoritesList.hide()
+  
 }
 
 /** It's called when users submit the form */
@@ -95,20 +95,14 @@ async function addFavoriteStoryOnPage(evt){
     
   }
   addFavoritesOnPage()
-  putStoriesOnPage(); 
+   
 }
 
 $(document).on('click', '#star_id', addFavoriteStoryOnPage)
 
-/** generate user's favorites */
-
-function displayFavorites(){
-  $favoritesList.show()
-  $allStoriesList.hide()
-  
-}
-
+/** generate user's favorites on page */
 async function addFavoritesOnPage(){
+
   $favoritesList.empty()
   const aUserData= await User.getAUserData(currentUser.username, currentUser.loginToken)
   const favorites = aUserData.data.user.favorites
@@ -122,13 +116,20 @@ async function addFavoritesOnPage(){
 
 }
 
+function displayFavorites(){
+  $favoritesList.show()
+  $allStoriesList.hide()
+  $storyForm.hide()
+  $myStoriesList.hide()
+  
+}
 
 
 $navFavorites.on('click', displayFavorites)
 
 
 
-/** generate user favrite list */
+/** create user favrite list for look up*/
 
 async function generateUserFavoriteList(){
   const aUserData=await User.getAUserData(currentUser.username, currentUser.loginToken)
@@ -139,3 +140,26 @@ async function generateUserFavoriteList(){
   
 }
 
+/** generate my stories */
+async function addMyStoriesOnPage(){
+  $myStoriesList.empty()
+  const aUserData=await User.getAUserData(currentUser.username, currentUser.loginToken)
+  const userStories=aUserData.data.user.stories 
+
+  for(let userStory of userStories){
+    const storifiedStoryObject=new Story(userStory)
+    const $myStories=generateStoryMarkup(storifiedStoryObject)
+
+    $myStoriesList.append($myStories)
+  }
+ 
+}
+
+function displayMyStories(){
+  $storyForm.hide()
+  $favoritesList.hide()
+  $allStoriesList.hide()
+  $myStoriesList.show()
+}
+
+$navMyStories.on('click', displayMyStories )
