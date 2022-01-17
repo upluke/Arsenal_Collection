@@ -25,7 +25,8 @@ const $navMyStories=$("#nav-my-stories")
 const $storyForm=$("#story-form")
 const $favoritesList =$("#favorites-list")
 const $myStoriesList =$("#my-stories-list")
- 
+
+let favoritesCheckList=[]
 
 /** To make it easier for individual components to show just themselves, this
  * is a useful function that hides pretty much everything on the page. After
@@ -53,6 +54,7 @@ async function start() {
 
   // if we got a logged-in user
   if (currentUser) updateUIOnUserLogin();
+  
   
 }
 

@@ -29,6 +29,9 @@ async function login(evt) {
 
   saveUserCredentialsInLocalStorage();
   updateUIOnUserLogin();
+  // collect favorites ids
+  favoritesCheckList= await generateUserFavoriteList()
+  putStoriesOnPage(); 
 }
 
 $loginForm.on("submit", login);
@@ -85,7 +88,9 @@ async function checkForRememberedUser() {
 
   // try to log in with these credentials (will be null if login failed)
   currentUser = await User.loginViaStoredCredentials(token, username);
-
+   
+ 
+   
 }
 
 /** Sync current user information to localStorage.
@@ -122,6 +127,7 @@ function updateUIOnUserLogin() {
   updateNavOnLogin();
   $loginForm.hide()
   $signupForm.hide()
+  
 }
 
 

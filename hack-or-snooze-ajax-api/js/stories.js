@@ -5,7 +5,7 @@
 
 // This is the global list of the stories, an instance of StoryList
 let storyList;
-let aUserData;
+
 /** Get and show stories when site first loads. */
 
 async function getAndShowStoriesOnStart() {
@@ -30,13 +30,12 @@ function generateStoryMarkup(story) {
   // console.debug("generateStoryMarkup", story);
  
   
- 
+  // 
   const hostName = story.getHostName();
- 
   
   return $(`
       <li id="${story.storyId}">
-        <span id="star_id" data-story-id="${story.storyId}" class=""></span> 
+        <span id="star_id" data-story-id="${story.storyId}" class="${favoritesCheckList.indexOf(story.storyId)!==-1?'fa fa-star checked':'fa fa-star'}"></span> 
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
         </a>
@@ -51,7 +50,10 @@ function generateStoryMarkup(story) {
 
 function putStoriesOnPage() {
   console.debug("putStoriesOnPage");
-
+  // if(currentUser){
+  //   favoritesCheckList= await generateUserFavoriteList()
+  // }
+  
   $allStoriesList.empty();
 
   // loop through all of our stories and generate HTML for them
@@ -93,6 +95,7 @@ async function addFavoriteStoryOnPage(evt){
     
   }
   addFavoritesOnPage()
+  putStoriesOnPage(); 
 }
 
 $(document).on('click', '#star_id', addFavoriteStoryOnPage)
@@ -107,7 +110,7 @@ function displayFavorites(){
 
 async function addFavoritesOnPage(){
   $favoritesList.empty()
-  aUserData= await User.getAUserData(currentUser.username, currentUser.loginToken)
+  const aUserData= await User.getAUserData(currentUser.username, currentUser.loginToken)
   const favorites = aUserData.data.user.favorites
   
   for(let favorite of favorites){
@@ -121,5 +124,18 @@ async function addFavoritesOnPage(){
 
 
 
-
 $navFavorites.on('click', displayFavorites)
+
+
+
+/** generate user favrite list */
+
+async function generateUserFavoriteList(){
+  const aUserData=await User.getAUserData(currentUser.username, currentUser.loginToken)
+  return aUserData.data.user.favorites.reduce((accu, curr)=>{
+      accu.push(curr.storyId)
+      return accu
+   }, []) 
+  
+}
+
