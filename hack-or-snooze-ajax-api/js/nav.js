@@ -40,6 +40,8 @@ function updateNavOnLogin() {
   $navSubmit.show()
   $navFavorites.show()
   $navMyStories.show()
+  
+  addFavoritesOnPage()
 }
 
 

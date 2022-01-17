@@ -5,18 +5,14 @@
 
 // This is the global list of the stories, an instance of StoryList
 let storyList;
-let aUserData;
+
 /** Get and show stories when site first loads. */
 
 async function getAndShowStoriesOnStart() {
   
   storyList = await StoryList.getStories();
-  
-  // fetch a user's data
-  if(currentUser!==undefined){
-    aUserData= await User.getAUserData(currentUser.username, currentUser.loginToken)
-   
-  }
+
+ 
   
   $storiesLoadingMsg.remove();
 
@@ -33,12 +29,10 @@ async function getAndShowStoriesOnStart() {
 function generateStoryMarkup(story) {
   // console.debug("generateStoryMarkup", story);
  
-  let hostName=''
-  if (story.getHostName===undefined){
-    hostName = 'myhosename.com'; 
-  }else{
-    hostName = story.getHostName();
-  }
+  
+ 
+  const hostName = story.getHostName();
+ 
  
   return $(`
       <li id="${story.storyId}">
@@ -67,6 +61,7 @@ function putStoriesOnPage() {
   }
 
   $allStoriesList.show();
+  $favoritesList.hide()
 }
 
 /** It's called when users submit the form */
@@ -88,8 +83,6 @@ async function addFavoriteStoryOnPage(evt){
   const username=currentUser.username
   const storyId=evt.target.dataset.storyId
   
-  
-  
   if ($(this).hasClass('checked')){
     await User.removeAFavorite(token, username, storyId)
     $(this).removeClass('checked')
@@ -97,7 +90,6 @@ async function addFavoriteStoryOnPage(evt){
     await User.addAFavorite(token, username, storyId)
     $(this).addClass('checked')
   }
-
   
 }
 
@@ -105,18 +97,26 @@ $(document).on('click', '#star_id', addFavoriteStoryOnPage)
 
 /** generate user's favorites */
 
-async function putFavoritesOnPage(){
- 
-  $favoritesList.empty()
-  const favorites = aUserData.data.user.favorites
-  
-  
-  for(let favorite of favorites){
-    const $favs= generateStoryMarkup(favorite)
-    $favoritesList.append($favs)
-  }
+function displayFavorites(){
   $favoritesList.show()
   $allStoriesList.hide()
 }
 
-$navFavorites.on('click', putFavoritesOnPage)
+async function addFavoritesOnPage(){
+  $favoritesList.empty()
+  let aUserData= await User.getAUserData(currentUser.username, currentUser.loginToken)
+  const favorites = aUserData.data.user.favorites
+  
+  for(let favorite of favorites){
+    const storifiedFavObject=new Story(favorite)
+    const $favorite= generateStoryMarkup(storifiedFavObject)
+    
+    $favoritesList.append($favorite)
+  }
+
+}
+
+
+
+
+$navFavorites.on('click', displayFavorites)
