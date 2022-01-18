@@ -41,6 +41,6 @@
   color: orange;
 }
 
-#star_id:hover {
+.fa:hover {
   cursor: pointer;
 }

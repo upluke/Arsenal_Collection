@@ -245,10 +245,20 @@ class User {
       method:'GET',
       params:{token}
     })
-    console.log(response, "^^")
+    console.log(response, "^user data^")
     return response
 
   }
 
+  /** remove a story */
+  //https://hack-or-snooze-v3.herokuapp.com/stories/storyId
+  static async removeAStory(storyId, token){
+    const response =await axios({
+      url:`https://hack-or-snooze-v3.herokuapp.com/stories/${storyId}`,
+      method:'DELETE',
+      params:{token}
+    })
+    console.log("remove a story", response)
+  }
 
 }
