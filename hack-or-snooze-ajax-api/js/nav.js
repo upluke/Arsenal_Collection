@@ -50,7 +50,9 @@ function updateNavOnLogin() {
 /** When a user click on submit a form displaces on the top of the list */
 function navSubmitClick(evt){
     console.debug("navSubmitClick");
+    hidePageComponents()
     $storyForm.show()
+    $allStoriesList.show()
    
   }
  
@@ -63,8 +65,6 @@ function formSubmitClick(evt){
   evt.preventDefault()
   console.debug("formSubmitClick"); 
   addNewStoryOnPage()
-  
-  $storyForm.hide()
-   
+ 
   }
 $('#story-form').on('submit', formSubmitClick)

@@ -33,6 +33,7 @@ function generateStoryMarkup(story) {
   
   return $(`
       <li id="${story.storyId}">
+        <span id="trash_id" class="fa fa-trash"></span>
         <span id="star_id" data-story-id="${story.storyId}" class="${favoritesIdCollection.indexOf(story.storyId)!==-1?'fa fa-star checked':'fa fa-star'}"></span> 
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
