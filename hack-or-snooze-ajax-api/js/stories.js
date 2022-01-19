@@ -30,11 +30,13 @@ function generateStoryMarkup(story) {
 
   const hostName = story.getHostName();  
   const favoritesIdCollection=localStorage.getItem("favoritesIds")===null?[]:localStorage.getItem("favoritesIds") 
-  
+  console.log(currentUser , "cur user!")
+  const iconClass= currentUser===undefined&&"hidden"
+  const MarkStarClass=favoritesIdCollection.indexOf(story.storyId)!==-1?'fa fa-star checked':'fa fa-star'
   return $(`
       <li id="${story.storyId}">
-        <span id="trash_id" data-story-id="${story.storyId}" class="fa fa-trash"></span>
-        <span id="star_id" data-story-id="${story.storyId}" class="${favoritesIdCollection.indexOf(story.storyId)!==-1?'fa fa-star checked':'fa fa-star'}"></span> 
+        <span id="trash_id" data-story-id="${story.storyId}" class="fa fa-trash ${iconClass}"></span>
+        <span id="star_id" data-story-id="${story.storyId}" class="${iconClass} ${MarkStarClass}"></span> 
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
         </a>
@@ -159,8 +161,8 @@ $navMyStories.on('click', displayMyStories )
 async function removeAStory(evt){
   const storyId=evt.target.dataset.storyId
   const token=currentUser.loginToken
-  console.log("#@#####remove", storyId)
   await User.removeAStory(storyId, token)
+  addMyStoriesOnPage()
 }
 
 $(document).on('click','#trash_id', removeAStory)
