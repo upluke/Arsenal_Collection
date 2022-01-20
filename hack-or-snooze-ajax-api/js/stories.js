@@ -24,19 +24,26 @@ async function getAndShowStoriesOnStart() {
  * Returns the markup for the story.
  */
 
-function generateStoryMarkup(story) {
+function generateStoryMarkup(story,type ) {
   // console.debug("generateStoryMarkup", story);
  
 
   const hostName = story.getHostName();  
   const favoritesIdCollection=localStorage.getItem("favoritesIds")===null?[]:localStorage.getItem("favoritesIds") 
   console.log(currentUser , "cur user!")
+  if(type==='favorites'){
+
+  }else if(type==='myStories'){
+
+  }else{
+    
+  }
   const iconClass= currentUser===undefined&&"hidden"
-  const MarkStarClass=favoritesIdCollection.indexOf(story.storyId)!==-1?'fa fa-star checked':'fa fa-star'
+  const MarkStarClass=favoritesIdCollection.indexOf(story.storyId)!==-1?'checked':'fa fa-star'
   return $(`
       <li id="${story.storyId}">
         <span id="trash_id" data-story-id="${story.storyId}" class="fa fa-trash ${iconClass}"></span>
-        <span id="star_id" data-story-id="${story.storyId}" class="${iconClass} ${MarkStarClass}"></span> 
+        <span id="star_id" data-story-id="${story.storyId}" class="fa fa-star ${iconClass} ${MarkStarClass}"></span> 
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
         </a>
@@ -106,7 +113,7 @@ async function addFavoritesOnPage(){
   
   for(let favorite of favorites){
     const storifiedFavObject=new Story(favorite)
-    const $favorite= generateStoryMarkup(storifiedFavObject)
+    const $favorite= generateStoryMarkup(storifiedFavObject, "favorites")
     
     $favoritesList.append($favorite)
   }
