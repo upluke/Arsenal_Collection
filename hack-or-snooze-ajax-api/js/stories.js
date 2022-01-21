@@ -30,20 +30,33 @@ function generateStoryMarkup(story,type ) {
 
   const hostName = story.getHostName();  
   const favoritesIdCollection=localStorage.getItem("favoritesIds")===null?[]:localStorage.getItem("favoritesIds") 
-  console.log(currentUser , "cur user!")
+ 
+  // update trash icon and star icon depending on tab types
+  let trashIconClass=''
+  let starIconClass=''  
+  const markedStar=favoritesIdCollection.indexOf(story.storyId)!==-1?'checked':''
+  //|||||||||||||||||
   if(type==='favorites'){
-
-  }else if(type==='myStories'){
-
-  }else{
+    trashIconClass="fa fa-trash hidden"
+    starIconClass=`fa fa-star ${markedStar}`
     
+  }else if(type==='myStories'){
+    trashIconClass="fa fa-trash"
+    starIconClass=`fa fa-star ${markedStar}`
+  }else{
+    if(currentUser){
+      trashIconClass="fa fa-trash hidden"
+      starIconClass=`fa fa-star ${markedStar}`
+    }else{
+      trashIconClass="fa fa-trash hidden"
+      starIconClass=`fa fa-star hidden`
+    }
   }
-  const iconClass= currentUser===undefined&&"hidden"
-  const MarkStarClass=favoritesIdCollection.indexOf(story.storyId)!==-1?'checked':'fa fa-star'
+ 
   return $(`
       <li id="${story.storyId}">
-        <span id="trash_id" data-story-id="${story.storyId}" class="fa fa-trash ${iconClass}"></span>
-        <span id="star_id" data-story-id="${story.storyId}" class="fa fa-star ${iconClass} ${MarkStarClass}"></span> 
+        <span id="trash_id" data-story-id="${story.storyId}" class="${trashIconClass}"></span>
+        <span id="star_id" data-story-id="${story.storyId}" class="${starIconClass}"></span> 
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
         </a>
@@ -79,7 +92,7 @@ async function addNewStoryOnPage(){
   const newStory= {'title': $storyTitle, 'author': $storyAuthor, 'url': $storyUrl}   
 
   await StoryList.addStory(currentUser, newStory)
-   
+  getAndShowStoriesOnStart()
 }
 
 /** add/remove fovirte to a story when star icon is clicked  */
@@ -149,7 +162,7 @@ async function addMyStoriesOnPage(){
 
   for(let userStory of userStories){
     const storifiedStoryObject=new Story(userStory)
-    const $myStories=generateStoryMarkup(storifiedStoryObject)
+    const $myStories=generateStoryMarkup(storifiedStoryObject, "myStories")
 
     $myStoriesList.append($myStories)
   }

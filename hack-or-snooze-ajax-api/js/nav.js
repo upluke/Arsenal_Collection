@@ -52,6 +52,9 @@ function navSubmitClick(evt){
     console.debug("navSubmitClick");
     hidePageComponents()
     $storyForm.show()
+    $("#story-title").val('') 
+    $("#story-author").val('')
+    $("#story-url").val('')
     $allStoriesList.show()
    
   }
