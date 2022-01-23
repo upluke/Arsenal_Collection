@@ -141,3 +141,13 @@ function saveUserFavoritesInLocalStorage(favoritesList){
     localStorage.setItem("favoritesIds", favoritesList )
   }
 }
+
+/** Sync current user's stories to localStorage */
+
+// function saveUserStoriesIntoLocalStorage(userStories){
+//   if(currentUser){
+//     localStorage.setItem("userStories",JSON.stringify(userStories ))
+    
+     
+//   }
+// }

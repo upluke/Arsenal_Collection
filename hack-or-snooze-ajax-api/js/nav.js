@@ -64,10 +64,12 @@ $('#nav-submit').on('click', navSubmitClick)
 
   
 /** When a user clicks sumbit button, a story will be added */
-function formSubmitClick(evt){
+async function formSubmitClick(evt){
   evt.preventDefault()
   console.debug("formSubmitClick"); 
-  addNewStoryOnPage()
- 
+  // get the most updated user stories
+  const userStories= await addNewStoryOnPage()
+  addMyStoriesOnPage(userStories)
+  $storyForm.hide() 
   }
 $('#story-form').on('submit', formSubmitClick)

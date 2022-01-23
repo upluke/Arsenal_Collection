@@ -5,7 +5,7 @@
 
 // This is the global list of the stories, an instance of StoryList
 let storyList;
-
+ 
 /** Get and show stories when site first loads. */
 
 async function getAndShowStoriesOnStart() {
@@ -86,13 +86,25 @@ function putStoriesOnPage() {
 /** It's called when users submit the form */
 
 async function addNewStoryOnPage(){
+  console.log("(((((((((((((")
   const $storyTitle=$("#story-title").val()
   const $storyAuthor=$("#story-author").val()
   const $storyUrl=$("#story-url").val()
   const newStory= {'title': $storyTitle, 'author': $storyAuthor, 'url': $storyUrl}   
+  
+  const aUserData=await User.getAUserData(currentUser.username, currentUser.loginToken)
+  const userStories=aUserData.data.user.stories 
+  console.log("current user stories: ", userStories)
 
   await StoryList.addStory(currentUser, newStory)
+
+  // get updated user's stories and save it to localStorage
+  const aUserData2=await User.getAUserData(currentUser.username, currentUser.loginToken)
+  const userStories2=aUserData2.data.user.stories 
+  console.log("after user stories: ", userStories2)
+  // saveUserStoriesIntoLocalStorage(userStories2)
   getAndShowStoriesOnStart()
+  return userStories2
 }
 
 /** add/remove fovirte to a story when star icon is clicked  */
@@ -155,10 +167,17 @@ async function generateUserFavoriteList(){
 }
 
 /** generate my stories */
-async function addMyStoriesOnPage(){
+async function addMyStoriesOnPage(userStories=[]){
   $myStoriesList.empty()
-  const aUserData=await User.getAUserData(currentUser.username, currentUser.loginToken)
-  const userStories=aUserData.data.user.stories 
+   
+  // const aUserData=await User.getAUserData(currentUser.username, currentUser.loginToken)
+  // const userStories=aUserData.data.user.stories 
+
+  // const userStories=JSON.parse(localStorage.getItem('userStories'))
+
+
+  // console.log("current user stories: ", userStories)
+  // console.log("type::::", typeof(updatedUserStories),updatedUserStories)
 
   for(let userStory of userStories){
     const storifiedStoryObject=new Story(userStory)
