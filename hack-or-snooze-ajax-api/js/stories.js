@@ -167,17 +167,18 @@ async function generateUserFavoriteList(){
 }
 
 /** generate my stories */
-async function addMyStoriesOnPage(userStories=[]){
+async function addMyStoriesOnPage( ){
   $myStoriesList.empty()
    
-  // const aUserData=await User.getAUserData(currentUser.username, currentUser.loginToken)
-  // const userStories=aUserData.data.user.stories 
+  const aUserData=await User.getAUserData(currentUser.username, currentUser.loginToken)
+  const userStories=aUserData.data.user.stories 
 
   // const userStories=JSON.parse(localStorage.getItem('userStories'))
 
 
   // console.log("current user stories: ", userStories)
   // console.log("type::::", typeof(updatedUserStories),updatedUserStories)
+
 
   for(let userStory of userStories){
     const storifiedStoryObject=new Story(userStory)
@@ -198,9 +199,13 @@ $navMyStories.on('click', displayMyStories )
 
 /** delete a story */
 async function removeAStory(evt){
+ 
   const storyId=evt.target.dataset.storyId
   const token=currentUser.loginToken
+  
   await User.removeAStory(storyId, token)
+  // const userStories= await addNewStoryOnPage()
+  // saveUserStoriesIntoLocalStorage(userStories)
   addMyStoriesOnPage()
 }
 

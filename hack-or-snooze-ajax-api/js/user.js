@@ -144,10 +144,10 @@ function saveUserFavoritesInLocalStorage(favoritesList){
 
 /** Sync current user's stories to localStorage */
 
-// function saveUserStoriesIntoLocalStorage(userStories){
-//   if(currentUser){
-//     localStorage.setItem("userStories",JSON.stringify(userStories ))
+function saveUserStoriesIntoLocalStorage(userStories){
+  if(currentUser){
+    localStorage.setItem("userStories",JSON.stringify(userStories ))
     
      
-//   }
-// }
+  }
+}

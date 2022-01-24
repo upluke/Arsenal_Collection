@@ -67,9 +67,12 @@ $('#nav-submit').on('click', navSubmitClick)
 async function formSubmitClick(evt){
   evt.preventDefault()
   console.debug("formSubmitClick"); 
-  // get the most updated user stories
-  const userStories= await addNewStoryOnPage()
-  addMyStoriesOnPage(userStories)
+  
+
+  addMyStoriesOnPage( )
+
+  addNewStoryOnPage()
+   
   $storyForm.hide() 
   }
 $('#story-form').on('submit', formSubmitClick)
