@@ -69,10 +69,10 @@ async function formSubmitClick(evt){
   console.debug("formSubmitClick"); 
   
 
+  const userStories2=addNewStoryOnPage()
+  saveUserStoriesIntoLocalStorage(userStories2)
+  
   addMyStoriesOnPage( )
-
-  addNewStoryOnPage()
-   
   $storyForm.hide() 
   }
 $('#story-form').on('submit', formSubmitClick)

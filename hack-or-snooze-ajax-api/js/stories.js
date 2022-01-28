@@ -169,17 +169,17 @@ async function generateUserFavoriteList(){
 /** generate my stories */
 async function addMyStoriesOnPage( ){
   $myStoriesList.empty()
-   
-  const aUserData=await User.getAUserData(currentUser.username, currentUser.loginToken)
-  const userStories=aUserData.data.user.stories 
+  
+  // const aUserData=await User.getAUserData(currentUser.username, currentUser.loginToken)
+  // const userStories=aUserData.data.user.stories 
 
-  // const userStories=JSON.parse(localStorage.getItem('userStories'))
+  const userStories=JSON.parse(localStorage.getItem('userStories'))
 
 
   // console.log("current user stories: ", userStories)
   // console.log("type::::", typeof(updatedUserStories),updatedUserStories)
 
-
+ 
   for(let userStory of userStories){
     const storifiedStoryObject=new Story(userStory)
     const $myStories=generateStoryMarkup(storifiedStoryObject, "myStories")

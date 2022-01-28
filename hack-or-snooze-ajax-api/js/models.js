@@ -246,7 +246,7 @@ class User {
       params:{token}
     })
     console.log(response, "^user data^")
-    return response
+    
 
   }
 
@@ -261,7 +261,7 @@ class User {
       params:{token}
     })
     console.log("remove a story", response)
-    return response
+    
     
   }
 
