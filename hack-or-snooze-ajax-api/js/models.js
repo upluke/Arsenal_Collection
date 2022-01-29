@@ -246,7 +246,7 @@ class User {
       params:{token}
     })
     console.log(response, "^user data^")
-    
+    return response
 
   }
 
