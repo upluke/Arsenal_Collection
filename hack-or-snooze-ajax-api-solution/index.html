@@ -24,7 +24,6 @@
       href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
       integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
       crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="css/site.css">
   <link rel="stylesheet" href="css/user.css">
   <link rel="stylesheet" href="css/stories.css">
@@ -38,16 +37,14 @@
   <div class="navbar-brand">
     <a class="nav-link" href="#" id="nav-all">Hack or Snooze</a>
   </div>
-
-  <div class="navbar-tabs ">
- 
-    <a class="nav-link hidden" href="#" id="nav-submit">Submit</a>
- 
-    <a class="nav-link hidden" href="#" id="nav-favorits">Favorites</a> 
- 
-    <a class="nav-link hidden" href="#" id="nav-my-stories">My Stories</a>
+  <div class="main-nav-links hidden">
+    |
+    <a class="nav-link" href="#" id="nav-submit-story">submit</a>
+    |
+    <a class="nav-link" href="#" id="nav-favorites">favorites</a>
+    |
+    <a class="nav-link" href="#" id="nav-my-stories">my&nbsp;stories</a>
   </div>
- 
   <div class="nav-right">
     <a class="nav-link" href="#" id="nav-login">login/signup</a>
     <a class="nav-link" href="#" id="nav-user-profile"></a>
@@ -58,29 +55,37 @@
 <!-- area for stories (all stories, user stories, favorites) -->
 <section class="stories-container container">
 
+  <!-- form for submitted new story -->
+  <form action="" class="hidden" id="submit-form">
+    <div>
+      <label for="create-author">author</label>
+      <input id="create-author" required placeholder="author name">
+    </div>
+    <div>
+      <label for="create-title">title</label>
+      <input id="create-title" required placeholder="story title">
+    </div>
+    <div>
+      <label for="create-url">url</label>
+      <input id="create-url" required type="url" placeholder="story url">
+    </div>
+    <button type="submit">submit</button>
+    <hr>
+  </form>
+
   <!-- loading message (removed by JS after stories loaded) -->
   <div id="stories-loading-msg">Loading&hellip;</div>
-
-  <!-- area for stories to be created-->
-  <form  action="#"  id="story-form" class="hidden" method="post"> 
-    <input type="text" placeholder="Enter a story title here" id="story-title" />
-    <input type="text" placeholder="Enter a story author here" id="story-author" />
-    <input type="text" placeholder="Enter a story url here" id="story-url" />
-    <!-- <button type="submit" id="nav-submit" >Submit</button> -->
-     <button type="submit" id="nav-submit-btn">Submit</button>
-    <hr >
-  </form> 
 
   <!-- List of all stories -->
   <ol id="all-stories-list" class="stories-list"></ol>
 
-  <!-- area for favorited stories -->
-  <ol id="favorites-list" class="stories-list hidden"></ol>
-  
-  <!-- area for user's stories -->
-  <ol id="my-stories-list"  class="stories-list hidden"></ol>
-</section>
+  <!-- List of stories favorited by the user -->
+  <ol id="favorited-stories" class="hidden stories-list"></ol>
 
+  <!-- List of stories by the user -->
+  <ol id="my-stories" class="hidden stories-list"></ol>
+
+</section>
 
 <!-- Login and signup forms -->
 <section class="account-forms-container container">
@@ -121,6 +126,18 @@
     </div>
     <button type="submit">create account</button>
   </form>
+</section>
+
+<!-- User profile -->
+<section id="user-profile" class="hidden">
+  <div class="user-profile-box container">
+    <h4>User Profile Info</h4>
+    <section>
+      <div>Name: <span id="profile-name">Name:</span></div>
+      <div>Username: <span id="profile-username">Username:</span></div>
+      <div>Account Created: <span id="profile-account-date"></span></div>
+    </section>
+  </div>
 </section>
 
 <!-- Library JS & our JS -->

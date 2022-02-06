@@ -10,6 +10,12 @@
   margin: 10px 0;
 }
 
+#favorited-stories,
+#my-stories {
+  list-style: none;
+  padding-left: 20px;
+}
+
 #stories-loading-msg {
   font-weight: bold;
   font-size: 150%;
@@ -17,6 +23,17 @@
 }
 
 /* Individual stories */
+
+.star,
+.trash-can {
+  font-size: 0.75rem;
+  margin: 0 2px;
+  cursor: pointer;
+}
+
+.trash-can:hover {
+  color: crimson;
+}
 
 .story-link {
   color: black;
@@ -35,12 +52,4 @@
 
 .story-user {
   display: block;
-}
-
-.checked {
-  color: orange;
-}
-
-.fa:hover {
-  cursor: pointer;
 }

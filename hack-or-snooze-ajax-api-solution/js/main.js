@@ -1,47 +1,41 @@
 "use strict";
-// http://curric.rithmschool.com/springboard/exercises/hack-or-snooze-ajax-api/
-//js/main.js contains code for starting the UI of the application, and other miscellaneous things.
-
-
+//https://replit.com/@upluke/Hack-or-Snooze-Solution#index.html
 // So we don't have to keep re-finding things on page, find DOM elements once:
 
 const $body = $("body");
 
 const $storiesLoadingMsg = $("#stories-loading-msg");
 const $allStoriesList = $("#all-stories-list");
+const $favoritedStories = $("#favorited-stories");
+const $ownStories = $("#my-stories");
+
+// selector that finds all three story lists
+const $storiesLists = $(".stories-list");
 
 const $loginForm = $("#login-form");
 const $signupForm = $("#signup-form");
 
+const $submitForm = $("#submit-form");
+
+const $navSubmitStory = $("#nav-submit-story");
 const $navLogin = $("#nav-login");
 const $navUserProfile = $("#nav-user-profile");
 const $navLogOut = $("#nav-logout");
 
-const $navbarTabs = $(".navbar-tabs")
-const $navSubmit=$("#nav-submit")
-const $navFavorites=$("#nav-favorits")
-const $navMyStories=$("#nav-my-stories")
-
-const $storyForm=$("#story-form")
-const $favoritesList =$("#favorites-list")
-const $myStoriesList =$("#my-stories-list")
-
-// let favoritesCheckList=[]
+const $userProfile = $("#user-profile");
 
 /** To make it easier for individual components to show just themselves, this
  * is a useful function that hides pretty much everything on the page. After
  * calling this, individual components can re-show just what they want.
  */
 
-
 function hidePageComponents() {
   const components = [
-    $allStoriesList,
+    $storiesLists,
+    $submitForm,
     $loginForm,
     $signupForm,
-    $storyForm,
-    $favoritesList,
-    $myStoriesList
+    $userProfile
   ];
   components.forEach(c => c.hide());
 }
@@ -49,16 +43,14 @@ function hidePageComponents() {
 /** Overall function to kick off the app. */
 
 async function start() {
-  console.debug("start");
-  
+  // console.debug("start");
+
   // "Remember logged-in user" and log in, if credentials in localStorage
   await checkForRememberedUser();
   await getAndShowStoriesOnStart();
 
   // if we got a logged-in user
   if (currentUser) updateUIOnUserLogin();
-  
-  
 }
 
 // Once the DOM is entirely loaded, begin the app
