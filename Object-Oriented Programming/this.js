@@ -46,14 +46,16 @@ bluesDance('salsa');
 
 // It turned out this is not our obejct. This is the window object.  
 
+// We've talked a bit about he distinction between methods and funcitons, 
+// we can define a funciton on its own ①, and then add it ② as a property on an object, in which case we would call it a method.
 
 // JavaScript “Functions”
 // In a sense, JavaScript doesn’t have functions.
 // Everything is called on something, like a method.
-function whatIsThis() {
+function whatIsThis() { // ①
     console.log("this =", this);
   }
-let myObj = { func: whatIsThis, color: 'purple' };
+let myObj = { func: whatIsThis, color: 'purple' }; //②
   
 myObj.func();    // "this = {color: "purple", func: f}"
 whatIsThis();      // "this = Window {parent: Window, postMessage: f, blur: f, ...}" 
