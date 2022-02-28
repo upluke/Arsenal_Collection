@@ -32,9 +32,19 @@ const cat ={
 }
 // then we try again with cat.dance('salsa'), we see that "this" is set to the object that the dance method exists upon, the entire cat object 
 cat.dance('salsa')
-// THIS IS:
-// > {name: "Blue", breed: "Scottish Fold", dance: f}
-// Meow, I am  Blue and I like to salsa
+// >>> THIS IS:
+// >>> {name: "Blue", breed: "Scottish Fold", dance: f}
+// >>> Meow, I am  Blue and I like to salsa
+
+// but if we try it with these two lines where we first make a new variable referencing the exact same funciton, 
+// we execute that funciton using the variable, we execute that funciton using the variable, we pass in salsa.
+const bluesDance = cat.dance;
+bluesDance('salsa');
+// >>> THIS IS:
+// >>> Window {parent: Window, postMessage: f, blur: f, focus: f, close: f, ...}
+// >>> Meow, I am   and I like to salsa
+
+// It turned out this is not our obejct. This is the window object.  
 
 
 // JavaScript “Functions”
@@ -43,10 +53,10 @@ cat.dance('salsa')
 function whatIsThis() {
     console.log("this =", this);
   }
-let o = { myFunc: whatIsThis };
+let myObj = { func: whatIsThis, color: 'purple' };
   
-o.func();    // "this = o"
-whatIsThis();      // "this = window" 
+myObj.func();    // "this = {color: "purple", func: f}"
+whatIsThis();      // "this = Window {parent: Window, postMessage: f, blur: f, ...}" 
 
 
 // Global Object
