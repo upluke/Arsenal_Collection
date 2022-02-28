@@ -21,16 +21,32 @@ bluesDance('salsa') // Meow, I am   and I like to salsa
 cat.dance('salsa') //  Meow, I am Blue and I like to salsa
 // So what's the difference? Becase "this" on bluesDance is the window object.
 
+//if we console.log this inside the dance funciton:
+const cat ={
+    name: 'Blue',
+    breed: 'Scottish Fold',
+    dance:function(dance){
+        console.log('THIS IS: ', this);
+        console.log(`Meow, I am ${this.name} and I like to ${dance}`) // here "this" will refer to the cat object
+    }
+}
+// then we try again with cat.dance('salsa'), we see that "this" is set to the object that the dance method exists upon, the entire cat object 
+cat.dance('salsa')
+// THIS IS:
+// > {name: "Blue", breed: "Scottish Fold", dance: f}
+// Meow, I am  Blue and I like to salsa
+
+
 // JavaScript “Functions”
 // In a sense, JavaScript doesn’t have functions.
 // Everything is called on something, like a method.
 function whatIsThis() {
     console.log("this =", this);
   }
-let myObj = { func: whatIsThis, color: 'purple' };
+let o = { myFunc: whatIsThis };
   
-myObj.func();    // get "this = o"
-whatIsThis();      // "this = window"  wtf?!
+o.func();    // "this = o"
+whatIsThis();      // "this = window" 
 
 
 // Global Object
